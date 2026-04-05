@@ -1340,7 +1340,15 @@ async function syncPathToSheets(osmId) {
     await fetch(SHEETS_URL, {
       method: 'POST', mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'path', osmId, name: mp.name, freq: mp.freq, schedule: mp.schedule, notes: mp.notes || '' })
+      body: JSON.stringify({
+        type: 'path',
+        osmId,
+        name: mp.name,
+        site: mp.site || '',
+        freq: mp.freq,
+        schedule: mp.schedule,
+        notes: mp.notes || ''
+      })
     });
   } catch(e) {}
 }
