@@ -790,7 +790,7 @@ const catAccent = { plant:'#2d6a1f', tree:'#2d6a1f', fungi:'#d4600a', insect:'#7
 // ─────────────────────────────────────────
 
 const GEOJSON_URL = 'export.geojson';
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzmaJDFT5wJgSZW4EVgOuDLlvie5FCmHkjuWROySpx6_9c_0zCdRojkv3PWQo6wy25O/exec';
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycby04pZmI613SZoZjiUUlXkvYXPM2yWbT8Mj4xJMURkqOD7MtwaVIjxnx3VZa1af0Bty/exec';
 
 async function loadGeoJSON() {
   if (geojsonData) return geojsonData;
@@ -1727,20 +1727,59 @@ async function syncToSheets(entry) {
     showToast('Synced to Google Sheets ✓');
   } catch(e) { queueSync(entry); }
 }
+function syncToSheets(entry) {
+  if (!navigator.onLine) { queueSync(entry); return; }
+  const params = new URLSearchParams({
+    type: 'entry',
+    id: entry.id,
+    date: entry.date || '',
+    time: entry.time || '',
+    category: entry.cat || '',
+    name: entry.name || '',
+    habitat: entry.habitat || '',
+    lat: entry.lat || '',
+    lon: entry.lon || '',
+    w3w: entry.w3w || '',
+    notes: entry.notes || '',
+    infraType: entry.infraType || '',
+    photo: entry.photo ? 'true' : 'false'
+  });
+  fetch(SHEETS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' })
+    .then(() => showToast('Synced to Sheets ✓'))
+    .catch(() => queueSync(entry));
+}
+
 function queueSync(entry) {
   let queue = JSON.parse(localStorage.getItem('rangerlog_sync_queue') || '[]');
   queue.push(entry);
   localStorage.setItem('rangerlog_sync_queue', JSON.stringify(queue));
   showToast('Saved locally — will sync when online');
 }
+
 async function processSyncQueue() {
   if (!navigator.onLine) return;
   let queue = JSON.parse(localStorage.getItem('rangerlog_sync_queue') || '[]');
   if (!queue.length) return;
   const remaining = [];
   for (const entry of queue) {
-    try { await fetch(SHEETS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'entry', id: entry.id, date: entry.date, time: entry.time, category: entry.cat, name: entry.name, habitat: entry.habitat || '', lat: entry.lat || '', lon: entry.lon || '', w3w: entry.w3w || '', notes: entry.notes || '', infraType: entry.infraType || '', photo: entry.photo ? true : false }) }); }
-    catch(e) { remaining.push(entry); }
+    try {
+      const params = new URLSearchParams({
+        type: 'entry',
+        id: entry.id,
+        date: entry.date || '',
+        time: entry.time || '',
+        category: entry.cat || '',
+        name: entry.name || '',
+        habitat: entry.habitat || '',
+        lat: entry.lat || '',
+        lon: entry.lon || '',
+        w3w: entry.w3w || '',
+        notes: entry.notes || '',
+        infraType: entry.infraType || '',
+        photo: entry.photo ? 'true' : 'false'
+      });
+      await fetch(SHEETS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
+    } catch(e) { remaining.push(entry); }
   }
   localStorage.setItem('rangerlog_sync_queue', JSON.stringify(remaining));
   if (!remaining.length && queue.length) showToast(queue.length + ' queued entries synced ✓');
