@@ -329,7 +329,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
   <div class="body">
 
     <!-- LOG PAGE -->
-    <div class="page active" id="tab-log">
+    <div class="page" id="tab-log">
       <button class="new-btn" onclick="openForm('entry')">+ New field entry</button>
       <div class="section-head" style="margin-bottom:6px">Filter by category</div>
       <div class="filter-hint" id="filter-hint">Showing all — tap a category to filter</div>
@@ -414,7 +414,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
     </div>
 
     <!-- PATHS PAGE -->
-    <div class="page" id="tab-paths">
+    <div class="page active" id="tab-paths">
       <!-- Stats row -->
       <div class="paths-stats-row" id="paths-stats-row">
         <div class="paths-stat"><div class="paths-stat-num" id="ps-managed">0</div><div class="paths-stat-label">Managed</div></div>
@@ -1934,6 +1934,7 @@ renderNotices();
 processSyncQueue();
 renderSeasonDisplay();
 renderPathsStats();
+initPathsTab();
 </script>
 </body>
 </html>
