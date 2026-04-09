@@ -1536,7 +1536,7 @@ function latLonToOSGridRef(lat, lon) {
   const eIdx = Math.floor(E / 100000);
   const nIdx = Math.floor(N / 100000);
   if (eIdx < 0 || eIdx > 6 || nIdx < 0 || nIdx > 12) return null;
-  const letters = gridLetters[12 - nIdx][eIdx];
+  const letters = gridLetters[nIdx][eIdx];
 
   const eLocal = Math.floor((E % 100000) / 10).toString().padStart(4, '0');
   const nLocal = Math.floor((N % 100000) / 10).toString().padStart(4, '0');
