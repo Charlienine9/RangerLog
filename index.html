@@ -1538,8 +1538,8 @@ function latLonToOSGridRef(lat, lon) {
   if (eIdx < 0 || eIdx > 6 || nIdx < 0 || nIdx > 12) return null;
   const letters = gridLetters[nIdx][eIdx];
 
-const eLocal = Math.floor(E % 100000).toString().padStart(5, '0');
-const nLocal = Math.floor(N % 100000).toString().padStart(5, '0');
+  const eLocal = Math.floor(E % 100000).toString().padStart(5, '0');
+  const nLocal = Math.floor(N % 100000).toString().padStart(5, '0');
   return `${letters} ${eLocal} ${nLocal}`;
 }
 
