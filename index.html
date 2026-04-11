@@ -228,7 +228,6 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 #paths-leaflet { width: 100%; height: 100%; }
 .map-fullscreen-btn { position: absolute; top: 10px; right: 10px; z-index: 1000; background: white; border: 2px solid rgba(0,0,0,0.2); border-radius: 4px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; box-shadow: 0 1px 5px rgba(0,0,0,0.15); }
 .map-fullscreen-btn:active { background: #f4f4f4; }
-/* Path tap overlay — lets user toggle between scroll mode and tap mode */
 .map-tap-shield { display: none; position: absolute; inset: 0; z-index: 400; background: rgba(26,61,18,0.18); border-radius: var(--radius); align-items: center; justify-content: center; cursor: pointer; }
 .map-tap-shield.visible { display: flex; }
 .map-tap-shield-label { background: var(--green-dark); color: #fff; padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 500; pointer-events: none; }
@@ -240,7 +239,6 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 .paths-view-toggle { display: flex; gap: 6px; margin-bottom: 12px; }
 .paths-view-btn { flex: 1; padding: 9px 6px; border-radius: var(--radius-sm); border: 1.5px solid var(--border); font-size: 12px; font-weight: 500; color: var(--text-mid); cursor: pointer; text-align: center; background: var(--surface); transition: all 0.15s; }
 .paths-view-btn.active { background: var(--green-pale); border-color: var(--green-mid); color: var(--green-dark); }
-/* Path info panel — slides up from bottom when path tapped */
 #path-info-panel { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%) translateY(100%); width: 100%; max-width: 430px; background: var(--surface); border-radius: 24px 24px 0 0; z-index: 600; padding: 0 20px 28px; box-shadow: 0 -4px 24px rgba(26,61,18,0.18); transition: transform 0.35s cubic-bezier(0.32,0.72,0,1); max-height: 70vh; overflow-y: auto; }
 #path-info-panel.open { transform: translateX(-50%) translateY(0); }
 .panel-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 14px auto 16px; }
@@ -312,19 +310,19 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
     <div class="header-top">
       <div>
         <div class="logo">Ranger<span>Log</span></div>
-        <div class="header-sub">Devon Rangers — v1.1 🌿 Paths</div>
+        <div class="header-sub">Devon Rangers — v1.2 🌿 Photos</div>
       </div>
       <div class="sync-pill"><div class="sync-dot" id="sync-dot"></div><span id="sync-label">Offline</span></div>
     </div>
   </div>
   <div class="tabs">
-<div class="tab active" onclick="showTab('paths',this)">🗺 Paths</div>
-<div class="tab" onclick="showTab('tasks',this)">Tasks</div>
-<div class="tab" onclick="showTab('team',this)">Team</div>
-<div class="tab" onclick="showTab('map',this)">Map</div>
-<div class="tab" onclick="showTab('log',this)">Log</div>
-<div class="tab" onclick="showTab('report',this)">Report</div>
-<div class="tab" onclick="showTab('about',this)">About</div>
+    <div class="tab active" onclick="showTab('paths',this)">🗺 Paths</div>
+    <div class="tab" onclick="showTab('tasks',this)">Tasks</div>
+    <div class="tab" onclick="showTab('team',this)">Team</div>
+    <div class="tab" onclick="showTab('map',this)">Map</div>
+    <div class="tab" onclick="showTab('log',this)">Log</div>
+    <div class="tab" onclick="showTab('report',this)">Report</div>
+    <div class="tab" onclick="showTab('about',this)">About</div>
   </div>
   <div class="body">
 
@@ -415,14 +413,11 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 
     <!-- PATHS PAGE -->
     <div class="page active" id="tab-paths">
-      <!-- Stats row -->
       <div class="paths-stats-row" id="paths-stats-row">
         <div class="paths-stat"><div class="paths-stat-num" id="ps-managed">0</div><div class="paths-stat-label">Managed</div></div>
         <div class="paths-stat"><div class="paths-stat-num" id="ps-overdue" style="color:var(--red)">0</div><div class="paths-stat-label">Overdue</div></div>
         <div class="paths-stat"><div class="paths-stat-num" id="ps-cuts">0</div><div class="paths-stat-label">Cuts logged</div></div>
       </div>
-
-      <!-- Season settings card -->
       <div class="paths-season-card" id="paths-season-card">
         <div class="paths-season-title">
           🌱 Season settings
@@ -430,14 +425,10 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
         </div>
         <div class="paths-season-grid" id="paths-season-display"></div>
       </div>
-
-      <!-- View toggle: Map / Checklist -->
       <div class="paths-view-toggle">
         <div class="paths-view-btn active" id="pvb-map" onclick="switchPathsView('map')">🗺 Map</div>
         <div class="paths-view-btn" id="pvb-list" onclick="switchPathsView('list')">☑️ Checklist</div>
       </div>
-
-      <!-- MAP VIEW -->
       <div id="paths-map-view">
         <div class="paths-legend">
           <div class="paths-legend-item"><div class="paths-legend-line" style="background:#9ca3af"></div>Unmanaged</div>
@@ -458,8 +449,6 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
           <div class="map-fullscreen-btn" onclick="toggleMapFullscreen()" title="Fullscreen">⛶</div>
         </div>
       </div>
-
-      <!-- CHECKLIST VIEW -->
       <div id="paths-list-view" style="display:none">
         <div class="paths-filter-row">
           <div class="paths-filter-pill sel" data-pf="all" onclick="setPathsFilter('all',this)">All managed</div>
@@ -520,6 +509,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
           <div class="stage-item"><div class="stage-dot done"></div>Stage 6 — Team messaging ✅</div>
           <div class="stage-item"><div class="stage-dot done"></div>Stage 7 — Export & reporting ✅</div>
           <div class="stage-item"><div class="stage-dot done"></div>Stage 8 — Paths management tab ✅</div>
+          <div class="stage-item"><div class="stage-dot done"></div>Stage 9 — Photo saving (IndexedDB) ✅</div>
         </div>
       </div>
       <div class="about-card">
@@ -537,8 +527,6 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
   <div class="panel-handle"></div>
   <div class="panel-title" id="pip-title">Path</div>
   <div class="panel-sub" id="pip-sub"></div>
-
-  <!-- Inline name + freq form shown for unmanaged paths -->
   <div id="pip-name-form" style="display:none;margin-top:12px">
     <div class="field-label">Path name</div>
     <input type="text" class="field-input" id="pip-name-input" placeholder="e.g. Berry Head North, Occombe Loop…" style="margin-bottom:10px">
@@ -555,8 +543,6 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
     <button class="save-btn" onclick="pipSaveNew()" style="margin-top:0">Save path ✓</button>
     <button class="cancel-btn" onclick="closePathPanel()">Cancel</button>
   </div>
-
-  <!-- Info shown for already-managed paths -->
   <div id="pip-managed-info">
     <div id="pip-cuts"></div>
     <div class="panel-btn-row" id="pip-btn-row"></div>
@@ -647,8 +633,6 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
       <div class="field-label">Notes (optional)</div>
       <textarea class="field-input" id="task-notes" placeholder="Any extra detail…"></textarea>
     </div>
-
-    <!-- PATH MANAGE FIELDS -->
     <div id="path-fields" style="display:none">
       <div class="field-label">Path name / label</div>
       <input type="text" class="field-input" id="path-field-name" placeholder="e.g. Berry Head North, Occombe Farm Loop…">
@@ -665,8 +649,6 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
       <div class="field-label">Notes (optional)</div>
       <textarea class="field-input" id="path-field-notes" placeholder="Any notes about this path…" style="height:60px"></textarea>
     </div>
-
-    <!-- SEASON SETTINGS FIELDS -->
     <div id="season-fields" style="display:none">
       <div class="field-label">Season start date</div>
       <input type="date" class="field-input" id="season-start">
@@ -683,8 +665,6 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
       <div class="field-label">Default cut schedule description</div>
       <input type="text" class="field-input" id="season-schedule" placeholder="e.g. Alexander cut end of March + 2 summer cuts">
     </div>
-
-    <!-- LOG CUT FIELDS -->
     <div id="cut-fields" style="display:none">
       <div class="field-label">Cut date</div>
       <input type="date" class="field-input" id="cut-date">
@@ -693,7 +673,6 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
       <div class="field-label">Notes (optional)</div>
       <textarea class="field-input" id="cut-notes" placeholder="e.g. Strimmed both sides, 400m…" style="height:60px"></textarea>
     </div>
-
     <button class="save-btn" id="save-btn" onclick="saveForm()">Save entry</button>
     <button class="cancel-btn" onclick="closeForm()">Cancel</button>
   </div>
@@ -719,6 +698,68 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 <div class="toast" id="toast"></div>
 
 <script>
+// ══════════════════════════════════════════════════════
+// INDEXEDDB PHOTO STORAGE
+// Photos are stored separately from entries in IndexedDB.
+// Each photo is keyed by the entry's numeric ID.
+// localStorage only holds text — no more photo base64 there.
+// ══════════════════════════════════════════════════════
+
+const DB_NAME = 'RangerLogPhotos';
+const DB_VERSION = 1;
+const STORE_NAME = 'photos';
+let photoDB = null;
+
+function openPhotoDB() {
+  return new Promise((resolve, reject) => {
+    if (photoDB) { resolve(photoDB); return; }
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = e => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+      }
+    };
+    req.onsuccess = e => { photoDB = e.target.result; resolve(photoDB); };
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function savePhoto(entryId, dataUrl) {
+  if (!dataUrl) return;
+  const db = await openPhotoDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_NAME, 'readwrite');
+    tx.objectStore(STORE_NAME).put({ id: entryId, data: dataUrl });
+    tx.oncomplete = resolve;
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+async function loadPhoto(entryId) {
+  try {
+    const db = await openPhotoDB();
+    return new Promise((resolve) => {
+      const tx = db.transaction(STORE_NAME, 'readonly');
+      const req = tx.objectStore(STORE_NAME).get(entryId);
+      req.onsuccess = () => resolve(req.result ? req.result.data : null);
+      req.onerror = () => resolve(null);
+    });
+  } catch(e) { return null; }
+}
+
+async function deletePhoto(entryId) {
+  try {
+    const db = await openPhotoDB();
+    return new Promise((resolve) => {
+      const tx = db.transaction(STORE_NAME, 'readwrite');
+      tx.objectStore(STORE_NAME).delete(entryId);
+      tx.oncomplete = resolve;
+      tx.onerror = resolve; // silent fail on delete
+    });
+  } catch(e) {}
+}
+
 // ── State ──
 let entries = JSON.parse(localStorage.getItem('rangerlog_entries') || '[]');
 let tasks = JSON.parse(localStorage.getItem('rangerlog_tasks') || '[]');
@@ -731,7 +772,6 @@ let pendingDeleteId = null, pendingDeleteType = null;
 let editingId = null;
 
 // ── PATHS STATE ──
-// managedPaths: { [osmId]: { name, freq, schedule, notes, cuts: [{date, by, notes}] } }
 let managedPaths = JSON.parse(localStorage.getItem('rl_managed_paths') || '{}');
 let seasonSettings = JSON.parse(localStorage.getItem('rl_season') || JSON.stringify({
   start: new Date().getFullYear() + '-03-01',
@@ -741,13 +781,13 @@ let seasonSettings = JSON.parse(localStorage.getItem('rl_season') || JSON.string
 }));
 let geojsonData = null;
 let pathsLeaflet = null;
-let pathLayers = {};  // osmId -> leaflet layer
+let pathLayers = {};
 let pathsView = 'map';
 let pathsFilter = 'all';
 let pendingPathOsmId = null;
 let selectedFreq = 3;
 let selectedSeasonFreq = 3;
-let activeManagedPathId = null; // for cut logging
+let activeManagedPathId = null;
 
 // ── Connectivity ──
 function updateOnline() {
@@ -785,10 +825,7 @@ const catBg = { plant:'#edf7e8', tree:'#edf7e8', fungi:'#fdeede', insect:'#f0ebf
 const catFg = { plant:'#2d6a1f', tree:'#2d6a1f', fungi:'#d4600a', insect:'#7b5ea7', bird:'#2980b9', animal:'#2980b9', reptile:'#0f7c72', amphibian:'#0f7c72', hazard:'#e8a020', invasive:'#c0392b', infra:'#8B5E3C', weather:'#2980b9' };
 const catAccent = { plant:'#2d6a1f', tree:'#2d6a1f', fungi:'#d4600a', insect:'#7b5ea7', bird:'#2980b9', animal:'#2980b9', reptile:'#0f7c72', amphibian:'#0f7c72', hazard:'#e8a020', invasive:'#c0392b', infra:'#8B5E3C', weather:'#2980b9' };
 
-// ─────────────────────────────────────────
-// PATHS TAB LOGIC
-// ─────────────────────────────────────────
-
+// ── PATHS TAB LOGIC ──
 const GEOJSON_URL = 'export.geojson';
 const SHEETS_URL = 'https://script.google.com/macros/s/AKfycby04pZmI613SZoZjiUUlXkvYXPM2yWbT8Mj4xJMURkqOD7MtwaVIjxnx3VZa1af0Bty/exec';
 
@@ -798,20 +835,14 @@ async function loadGeoJSON() {
     const r = await fetch(GEOJSON_URL);
     geojsonData = await r.json();
     return geojsonData;
-  } catch(e) {
-    showToast('Could not load path data');
-    return null;
-  }
+  } catch(e) { showToast('Could not load path data'); return null; }
 }
 
 function initPathsTab() {
   renderSeasonDisplay();
   renderPathsStats();
-  if (pathsView === 'map') {
-    initPathsMap();
-  } else {
-    renderChecklist();
-  }
+  if (pathsView === 'map') initPathsMap();
+  else renderChecklist();
 }
 
 function switchPathsView(v) {
@@ -824,7 +855,6 @@ function switchPathsView(v) {
   else renderChecklist();
 }
 
-// ── Map ──
 let mapTapMode = false;
 let mapIsFullscreen = false;
 let panelOsmId = null;
@@ -837,12 +867,10 @@ function setMapMode(mode) {
   document.getElementById('mmb-scroll').classList.toggle('active', !mapTapMode);
   document.getElementById('mmb-tap').classList.toggle('active', mapTapMode);
   if (mapTapMode) {
-    wrap.classList.add('tap-mode');
-    shield.classList.remove('visible');
+    wrap.classList.add('tap-mode'); shield.classList.remove('visible');
     hint.textContent = '👆 Tap any path on the map to manage it';
   } else {
-    wrap.classList.remove('tap-mode');
-    shield.classList.add('visible');
+    wrap.classList.remove('tap-mode'); shield.classList.add('visible');
     hint.textContent = 'Switch to "Tap paths" mode to select a path';
   }
 }
@@ -860,62 +888,31 @@ function toggleMapFullscreen() {
 async function initPathsMap() {
   const data = await loadGeoJSON();
   if (!data) return;
-
   if (!pathsLeaflet) {
-    pathsLeaflet = L.map('paths-leaflet', {
-      center: [50.4605, -3.5255],
-      zoom: 13,
-      zoomControl: true,
-      tap: true,
-      tapTolerance: 15
-    });
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap',
-      maxZoom: 19
-    }).addTo(pathsLeaflet);
+    pathsLeaflet = L.map('paths-leaflet', { center: [50.4605, -3.5255], zoom: 13, zoomControl: true, tap: true, tapTolerance: 15 });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 19 }).addTo(pathsLeaflet);
   }
-
-  // Clear old layers
   Object.values(pathLayers).forEach(l => l.remove());
   pathLayers = {};
-
   data.features.forEach(feature => {
     const osmId = feature.id || feature.properties['@id'];
     const managed = managedPaths[osmId];
     const status = managed ? getPathStatus(managed) : 'unmanaged';
     const colour = pathColour(status);
-
-    // Visible styled layer
-    const visLayer = L.geoJSON(feature, {
-      style: { color: colour, weight: managed ? 5 : 3, opacity: managed ? 0.9 : 0.6 }
-    });
-
-    // Invisible fat hit layer on top — much easier to tap on mobile
-    const hitLayer = L.geoJSON(feature, {
-      style: { color: 'transparent', weight: 22, opacity: 0.001 }
-    });
-
+    const visLayer = L.geoJSON(feature, { style: { color: colour, weight: managed ? 5 : 3, opacity: managed ? 0.9 : 0.6 } });
+    const hitLayer = L.geoJSON(feature, { style: { color: 'transparent', weight: 22, opacity: 0.001 } });
     const handleTap = (e) => {
-      if (!mapTapMode) {
-        showToast('Switch to "Tap paths" mode first 👆');
-        return;
-      }
+      if (!mapTapMode) { showToast('Switch to "Tap paths" mode first 👆'); return; }
       L.DomEvent.stopPropagation(e);
       onPathClick(osmId, feature, visLayer);
     };
-
-    hitLayer.on('click', handleTap);
-    hitLayer.on('touchend', handleTap);
-    visLayer.on('click', handleTap);
-    visLayer.on('touchend', handleTap);
-
-    visLayer.addTo(pathsLeaflet);
-    hitLayer.addTo(pathsLeaflet);
+    hitLayer.on('click', handleTap); hitLayer.on('touchend', handleTap);
+    visLayer.on('click', handleTap); visLayer.on('touchend', handleTap);
+    visLayer.addTo(pathsLeaflet); hitLayer.addTo(pathsLeaflet);
     pathLayers[osmId] = visLayer;
   });
 }
 
-// ── Path info panel ──
 let pipSelectedFreq = 3;
 
 function onPathClick(osmId, feature, layer) {
@@ -923,23 +920,17 @@ function onPathClick(osmId, feature, layer) {
   const managed = managedPaths[osmId];
   const props = feature.properties || {};
   const name = managed ? managed.name : (props.prow_ref || props.name || '');
-
   document.getElementById('pip-title').textContent = managed ? name : '➕ New managed path';
-
   if (!managed) {
-    // Show inline form for new path
     document.getElementById('pip-sub').textContent = 'Give this path a name and set how often it needs cutting.';
     document.getElementById('pip-name-form').style.display = 'block';
     document.getElementById('pip-managed-info').style.display = 'none';
     document.getElementById('pip-name-input').value = name;
     document.getElementById('pip-schedule-input').value = seasonSettings.schedule || '';
     pipSelectedFreq = seasonSettings.freq || 3;
-    document.querySelectorAll('#pip-freq-pills .path-sheet-freq-pill').forEach(p => {
-      p.classList.toggle('sel', parseInt(p.dataset.f) === pipSelectedFreq);
-    });
+    document.querySelectorAll('#pip-freq-pills .path-sheet-freq-pill').forEach(p => { p.classList.toggle('sel', parseInt(p.dataset.f) === pipSelectedFreq); });
     setTimeout(() => document.getElementById('pip-name-input').focus(), 350);
   } else {
-    // Show managed path info
     const status = getPathStatus(managed);
     let sub = managed.freq + '× per year';
     const nextDue = getNextDueDate(managed);
@@ -950,7 +941,6 @@ function onPathClick(osmId, feature, layer) {
     document.getElementById('pip-sub').textContent = sub;
     document.getElementById('pip-name-form').style.display = 'none';
     document.getElementById('pip-managed-info').style.display = 'block';
-
     let cutsHtml = '';
     if (managed.cuts && managed.cuts.length) {
       const recent = managed.cuts.slice().reverse().slice(0, 3);
@@ -958,50 +948,29 @@ function onPathClick(osmId, feature, layer) {
       cutsHtml += recent.map(c => `<div class="path-cut-row"><div><div class="path-cut-date">✂️ ${new Date(c.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div><div class="path-cut-by">by ${c.by}${c.notes?' — '+c.notes:''}</div></div></div>`).join('');
     }
     document.getElementById('pip-cuts').innerHTML = cutsHtml;
-
     document.getElementById('pip-btn-row').innerHTML = `
       <div class="panel-btn" onclick="pipEdit()">✏️ Edit</div>
       <div class="panel-btn primary" onclick="pipLogCut()">✂️ Log cut</div>
-      <div class="panel-btn danger" onclick="pipUnmanage()">🗑</div>
-    `;
+      <div class="panel-btn danger" onclick="pipUnmanage()">🗑</div>`;
   }
-
-  // Highlight selected path
-  Object.values(pathLayers).forEach(l => {
-    const id = l._osmId;
-    const mp = id ? managedPaths[id] : null;
-    l.setStyle({ weight: mp ? 5 : 3 });
-  });
+  Object.values(pathLayers).forEach(l => { const id = l._osmId; const mp = id ? managedPaths[id] : null; l.setStyle({ weight: mp ? 5 : 3 }); });
   layer._osmId = osmId;
   layer.setStyle({ weight: 8, opacity: 1 });
-
   openPathPanel();
 }
 
 function pipSelectFreq(el) {
   document.querySelectorAll('#pip-freq-pills .path-sheet-freq-pill').forEach(p => p.classList.remove('sel'));
-  el.classList.add('sel');
-  pipSelectedFreq = parseInt(el.dataset.f);
+  el.classList.add('sel'); pipSelectedFreq = parseInt(el.dataset.f);
 }
 
 function pipSaveNew() {
   const name = document.getElementById('pip-name-input').value.trim();
   if (!name) { showToast('Please give this path a name'); return; }
   const osmId = panelOsmId;
-  managedPaths[osmId] = {
-    name,
-    freq: pipSelectedFreq,
-    schedule: document.getElementById('pip-schedule-input').value.trim() || seasonSettings.schedule,
-    notes: '',
-    cuts: []
-  };
-  saveManagedPaths();
-  closePathPanel();
-  showSuccess('Path saved! ✓', name);
-  updatePathLayer(osmId);
-  renderPathsStats();
-  renderChecklist();
-  syncPathToSheets(osmId);
+  managedPaths[osmId] = { name, freq: pipSelectedFreq, schedule: document.getElementById('pip-schedule-input').value.trim() || seasonSettings.schedule, notes: '', cuts: [] };
+  saveManagedPaths(); closePathPanel(); showSuccess('Path saved! ✓', name);
+  updatePathLayer(osmId); renderPathsStats(); renderChecklist(); syncPathToSheets(osmId);
 }
 
 function openPathPanel() {
@@ -1012,7 +981,6 @@ function openPathPanel() {
 function closePathPanel() {
   document.getElementById('path-info-panel').classList.remove('open');
   document.getElementById('path-info-panel-backdrop').classList.remove('open');
-  // Reset path highlight
   if (panelOsmId && pathLayers[panelOsmId]) {
     const mp = managedPaths[panelOsmId];
     pathLayers[panelOsmId].setStyle({ weight: mp ? 5 : 3 });
@@ -1020,36 +988,14 @@ function closePathPanel() {
   panelOsmId = null;
 }
 
-function pipManage() {
-  closePathPanel();
-  if (!panelOsmId && !window._lastPanelOsmId) return;
-  const osmId = panelOsmId || window._lastPanelOsmId;
-  window._lastPanelOsmId = osmId;
-  // Find feature
-  const feature = geojsonData ? geojsonData.features.find(f => (f.id || f.properties['@id']) === osmId) : null;
-  openPathSheet(osmId, feature, false);
-}
-
 function pipEdit() {
-  const osmId = panelOsmId;
-  closePathPanel();
-  window._lastPanelOsmId = osmId;
-  panelOsmId = osmId;
+  const osmId = panelOsmId; closePathPanel();
+  window._lastPanelOsmId = osmId; panelOsmId = osmId;
   const feature = geojsonData ? geojsonData.features.find(f => (f.id || f.properties['@id']) === osmId) : null;
   openPathSheet(osmId, feature, true);
 }
-
-function pipLogCut() {
-  const osmId = panelOsmId;
-  closePathPanel();
-  openLogCutSheet(osmId);
-}
-
-function pipUnmanage() {
-  const osmId = panelOsmId;
-  closePathPanel();
-  unmanagePath(osmId);
-}
+function pipLogCut() { const osmId = panelOsmId; closePathPanel(); openLogCutSheet(osmId); }
+function pipUnmanage() { const osmId = panelOsmId; closePathPanel(); unmanagePath(osmId); }
 
 function pathColour(status) {
   return { unmanaged: '#9ca3af', ok: '#2d6a1f', 'due-soon': '#e8a020', overdue: '#c0392b' }[status] || '#9ca3af';
@@ -1078,8 +1024,7 @@ function getNextDueDate(mp) {
 function openPathSheet(osmId, feature, isManaged) {
   const props = feature ? feature.properties || {} : {};
   const mp = managedPaths[osmId];
-  formMode = 'path';
-  pendingPathOsmId = osmId;
+  formMode = 'path'; pendingPathOsmId = osmId;
   document.getElementById('entry-fields').style.display = 'none';
   document.getElementById('task-fields').style.display = 'none';
   document.getElementById('path-fields').style.display = 'block';
@@ -1087,26 +1032,21 @@ function openPathSheet(osmId, feature, isManaged) {
   document.getElementById('cut-fields').style.display = 'none';
   document.getElementById('form-title').textContent = isManaged ? '✏️ Edit managed path' : '➕ Manage this path';
   document.getElementById('save-btn').textContent = isManaged ? 'Save changes' : 'Mark as managed';
-  // Pre-fill
   document.getElementById('path-field-name').value = mp ? mp.name : (props.prow_ref || '');
   document.getElementById('path-field-schedule').value = mp ? mp.schedule : seasonSettings.schedule;
   document.getElementById('path-field-notes').value = mp ? (mp.notes || '') : '';
   selectedFreq = mp ? mp.freq : seasonSettings.freq;
-  document.querySelectorAll('#path-freq-pills .path-sheet-freq-pill').forEach(p => {
-    p.classList.toggle('sel', parseInt(p.dataset.f) === selectedFreq);
-  });
+  document.querySelectorAll('#path-freq-pills .path-sheet-freq-pill').forEach(p => { p.classList.toggle('sel', parseInt(p.dataset.f) === selectedFreq); });
   document.getElementById('form-overlay').classList.add('open');
 }
 
 function selectFreq(el) {
   document.querySelectorAll('#path-freq-pills .path-sheet-freq-pill').forEach(p => p.classList.remove('sel'));
-  el.classList.add('sel');
-  selectedFreq = parseInt(el.dataset.f);
+  el.classList.add('sel'); selectedFreq = parseInt(el.dataset.f);
 }
 function selectSeasonFreq(el) {
   document.querySelectorAll('#season-freq-pills .path-sheet-freq-pill').forEach(p => p.classList.remove('sel'));
-  el.classList.add('sel');
-  selectedSeasonFreq = parseInt(el.dataset.f);
+  el.classList.add('sel'); selectedSeasonFreq = parseInt(el.dataset.f);
 }
 
 function savePathForm() {
@@ -1114,39 +1054,22 @@ function savePathForm() {
   if (!name) { showToast('Please give this path a name'); return; }
   const osmId = pendingPathOsmId;
   const existing = managedPaths[osmId] || {};
-  managedPaths[osmId] = {
-    ...existing,
-    name,
-    freq: selectedFreq,
-    schedule: document.getElementById('path-field-schedule').value.trim() || seasonSettings.schedule,
-    notes: document.getElementById('path-field-notes').value.trim(),
-    cuts: existing.cuts || []
-  };
-  saveManagedPaths();
-  closeForm();
-  showSuccess('Path managed!', name);
-  updatePathLayer(osmId);
-  renderPathsStats();
-  renderChecklist();
-  syncPathToSheets(osmId);
+  managedPaths[osmId] = { ...existing, name, freq: selectedFreq, schedule: document.getElementById('path-field-schedule').value.trim() || seasonSettings.schedule, notes: document.getElementById('path-field-notes').value.trim(), cuts: existing.cuts || [] };
+  saveManagedPaths(); closeForm(); showSuccess('Path managed!', name);
+  updatePathLayer(osmId); renderPathsStats(); renderChecklist(); syncPathToSheets(osmId);
 }
 
-function saveManagedPaths() {
-  localStorage.setItem('rl_managed_paths', JSON.stringify(managedPaths));
-}
+function saveManagedPaths() { localStorage.setItem('rl_managed_paths', JSON.stringify(managedPaths)); }
 
 function updatePathLayer(osmId) {
-  const layer = pathLayers[osmId];
-  if (!layer) return;
+  const layer = pathLayers[osmId]; if (!layer) return;
   const mp = managedPaths[osmId];
   const status = mp ? getPathStatus(mp) : 'unmanaged';
   layer.setStyle({ color: pathColour(status), weight: mp ? 3.5 : 2, opacity: mp ? 0.9 : 0.5 });
 }
 
-// ── Log a cut ──
 function openLogCutSheet(osmId) {
-  activeManagedPathId = osmId;
-  formMode = 'cut';
+  activeManagedPathId = osmId; formMode = 'cut';
   document.getElementById('entry-fields').style.display = 'none';
   document.getElementById('task-fields').style.display = 'none';
   document.getElementById('path-fields').style.display = 'none';
@@ -1170,28 +1093,19 @@ function saveCutForm() {
   if (!managedPaths[osmId]) { showToast('Path not found'); return; }
   managedPaths[osmId].cuts = managedPaths[osmId].cuts || [];
   managedPaths[osmId].cuts.push({ date, by, notes, logged: new Date().toISOString() });
-  // Sort cuts by date
   managedPaths[osmId].cuts.sort((a, b) => a.date.localeCompare(b.date));
-  saveManagedPaths();
-  closeForm();
-  showSuccess('Cut logged!', managedPaths[osmId].name);
-  updatePathLayer(osmId);
-  renderPathsStats();
-  renderChecklist();
-  syncCutToSheets(osmId, { date, by, notes });
+  saveManagedPaths(); closeForm(); showSuccess('Cut logged!', managedPaths[osmId].name);
+  updatePathLayer(osmId); renderPathsStats(); renderChecklist(); syncCutToSheets(osmId, { date, by, notes });
 }
 
-// ── Remove managed path ──
 function unmanagePath(osmId) {
-  pendingDeleteId = osmId;
-  pendingDeleteType = 'path';
+  pendingDeleteId = osmId; pendingDeleteType = 'path';
   document.getElementById('confirm-title').textContent = 'Remove from managed paths?';
   document.getElementById('confirm-text').textContent = 'This will remove the path and all cut history. This cannot be undone.';
   document.getElementById('confirm-action-btn').textContent = 'Remove';
   document.getElementById('confirm-overlay').classList.add('open');
 }
 
-// ── Season sheet ──
 function openSeasonSheet() {
   formMode = 'season';
   document.getElementById('entry-fields').style.display = 'none';
@@ -1205,9 +1119,7 @@ function openSeasonSheet() {
   document.getElementById('season-end').value = seasonSettings.end;
   document.getElementById('season-schedule').value = seasonSettings.schedule;
   selectedSeasonFreq = seasonSettings.freq;
-  document.querySelectorAll('#season-freq-pills .path-sheet-freq-pill').forEach(p => {
-    p.classList.toggle('sel', parseInt(p.dataset.f) === selectedSeasonFreq);
-  });
+  document.querySelectorAll('#season-freq-pills .path-sheet-freq-pill').forEach(p => { p.classList.toggle('sel', parseInt(p.dataset.f) === selectedSeasonFreq); });
   document.getElementById('form-overlay').classList.add('open');
 }
 
@@ -1217,9 +1129,7 @@ function saveSeasonForm() {
   seasonSettings.freq = selectedSeasonFreq;
   seasonSettings.schedule = document.getElementById('season-schedule').value.trim() || 'Alexander cut end of March + 2 summer cuts';
   localStorage.setItem('rl_season', JSON.stringify(seasonSettings));
-  closeForm();
-  renderSeasonDisplay();
-  showToast('Season settings saved ✓');
+  closeForm(); renderSeasonDisplay(); showToast('Season settings saved ✓');
 }
 
 function renderSeasonDisplay() {
@@ -1228,11 +1138,9 @@ function renderSeasonDisplay() {
     <div><div class="paths-season-field">Season start</div><div class="paths-season-val">${fmt(seasonSettings.start)}</div></div>
     <div><div class="paths-season-field">Season end</div><div class="paths-season-val">${fmt(seasonSettings.end)}</div></div>
     <div><div class="paths-season-field">Default frequency</div><div class="paths-season-val">${seasonSettings.freq}× per year</div></div>
-    <div><div class="paths-season-field">Default schedule</div><div class="paths-season-val" style="font-size:11px">${seasonSettings.schedule}</div></div>
-  `;
+    <div><div class="paths-season-field">Default schedule</div><div class="paths-season-val" style="font-size:11px">${seasonSettings.schedule}</div></div>`;
 }
 
-// ── Stats ──
 function renderPathsStats() {
   const managed = Object.keys(managedPaths);
   const overdue = managed.filter(id => getPathStatus(managedPaths[id]) === 'overdue').length;
@@ -1242,77 +1150,49 @@ function renderPathsStats() {
   document.getElementById('ps-cuts').textContent = cuts;
 }
 
-// ── Checklist ──
 function setPathsFilter(f, el) {
   pathsFilter = f;
   document.querySelectorAll('.paths-filter-pill').forEach(p => p.classList.remove('sel'));
-  el.classList.add('sel');
-  renderChecklist();
+  el.classList.add('sel'); renderChecklist();
 }
 
 function renderChecklist() {
   const search = (document.getElementById('paths-search') || {}).value || '';
   const searchLower = search.toLowerCase();
-  const managed = Object.entries(managedPaths);
-
-  let items = managed.map(([osmId, mp]) => ({
-    osmId, mp, status: getPathStatus(mp)
-  }));
-
-  // Filter
+  let items = Object.entries(managedPaths).map(([osmId, mp]) => ({ osmId, mp, status: getPathStatus(mp) }));
   if (pathsFilter !== 'all') items = items.filter(i => i.status === pathsFilter);
   if (searchLower) items = items.filter(i => i.mp.name.toLowerCase().includes(searchLower));
-
-  // Sort: overdue first, then due-soon, then ok
   const order = { overdue: 0, 'due-soon': 1, ok: 2 };
   items.sort((a, b) => (order[a.status] || 0) - (order[b.status] || 0));
-
   const list = document.getElementById('path-checklist');
   if (items.length === 0) {
     list.innerHTML = `<div class="empty-state"><div class="empty-icon">🛤️</div><div class="empty-title">${Object.keys(managedPaths).length === 0 ? 'No managed paths yet' : 'No matches'}</div><div class="empty-sub">${Object.keys(managedPaths).length === 0 ? 'Tap any grey path on the map to start managing it.' : 'Try a different filter or search.'}</div></div>`;
     return;
   }
-
   list.innerHTML = items.map(({ osmId, mp, status }) => {
     const nextDue = getNextDueDate(mp);
-    const lastCut = mp.cuts && mp.cuts.length ? mp.cuts[mp.cuts.length - 1] : null;
     const nextDueFmt = nextDue ? nextDue.toLocaleDateString('en-GB', { day:'numeric', month:'short' }) : '—';
-    const badgeHtml = status === 'overdue'
-      ? `<span class="path-overdue-badge">Overdue</span>`
-      : status === 'due-soon'
-      ? `<span class="path-due-badge">Due ${nextDueFmt}</span>`
-      : '';
-
+    const badgeHtml = status === 'overdue' ? `<span class="path-overdue-badge">Overdue</span>` : status === 'due-soon' ? `<span class="path-due-badge">Due ${nextDueFmt}</span>` : '';
     const cutsHtml = mp.cuts && mp.cuts.length
-      ? mp.cuts.slice().reverse().slice(0, 3).map(c => `
-          <div class="path-cut-row">
-            <div><div class="path-cut-date">✂️ ${new Date(c.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div><div class="path-cut-by">by ${c.by}${c.notes ? ' — ' + c.notes : ''}</div></div>
-          </div>`).join('')
+      ? mp.cuts.slice().reverse().slice(0, 3).map(c => `<div class="path-cut-row"><div><div class="path-cut-date">✂️ ${new Date(c.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div><div class="path-cut-by">by ${c.by}${c.notes ? ' — ' + c.notes : ''}</div></div></div>`).join('')
       : `<div style="font-size:12px;color:var(--text-light);padding:6px 0">No cuts logged yet</div>`;
-
-    return `
-      <div class="path-item" id="pi-${osmId.replace(/\//g,'-')}">
-        <div class="path-item-header" onclick="togglePathItem('${osmId}')">
-          <div class="path-item-status ${status}"></div>
-          <div class="path-item-info">
-            <div class="path-item-name">${mp.name}</div>
-            <div class="path-item-meta">${mp.freq}× per year · Next due: ${nextDueFmt}</div>
-          </div>
-          ${badgeHtml}
-          <div class="path-item-chevron" id="pic-${osmId.replace(/\//g,'-')}">▼</div>
+    return `<div class="path-item" id="pi-${osmId.replace(/\//g,'-')}">
+      <div class="path-item-header" onclick="togglePathItem('${osmId}')">
+        <div class="path-item-status ${status}"></div>
+        <div class="path-item-info"><div class="path-item-name">${mp.name}</div><div class="path-item-meta">${mp.freq}× per year · Next due: ${nextDueFmt}</div></div>
+        ${badgeHtml}<div class="path-item-chevron" id="pic-${osmId.replace(/\//g,'-')}">▼</div>
+      </div>
+      <div class="path-item-body" id="pib-${osmId.replace(/\//g,'-')}">
+        <div style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">Cut history</div>
+        ${cutsHtml}
+        ${mp.cuts && mp.cuts.length > 3 ? `<div style="font-size:11px;color:var(--text-light);margin-top:4px">+ ${mp.cuts.length-3} more cuts</div>` : ''}
+        <button class="path-cut-log-btn" style="width:100%;margin-top:10px" onclick="openLogCutSheet('${osmId}')">✂️ Log a cut</button>
+        <div class="path-action-row">
+          <div class="path-action-btn" onclick="openPathSheetById('${osmId}')">✏️ Edit</div>
+          <div class="path-action-btn danger" onclick="unmanagePath('${osmId}')">🗑 Remove</div>
         </div>
-        <div class="path-item-body" id="pib-${osmId.replace(/\//g,'-')}">
-          <div style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">Cut history</div>
-          ${cutsHtml}
-          ${mp.cuts && mp.cuts.length > 3 ? `<div style="font-size:11px;color:var(--text-light);margin-top:4px">+ ${mp.cuts.length-3} more cuts</div>` : ''}
-          <button class="path-cut-log-btn" style="width:100%;margin-top:10px" onclick="openLogCutSheet('${osmId}')">✂️ Log a cut</button>
-          <div class="path-action-row">
-            <div class="path-action-btn" onclick="openPathSheetById('${osmId}')">✏️ Edit</div>
-            <div class="path-action-btn danger" onclick="unmanagePath('${osmId}')">🗑 Remove</div>
-          </div>
-          ${mp.notes ? `<div style="font-size:11px;color:var(--text-mid);margin-top:8px;padding:8px;background:var(--surface-2);border-radius:8px">${mp.notes}</div>` : ''}
-        </div>
-      </div>`;
+        ${mp.notes ? `<div style="font-size:11px;color:var(--text-mid);margin-top:8px;padding:8px;background:var(--surface-2);border-radius:8px">${mp.notes}</div>` : ''}
+      </div></div>`;
   }).join('');
 }
 
@@ -1325,27 +1205,13 @@ function togglePathItem(osmId) {
   if (chevron) chevron.classList.toggle('open', open);
 }
 
-function openPathSheetById(osmId) {
-  pendingPathOsmId = osmId;
-  const mp = managedPaths[osmId];
-  // Build a minimal feature for the sheet
-  openPathSheet(osmId, null, true);
-}
+function openPathSheetById(osmId) { pendingPathOsmId = osmId; openPathSheet(osmId, null, true); }
 
-// ── Sync to Sheets ──
 async function syncPathToSheets(osmId) {
   if (!navigator.onLine) return;
   const mp = managedPaths[osmId];
   try {
-    const params = new URLSearchParams({
-      type: 'path',
-      osmId,
-      name: mp.name,
-      site: mp.site || '',
-      freq: mp.freq,
-      schedule: mp.schedule || '',
-      notes: mp.notes || ''
-    });
+    const params = new URLSearchParams({ type: 'path', osmId, name: mp.name, site: mp.site || '', freq: mp.freq, schedule: mp.schedule || '', notes: mp.notes || '' });
     await fetch(SHEETS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
     showToast('Synced to Google Sheets ✓');
   } catch(e) { showToast('Sync failed — will retry when online'); }
@@ -1355,16 +1221,8 @@ async function syncCutToSheets(osmId, cut) {
   if (!navigator.onLine) return;
   const mp = managedPaths[osmId];
   try {
-    const params = new URLSearchParams({
-      type: 'cut',
-      osmId,
-      pathName: mp ? mp.name : osmId,
-      cutDate: cut.date,
-      cutBy: cut.by,
-      cutNotes: cut.notes || ''
-    });
+    const params = new URLSearchParams({ type: 'cut', osmId, pathName: mp ? mp.name : osmId, cutDate: cut.date, cutBy: cut.by, cutNotes: cut.notes || '' });
     await fetch(SHEETS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
-    showToast('Cut synced to Sheets ✓');
   } catch(e) {}
 }
 
@@ -1385,18 +1243,21 @@ function openForm(mode, editEntry) {
       document.getElementById('field-infra').value = editEntry.infraType || '';
       selectedCat = editEntry.cat;
       document.querySelectorAll('.form-cat-pill').forEach(p => { p.classList.toggle('sel', p.dataset.cat === selectedCat); });
-      photoData = editEntry.photo || null;
-      if (photoData) {
-        document.getElementById('photo-preview').src = photoData;
-        document.getElementById('photo-preview').style.display = 'block';
-        document.getElementById('photo-placeholder').style.display = 'none';
-        document.getElementById('photo-overlay').style.display = 'flex';
-      } else {
-        document.getElementById('photo-preview').src = '';
-        document.getElementById('photo-preview').style.display = 'none';
-        document.getElementById('photo-placeholder').style.display = 'flex';
-        document.getElementById('photo-overlay').style.display = 'none';
-      }
+      // ── PHOTO: load from IndexedDB for edit
+      photoData = null;
+      document.getElementById('photo-preview').src = '';
+      document.getElementById('photo-preview').style.display = 'none';
+      document.getElementById('photo-placeholder').style.display = 'flex';
+      document.getElementById('photo-overlay').style.display = 'none';
+      loadPhoto(editEntry.id).then(data => {
+        if (data) {
+          photoData = data;
+          document.getElementById('photo-preview').src = data;
+          document.getElementById('photo-preview').style.display = 'block';
+          document.getElementById('photo-placeholder').style.display = 'none';
+          document.getElementById('photo-overlay').style.display = 'flex';
+        }
+      });
       document.querySelectorAll('.habitat-pill').forEach(p => { p.classList.toggle('sel', (editEntry.habitat || '').includes(p.textContent)); });
       currentLat = editEntry.lat; currentLon = editEntry.lon; currentGridRef = editEntry.gridref;
       document.getElementById('loc-status').textContent = editEntry.lat ? 'Location saved — tap 🔄 to update' : 'No location saved';
@@ -1424,20 +1285,14 @@ function openForm(mode, editEntry) {
       document.getElementById('task-date').value = editEntry.dueDate || '';
       document.getElementById('task-notes').value = editEntry.notes || '';
       selectedPriority = editEntry.priority || 'low';
-      document.querySelectorAll('.priority-pill').forEach(p => {
-        p.classList.remove('sel','low','medium','high');
-        if (p.dataset.p === selectedPriority) { p.classList.add('sel', selectedPriority); }
-      });
+      document.querySelectorAll('.priority-pill').forEach(p => { p.classList.remove('sel','low','medium','high'); if (p.dataset.p === selectedPriority) { p.classList.add('sel', selectedPriority); } });
     } else {
       document.getElementById('task-name').value = '';
       document.getElementById('task-location').value = '';
       document.getElementById('task-date').value = '';
       document.getElementById('task-notes').value = '';
       selectedPriority = 'low';
-      document.querySelectorAll('.priority-pill').forEach(p => {
-        p.classList.remove('sel','low','medium','high');
-        if (p.dataset.p === 'low') { p.classList.add('sel','low'); }
-      });
+      document.querySelectorAll('.priority-pill').forEach(p => { p.classList.remove('sel','low','medium','high'); if (p.dataset.p === 'low') { p.classList.add('sel','low'); } });
     }
   }
   document.getElementById('form-overlay').classList.add('open');
@@ -1479,31 +1334,26 @@ function handlePhoto(input) {
   reader.readAsDataURL(file);
 }
 
-// ── OS Grid Reference conversion (no API needed, works offline) ──
+// ── OS Grid Reference ──
 function latLonToOSGridRef(lat, lon) {
-  // Convert WGS84 lat/lon to OSGB36 Easting/Northing
   const a = 6377563.396, b = 6356256.909;
   const F0 = 0.9996012717;
   const lat0 = 49 * Math.PI / 180, lon0 = -2 * Math.PI / 180;
   const N0 = -100000, E0 = 400000;
   const e2 = 1 - (b * b) / (a * a);
   const n = (a - b) / (a + b);
-
   const latR = lat * Math.PI / 180;
   const lonR = lon * Math.PI / 180;
-
   const sinLat = Math.sin(latR), cosLat = Math.cos(latR), tanLat = Math.tan(latR);
   const nu = a * F0 / Math.sqrt(1 - e2 * sinLat * sinLat);
   const rho = a * F0 * (1 - e2) / Math.pow(1 - e2 * sinLat * sinLat, 1.5);
   const eta2 = nu / rho - 1;
-
   const M = b * F0 * (
     (1 + n + 1.25 * n * n + 1.25 * n * n * n) * (latR - lat0)
     - (3 * n + 3 * n * n + 2.625 * n * n * n) * Math.sin(latR - lat0) * Math.cos(latR + lat0)
     + (1.875 * n * n + 1.875 * n * n * n) * Math.sin(2 * (latR - lat0)) * Math.cos(2 * (latR + lat0))
     - (35 / 24 * n * n * n) * Math.sin(3 * (latR - lat0)) * Math.cos(3 * (latR + lat0))
   );
-
   const I = M + N0;
   const II = nu / 2 * sinLat * cosLat;
   const III = nu / 24 * sinLat * cosLat * cosLat * cosLat * (5 - tanLat * tanLat + 9 * eta2);
@@ -1511,33 +1361,22 @@ function latLonToOSGridRef(lat, lon) {
   const IV = nu * cosLat;
   const V = nu / 6 * cosLat * cosLat * cosLat * (nu / rho - tanLat * tanLat);
   const VI = nu / 120 * Math.pow(cosLat, 5) * (5 - 18 * tanLat * tanLat + Math.pow(tanLat, 4) + 14 * eta2 - 58 * tanLat * tanLat * eta2);
-
   const dLon = lonR - lon0;
   const N = I + II * dLon * dLon + III * Math.pow(dLon, 4) + IIIA * Math.pow(dLon, 6);
   const E = E0 + IV * dLon + V * Math.pow(dLon, 3) + VI * Math.pow(dLon, 5);
-
-  // Convert easting/northing to grid letters + 6-figure reference
   const gridLetters = [
-    ['SV','SW','SX','SY','SZ','TV','TW'],
-    ['SQ','SR','SS','ST','SU','TQ','TR'],
-    ['SL','SM','SN','SO','SP','TL','TM'],
-    ['SF','SG','SH','SJ','SK','TF','TG'],
-    ['SA','SB','SC','SD','SE','TA','TB'],
-    ['NV','NW','NX','NY','NZ','OV','OW'],
-    ['NQ','NR','NS','NT','NU','OQ','OR'],
-    ['NL','NM','NN','NO','NP','OL','OM'],
-    ['NF','NG','NH','NJ','NK','OF','OG'],
-    ['NA','NB','NC','ND','NE','OA','OB'],
-    ['HV','HW','HX','HY','HZ','JV','JW'],
-    ['HQ','HR','HS','HT','HU','JQ','JR'],
+    ['SV','SW','SX','SY','SZ','TV','TW'],['SQ','SR','SS','ST','SU','TQ','TR'],
+    ['SL','SM','SN','SO','SP','TL','TM'],['SF','SG','SH','SJ','SK','TF','TG'],
+    ['SA','SB','SC','SD','SE','TA','TB'],['NV','NW','NX','NY','NZ','OV','OW'],
+    ['NQ','NR','NS','NT','NU','OQ','OR'],['NL','NM','NN','NO','NP','OL','OM'],
+    ['NF','NG','NH','NJ','NK','OF','OG'],['NA','NB','NC','ND','NE','OA','OB'],
+    ['HV','HW','HX','HY','HZ','JV','JW'],['HQ','HR','HS','HT','HU','JQ','JR'],
     ['HL','HM','HN','HO','HP','JL','JM'],
   ];
-
   const eIdx = Math.floor(E / 100000);
   const nIdx = Math.floor(N / 100000);
   if (eIdx < 0 || eIdx > 6 || nIdx < 0 || nIdx > 12) return null;
   const letters = gridLetters[nIdx][eIdx];
-
   const eLocal = Math.floor(E % 100000).toString().padStart(5, '0');
   const nLocal = Math.floor(N % 100000).toString().padStart(5, '0');
   return `${letters} ${eLocal} ${nLocal}`;
@@ -1570,24 +1409,37 @@ function saveForm() {
   else if (formMode === 'cut') saveCutForm();
 }
 
-function saveEntry() {
+async function saveEntry() {
   const name = document.getElementById('field-name').value.trim();
   if (!name) { showToast('Please add a species or description'); return; }
   const habitats = [...document.querySelectorAll('.habitat-pill.sel')].map(p => p.textContent);
   const existing = editingId ? entries.find(e => e.id === editingId) : null;
+  const entryId = editingId || Date.now();
   const entry = {
-    id: editingId || Date.now(), cat: selectedCat, name,
+    id: entryId, cat: selectedCat, name,
     notes: document.getElementById('field-notes').value.trim(),
     infraType: document.getElementById('field-infra').value,
     habitat: habitats.join(', '),
-    lat: currentLat, lon: currentLon, gridref: currentGridRef, photo: photoData,
+    lat: currentLat, lon: currentLon, gridref: currentGridRef,
+    hasPhoto: !!photoData,  // ── only store a flag, not the data
     time: existing ? existing.time : new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
     date: existing ? existing.date : new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
   };
-  if (editingId) { const idx = entries.findIndex(e => e.id === editingId); if (idx > -1) entries[idx] = entry; }
-  else { entries.unshift(entry); syncToSheets(entry); }
+  // ── Save photo to IndexedDB separately
+  if (photoData) {
+    await savePhoto(entryId, photoData);
+  }
+  if (editingId) {
+    const idx = entries.findIndex(e => e.id === editingId);
+    if (idx > -1) entries[idx] = entry;
+  } else {
+    entries.unshift(entry);
+    syncToSheets(entry);
+  }
   localStorage.setItem('rangerlog_entries', JSON.stringify(entries));
-  closeForm(); showSuccess(editingId ? 'Entry updated!' : 'Entry saved!', entry.name); renderEntries();
+  closeForm();
+  showSuccess(editingId ? 'Entry updated!' : 'Entry saved!', entry.name);
+  renderEntries();
 }
 
 function saveTask() {
@@ -1620,8 +1472,10 @@ function toggleFilter(cat, el) {
   renderEntries();
 }
 
-// ── Render entries ──
-function renderEntries() {
+// ══════════════════════════════════════════════════════
+// RENDER ENTRIES — now async, loads photos from IndexedDB
+// ══════════════════════════════════════════════════════
+async function renderEntries() {
   const list = document.getElementById('entries-list');
   const filtered = activeFilters.size === 0 ? entries : entries.filter(e => activeFilters.has(e.cat));
   if (filtered.length === 0) {
@@ -1630,8 +1484,9 @@ function renderEntries() {
       : '<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No entries in this filter</div><div class="empty-sub">Try selecting a different category or tap again to deselect.</div></div>';
     return;
   }
+  // Render cards first without photos (instant)
   list.innerHTML = filtered.map(e => `
-    <div class="entry-card">
+    <div class="entry-card" id="ec-${e.id}">
       <div class="entry-accent" style="background:${catAccent[e.cat]||'#2d6a1f'}"></div>
       <div class="entry-body">
         <div class="entry-top">
@@ -1648,8 +1503,19 @@ function renderEntries() {
         ${e.gridref ? `<div class="entry-gridref">${e.gridref}</div>` : ''}
         ${e.notes ? `<div class="entry-note">${e.notes}</div>` : ''}
       </div>
-      ${e.photo ? `<div class="entry-thumb"><img src="${e.photo}" alt="" loading="lazy"></div>` : ''}
+      ${e.hasPhoto ? `<div class="entry-thumb" id="thumb-${e.id}"><div style="width:64px;height:64px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:20px">📷</div></div>` : ''}
     </div>`).join('');
+
+  // Then load photos asynchronously and slot them in
+  for (const e of filtered) {
+    if (e.hasPhoto) {
+      const photo = await loadPhoto(e.id);
+      const thumb = document.getElementById('thumb-' + e.id);
+      if (photo && thumb) {
+        thumb.innerHTML = `<img src="${photo}" alt="" loading="lazy" style="width:64px;height:100%;object-fit:cover;display:block;">`;
+      }
+    }
+  }
 }
 
 // ── Render tasks ──
@@ -1694,15 +1560,20 @@ function deleteItem(id, type) {
 }
 function closeConfirm() { document.getElementById('confirm-overlay').classList.remove('open'); pendingDeleteId = null; pendingDeleteType = null; }
 function confirmDelete() {
-  if (pendingDeleteType === 'entry') { entries = entries.filter(e => e.id !== pendingDeleteId); localStorage.setItem('rangerlog_entries', JSON.stringify(entries)); renderEntries(); }
-  else if (pendingDeleteType === 'task') { tasks = tasks.filter(t => t.id !== pendingDeleteId); localStorage.setItem('rangerlog_tasks', JSON.stringify(tasks)); renderTasks(); }
-  else if (pendingDeleteType === 'path') {
+  if (pendingDeleteType === 'entry') {
+    // ── Also delete photo from IndexedDB
+    deletePhoto(pendingDeleteId);
+    entries = entries.filter(e => e.id !== pendingDeleteId);
+    localStorage.setItem('rangerlog_entries', JSON.stringify(entries));
+    renderEntries();
+  } else if (pendingDeleteType === 'task') {
+    tasks = tasks.filter(t => t.id !== pendingDeleteId);
+    localStorage.setItem('rangerlog_tasks', JSON.stringify(tasks));
+    renderTasks();
+  } else if (pendingDeleteType === 'path') {
     delete managedPaths[pendingDeleteId];
-    saveManagedPaths();
-    updatePathLayer(pendingDeleteId);
-    renderPathsStats();
-    renderChecklist();
-    showToast('Path removed');
+    saveManagedPaths(); updatePathLayer(pendingDeleteId);
+    renderPathsStats(); renderChecklist(); showToast('Path removed');
   }
   closeConfirm();
   if (pendingDeleteType !== 'path') showToast('Deleted');
@@ -1750,34 +1621,15 @@ function focusPin(lat, lon) {
   showToast('Showing pin location');
 }
 
-// ── Google Sheets sync (entries) ──
-async function syncToSheets(entry) {
-  if (!navigator.onLine) { queueSync(entry); return; }
-  try {
-    await fetch(SHEETS_URL, {
-      method: 'POST', mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'entry', id: entry.id, date: entry.date, time: entry.time, category: entry.cat, name: entry.name, habitat: entry.habitat || '', lat: entry.lat || '', lon: entry.lon || '', gridref: entry.gridref || '', notes: entry.notes || '', infraType: entry.infraType || '', photo: entry.photo ? true : false })
-    });
-    showToast('Synced to Google Sheets ✓');
-  } catch(e) { queueSync(entry); }
-}
+// ── Google Sheets sync ──
 function syncToSheets(entry) {
   if (!navigator.onLine) { queueSync(entry); return; }
   const params = new URLSearchParams({
-    type: 'entry',
-    id: entry.id,
-    date: entry.date || '',
-    time: entry.time || '',
-    category: entry.cat || '',
-    name: entry.name || '',
-    habitat: entry.habitat || '',
-    lat: entry.lat || '',
-    lon: entry.lon || '',
-    gridref: entry.gridref || '',
-    notes: entry.notes || '',
-    infraType: entry.infraType || '',
-    photo: entry.photo ? 'true' : 'false'
+    type: 'entry', id: entry.id, date: entry.date || '', time: entry.time || '',
+    category: entry.cat || '', name: entry.name || '', habitat: entry.habitat || '',
+    lat: entry.lat || '', lon: entry.lon || '', gridref: entry.gridref || '',
+    notes: entry.notes || '', infraType: entry.infraType || '',
+    photo: entry.hasPhoto ? 'true' : 'false'
   });
   fetch(SHEETS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' })
     .then(() => showToast('Synced to Sheets ✓'))
@@ -1799,19 +1651,11 @@ async function processSyncQueue() {
   for (const entry of queue) {
     try {
       const params = new URLSearchParams({
-        type: 'entry',
-        id: entry.id,
-        date: entry.date || '',
-        time: entry.time || '',
-        category: entry.cat || '',
-        name: entry.name || '',
-        habitat: entry.habitat || '',
-        lat: entry.lat || '',
-        lon: entry.lon || '',
-        gridref: entry.gridref || '',
-        notes: entry.notes || '',
-        infraType: entry.infraType || '',
-        photo: entry.photo ? 'true' : 'false'
+        type: 'entry', id: entry.id, date: entry.date || '', time: entry.time || '',
+        category: entry.cat || '', name: entry.name || '', habitat: entry.habitat || '',
+        lat: entry.lat || '', lon: entry.lon || '', gridref: entry.gridref || '',
+        notes: entry.notes || '', infraType: entry.infraType || '',
+        photo: entry.hasPhoto ? 'true' : 'false'
       });
       await fetch(SHEETS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
     } catch(e) { remaining.push(entry); }
@@ -1833,7 +1677,7 @@ function selectNoticeType(el) { document.querySelectorAll('.notice-type-pill').f
 function attachLocation() {
   if (!navigator.geolocation) { showToast('GPS not available'); return; }
   document.getElementById('notice-loc-label').textContent = '📍 Getting location…';
-  navigator.geolocation.getCurrentPosition(async pos => {
+  navigator.geolocation.getCurrentPosition(pos => {
     noticeLocLat = pos.coords.latitude.toFixed(6);
     noticeLocLon = pos.coords.longitude.toFixed(6);
     noticeLocGridRef = latLonToOSGridRef(pos.coords.latitude, pos.coords.longitude);
@@ -1896,7 +1740,7 @@ function renderReport() {
 function exportCSV() {
   if (!entries.length) { showToast('No entries to export yet'); return; }
   const headers = ['ID','Date','Time','Category','Name','Habitat','Latitude','Longitude','OS Grid Ref','Notes','Infra Type','Has Photo'];
-  const rows = entries.map(e => [e.id, e.date, e.time, catLabel[e.cat]||e.cat, `"${(e.name||'').replace(/"/g,'""')}"`, `"${(e.habitat||'').replace(/"/g,'""')}"`, e.lat||'', e.lon||'', e.gridref||'', `"${(e.notes||'').replace(/"/g,'""')}"`, e.infraType||'', e.photo?'Yes':'No']);
+  const rows = entries.map(e => [e.id, e.date, e.time, catLabel[e.cat]||e.cat, `"${(e.name||'').replace(/"/g,'""')}"`, `"${(e.habitat||'').replace(/"/g,'""')}"`, e.lat||'', e.lon||'', e.gridref||'', `"${(e.notes||'').replace(/"/g,'""')}"`, e.infraType||'', e.hasPhoto?'Yes':'No']);
   const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
   const blob = new Blob([csv], { type: 'text/csv' });
   const url = URL.createObjectURL(blob);
@@ -1927,6 +1771,7 @@ function showToast(msg) { const t = document.getElementById('toast'); t.textCont
 function showSuccess(title, sub) { const o = document.getElementById('success-overlay'); document.getElementById('success-text').textContent = title; document.getElementById('success-sub').textContent = sub; o.classList.add('show'); setTimeout(() => o.classList.remove('show'), 1800); }
 
 // ── Init ──
+openPhotoDB(); // warm up the DB connection on load
 renderEntries();
 renderTasks();
 renderNotices();
