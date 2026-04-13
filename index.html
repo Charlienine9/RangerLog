@@ -222,6 +222,17 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 .success-text { font-family: 'DM Serif Display', serif; font-size: 26px; color: #fff; }
 .success-sub { font-size: 13px; color: var(--green-light); }
 
+/* ─── GPS RECORDING STYLES ─── */
+.record-btn { width: 100%; background: var(--green-mid); color: #fff; border: none; border-radius: var(--radius); padding: 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; transition: background 0.2s, transform 0.1s; box-shadow: var(--shadow); }
+.record-btn:active { transform: scale(0.98); }
+.record-btn.recording { background: var(--red); animation: recordPulse 1.5s infinite; }
+@keyframes recordPulse { 0%,100%{opacity:1} 50%{opacity:0.75} }
+.record-status { font-size: 12px; color: var(--text-light); text-align: center; margin-bottom: 10px; min-height: 18px; }
+.record-status.active { color: var(--red); font-weight: 500; }
+#record-save-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 650; align-items: flex-end; justify-content: center; }
+#record-save-overlay.open { display: flex; animation: fadeIn 0.2s; }
+#record-save-sheet { background: var(--surface); border-radius: 24px 24px 0 0; width: 100%; max-width: 430px; padding: 20px; animation: slideUp 0.3s cubic-bezier(0.32,0.72,0,1); }
+
 /* ─── PATHS TAB STYLES ─── */
 #paths-map-wrap { width: 100%; height: 340px; border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; border: 1px solid var(--border); position: relative; transition: all 0.3s; }
 #paths-map-wrap.fullscreen { position: fixed; inset: 0; height: 100% !important; width: 100% !important; border-radius: 0; z-index: 500; border: none; margin: 0; }
@@ -425,6 +436,9 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
         </div>
         <div class="paths-season-grid" id="paths-season-display"></div>
       </div>
+      <button class="record-btn" id="record-btn" onclick="toggleRecording()">🎙 Record a new path</button>
+      <div class="record-status" id="record-status"></div>
+
       <div class="paths-view-toggle">
         <div class="paths-view-btn active" id="pvb-map" onclick="switchPathsView('map')">🗺 Map</div>
         <div class="paths-view-btn" id="pvb-list" onclick="switchPathsView('list')">☑️ Checklist</div>
@@ -546,6 +560,30 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
   <div id="pip-managed-info">
     <div id="pip-cuts"></div>
     <div class="panel-btn-row" id="pip-btn-row"></div>
+  </div>
+</div>
+
+<!-- GPS RECORD SAVE SHEET -->
+<div id="record-save-overlay">
+  <div id="record-save-sheet">
+    <div class="form-handle"></div>
+    <div class="form-title">💾 Save recorded path</div>
+    <div id="record-save-info" style="font-size:12px;color:var(--text-light);margin-bottom:14px"></div>
+    <div class="field-label">Path name</div>
+    <input type="text" class="field-input" id="record-name-input" placeholder="e.g. Bewhay Lane, Unknown track…">
+    <div class="field-label">What do you want to do with this path?</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+      <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-mid);padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer" id="record-opt-manage">
+        <input type="checkbox" id="record-opt-manage-cb" checked style="width:16px;height:16px;accent-color:var(--green-mid)">
+        <span>Add to managed paths (tap & manage like other paths)</span>
+      </label>
+      <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-mid);padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer" id="record-opt-entry">
+        <input type="checkbox" id="record-opt-entry-cb" style="width:16px;height:16px;accent-color:var(--green-mid)">
+        <span>Also attach to a field log entry</span>
+      </label>
+    </div>
+    <button class="save-btn" onclick="saveRecordedPath()" style="margin-top:0">Save path ✓</button>
+    <button class="cancel-btn" onclick="discardRecordedPath()">Discard recording</button>
   </div>
 </div>
 
@@ -859,6 +897,15 @@ let mapTapMode = false;
 let mapIsFullscreen = false;
 let panelOsmId = null;
 
+// ── GPS RECORDING STATE ──
+let isRecording = false;
+let recordedPoints = [];
+let recordingPolyline = null;
+let recordingWatchId = null;
+let recordingSeconds = 0;
+let recordingTimer = null;
+let recordedPaths = JSON.parse(localStorage.getItem('rl_recorded_paths') || '[]');
+
 function setMapMode(mode) {
   mapTapMode = (mode === 'tap');
   const wrap = document.getElementById('paths-map-wrap');
@@ -883,6 +930,189 @@ function toggleMapFullscreen() {
   btn.textContent = mapIsFullscreen ? '✕' : '⛶';
   btn.title = mapIsFullscreen ? 'Exit fullscreen' : 'Fullscreen';
   if (pathsLeaflet) setTimeout(() => pathsLeaflet.invalidateSize(), 100);
+}
+
+// ── GPS PATH RECORDING ──
+function toggleRecording() {
+  if (isRecording) {
+    stopRecording();
+  } else {
+    startRecording();
+  }
+}
+
+function startRecording() {
+  if (!navigator.geolocation) { showToast('GPS not available on this device'); return; }
+  // Make sure we're on the map view so the line is visible
+  if (pathsView !== 'map') switchPathsView('map');
+  isRecording = true;
+  recordedPoints = [];
+  recordingSeconds = 0;
+  // Update button
+  const btn = document.getElementById('record-btn');
+  btn.textContent = '⏹ Stop recording';
+  btn.classList.add('recording');
+  updateRecordStatus();
+  // Start timer
+  recordingTimer = setInterval(() => { recordingSeconds++; updateRecordStatus(); }, 1000);
+  // Draw an empty polyline on the map ready to receive points
+  if (pathsLeaflet) {
+    if (recordingPolyline) { pathsLeaflet.removeLayer(recordingPolyline); }
+    recordingPolyline = L.polyline([], { color: '#2980b9', weight: 5, opacity: 0.9, dashArray: '8,6' }).addTo(pathsLeaflet);
+  }
+  // Start watching GPS
+  recordingWatchId = navigator.geolocation.watchPosition(
+    (pos) => {
+      const latlng = [pos.coords.latitude, pos.coords.longitude];
+      recordedPoints.push(latlng);
+      if (recordingPolyline) recordingPolyline.setLatLngs(recordedPoints);
+      // Pan map to follow position if we have enough points
+      if (recordedPoints.length <= 3 && pathsLeaflet) pathsLeaflet.panTo(latlng);
+    },
+    (err) => { showToast('GPS error — make sure location is enabled'); console.error('GPS watch error:', err); },
+    { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 }
+  );
+  showToast('Recording started — walk the path! 🚶');
+}
+
+function stopRecording() {
+  isRecording = false;
+  // Stop GPS watch
+  if (recordingWatchId !== null) { navigator.geolocation.clearWatch(recordingWatchId); recordingWatchId = null; }
+  // Stop timer
+  if (recordingTimer) { clearInterval(recordingTimer); recordingTimer = null; }
+  // Reset button
+  const btn = document.getElementById('record-btn');
+  btn.textContent = '🎙 Record a new path';
+  btn.classList.remove('recording');
+  document.getElementById('record-status').textContent = '';
+  document.getElementById('record-status').classList.remove('active');
+  // Need at least 2 points to save
+  if (recordedPoints.length < 2) {
+    showToast('Not enough GPS points recorded');
+    if (recordingPolyline && pathsLeaflet) { pathsLeaflet.removeLayer(recordingPolyline); recordingPolyline = null; }
+    return;
+  }
+  // Show save sheet
+  const mins = Math.floor(recordingSeconds / 60);
+  const secs = recordingSeconds % 60;
+  document.getElementById('record-save-info').textContent =
+    `Recorded ${recordedPoints.length} GPS points over ${mins > 0 ? mins + 'm ' : ''}${secs}s`;
+  document.getElementById('record-name-input').value = '';
+  document.getElementById('record-opt-manage-cb').checked = true;
+  document.getElementById('record-opt-entry-cb').checked = false;
+  document.getElementById('record-save-overlay').classList.add('open');
+}
+
+function updateRecordStatus() {
+  const el = document.getElementById('record-status');
+  const mins = Math.floor(recordingSeconds / 60);
+  const secs = recordingSeconds % 60;
+  const timeStr = (mins > 0 ? mins + 'm ' : '') + secs + 's';
+  el.textContent = `🔴 Recording… ${recordedPoints.length} points · ${timeStr}`;
+  el.classList.add('active');
+}
+
+function saveRecordedPath() {
+  const name = document.getElementById('record-name-input').value.trim();
+  if (!name) { showToast('Please give this path a name'); return; }
+  const doManage = document.getElementById('record-opt-manage-cb').checked;
+  const doEntry = document.getElementById('record-opt-entry-cb').checked;
+  const pathId = 'rec_' + Date.now();
+  const pathRecord = { id: pathId, name, points: recordedPoints, recorded: new Date().toISOString() };
+  // Save to device
+  recordedPaths.push(pathRecord);
+  localStorage.setItem('rl_recorded_paths', JSON.stringify(recordedPaths));
+  // Add as a managed path if ticked
+  if (doManage) {
+    managedPaths[pathId] = { name, freq: seasonSettings.freq || 3, schedule: seasonSettings.schedule, notes: 'Recorded path', cuts: [], isRecorded: true };
+    saveManagedPaths();
+    // Draw it as a proper path on the map
+    renderRecordedPathOnMap(pathRecord);
+    renderPathsStats(); renderChecklist();
+  }
+  // Sync to Sheets
+  syncRecordedPathToSheets(pathRecord);
+  // Open log entry form if ticked
+  document.getElementById('record-save-overlay').classList.remove('open');
+  showSuccess('Path saved! ✓', name);
+  if (recordingPolyline && pathsLeaflet) { pathsLeaflet.removeLayer(recordingPolyline); recordingPolyline = null; }
+  if (doEntry) { setTimeout(() => openForm('entry'), 1200); }
+}
+
+function discardRecordedPath() {
+  document.getElementById('record-save-overlay').classList.remove('open');
+  if (recordingPolyline && pathsLeaflet) { pathsLeaflet.removeLayer(recordingPolyline); recordingPolyline = null; }
+  recordedPoints = [];
+  showToast('Recording discarded');
+}
+
+function renderRecordedPathOnMap(pathRecord) {
+  if (!pathsLeaflet) return;
+  const mp = managedPaths[pathRecord.id];
+  const status = mp ? getPathStatus(mp) : 'unmanaged';
+  const colour = pathColour(status);
+  const visLayer = L.polyline(pathRecord.points, { color: colour, weight: mp ? 5 : 3, opacity: mp ? 0.9 : 0.6 });
+  const hitLayer = L.polyline(pathRecord.points, { color: 'transparent', weight: 22, opacity: 0.001 });
+  const handleTap = (e) => {
+    if (!mapTapMode) { showToast('Switch to "Tap paths" mode first 👆'); return; }
+    L.DomEvent.stopPropagation(e);
+    onRecordedPathClick(pathRecord.id, visLayer);
+  };
+  hitLayer.on('click', handleTap); hitLayer.on('touchend', handleTap);
+  visLayer.on('click', handleTap); visLayer.on('touchend', handleTap);
+  visLayer.addTo(pathsLeaflet); hitLayer.addTo(pathsLeaflet);
+  pathLayers[pathRecord.id] = visLayer;
+}
+
+function onRecordedPathClick(pathId, layer) {
+  panelOsmId = pathId;
+  const managed = managedPaths[pathId];
+  document.getElementById('pip-title').textContent = managed ? managed.name : '➕ Recorded path';
+  if (!managed) {
+    document.getElementById('pip-sub').textContent = 'Give this recorded path a name to start managing it.';
+    document.getElementById('pip-name-form').style.display = 'block';
+    document.getElementById('pip-managed-info').style.display = 'none';
+    document.getElementById('pip-name-input').value = '';
+    setTimeout(() => document.getElementById('pip-name-input').focus(), 350);
+  } else {
+    const status = getPathStatus(managed);
+    let sub = managed.freq + '× per year';
+    const nextDue = getNextDueDate(managed);
+    if (nextDue) sub += ' · Next due: ' + nextDue.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    if (status === 'overdue') sub += ' 🔴 Overdue';
+    else if (status === 'due-soon') sub += ' 🟡 Due soon';
+    else sub += ' 🟢 OK';
+    document.getElementById('pip-sub').textContent = sub;
+    document.getElementById('pip-name-form').style.display = 'none';
+    document.getElementById('pip-managed-info').style.display = 'block';
+    let cutsHtml = '';
+    if (managed.cuts && managed.cuts.length) {
+      const recent = managed.cuts.slice().reverse().slice(0, 3);
+      cutsHtml = '<div style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;margin-top:12px">Recent cuts</div>';
+      cutsHtml += recent.map(c => `<div class="path-cut-row"><div><div class="path-cut-date">✂️ ${new Date(c.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div><div class="path-cut-by">by ${c.by}${c.notes?' — '+c.notes:''}</div></div></div>`).join('');
+    }
+    document.getElementById('pip-cuts').innerHTML = cutsHtml;
+    document.getElementById('pip-btn-row').innerHTML = `
+      <div class="panel-btn" onclick="pipEdit()">✏️ Edit</div>
+      <div class="panel-btn primary" onclick="pipLogCut()">✂️ Log cut</div>
+      <div class="panel-btn danger" onclick="pipUnmanage()">🗑</div>`;
+  }
+  layer.setStyle({ weight: 8, opacity: 1 });
+  openPathPanel();
+}
+
+function loadRecordedPathsOnMap() {
+  recordedPaths.forEach(rp => { if (managedPaths[rp.id]) renderRecordedPathOnMap(rp); });
+}
+
+async function syncRecordedPathToSheets(pathRecord) {
+  if (!navigator.onLine) return;
+  try {
+    const coords = pathRecord.points.map(p => p[0].toFixed(6) + ',' + p[1].toFixed(6)).join('|');
+    const params = new URLSearchParams({ type: 'recordedpath', id: pathRecord.id, name: pathRecord.name, pointCount: pathRecord.points.length, recorded: pathRecord.recorded, coords: coords.substring(0, 1000) });
+    await fetch(SHEETS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
+  } catch(e) { console.error('Recorded path sync failed:', e); }
 }
 
 async function initPathsMap() {
@@ -911,6 +1141,7 @@ async function initPathsMap() {
     visLayer.addTo(pathsLeaflet); hitLayer.addTo(pathsLeaflet);
     pathLayers[osmId] = visLayer;
   });
+  loadRecordedPathsOnMap();
 }
 
 let pipSelectedFreq = 3;
