@@ -226,12 +226,25 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 .record-btn { width: 100%; background: var(--green-mid); color: #fff; border: none; border-radius: var(--radius); padding: 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; transition: background 0.2s, transform 0.1s; box-shadow: var(--shadow); }
 .record-btn:active { transform: scale(0.98); }
 .record-btn.recording { background: var(--red); animation: recordPulse 1.5s infinite; }
+.record-btn.locking { background: var(--amber); }
 @keyframes recordPulse { 0%,100%{opacity:1} 50%{opacity:0.75} }
 .record-status { font-size: 12px; color: var(--text-light); text-align: center; margin-bottom: 10px; min-height: 18px; }
 .record-status.active { color: var(--red); font-weight: 500; }
+.record-status.locking { color: var(--amber); font-weight: 500; }
 #record-save-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 650; align-items: flex-end; justify-content: center; }
 #record-save-overlay.open { display: flex; animation: fadeIn 0.2s; }
 #record-save-sheet { background: var(--surface); border-radius: 24px 24px 0 0; width: 100%; max-width: 430px; padding: 20px; animation: slideUp 0.3s cubic-bezier(0.32,0.72,0,1); }
+
+/* ─── GPS LOCK OVERLAY ─── */
+#gps-lock-overlay { display: none; position: fixed; inset: 0; background: rgba(26,61,18,0.92); z-index: 700; align-items: center; justify-content: center; flex-direction: column; gap: 20px; padding: 40px; }
+#gps-lock-overlay.open { display: flex; animation: fadeIn 0.3s; }
+.gps-lock-icon { font-size: 52px; animation: pulse 1.5s infinite; }
+.gps-lock-title { font-family: 'DM Serif Display', serif; font-size: 24px; color: #fff; text-align: center; }
+.gps-lock-sub { font-size: 14px; color: var(--green-light); text-align: center; line-height: 1.5; }
+.gps-lock-accuracy { font-size: 13px; color: rgba(255,255,255,0.7); font-family: monospace; text-align: center; min-height: 20px; }
+.gps-lock-bar-wrap { width: 200px; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; overflow: hidden; }
+.gps-lock-bar { height: 100%; background: var(--green-bright); border-radius: 3px; transition: width 0.5s; width: 0%; }
+.gps-lock-cancel { background: none; border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); border-radius: 999px; padding: 8px 20px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; margin-top: 8px; }
 
 /* ─── PATHS TAB STYLES ─── */
 #paths-map-wrap { width: 100%; height: 340px; border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; border: 1px solid var(--border); position: relative; transition: all 0.3s; }
@@ -313,6 +326,9 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 .paths-filter-pill.sel { background: var(--green-mid); border-color: var(--green-mid); color: #fff; }
 .paths-filter-pill.overdue.sel { background: var(--red); border-color: var(--red); }
 .paths-filter-pill.amber.sel { background: var(--amber); border-color: var(--amber); }
+/* Export paths button */
+.export-paths-btn { width: 100%; background: var(--surface); border: 1.5px solid var(--green-mid); border-radius: var(--radius); padding: 13px 16px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--green-dark); cursor: pointer; display: flex; align-items: center; gap: 10px; margin-bottom: 12px; transition: all 0.15s; text-align: left; }
+.export-paths-btn:active { background: var(--green-pale); }
 </style>
 </head>
 <body>
@@ -321,7 +337,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
     <div class="header-top">
       <div>
         <div class="logo">Ranger<span>Log</span></div>
-        <div class="header-sub">Devon Rangers — v1.2 🌿 Photos</div>
+        <div class="header-sub">Devon Rangers — v1.3 🗺 Shared Paths</div>
       </div>
       <div class="sync-pill"><div class="sync-dot" id="sync-dot"></div><span id="sync-label">Offline</span></div>
     </div>
@@ -439,6 +455,17 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
       <button class="record-btn" id="record-btn" onclick="toggleRecording()">🎙 Record a new path</button>
       <div class="record-status" id="record-status"></div>
 
+      <!-- EXPORT PATHS BUTTON — only shows when you have recorded paths -->
+      <div id="export-paths-wrap" style="display:none">
+        <button class="export-paths-btn" onclick="exportRecordedPaths()">
+          <span style="font-size:20px">💾</span>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--green-dark)">Download recorded_paths.json</div>
+            <div style="font-size:11px;color:var(--text-light);margin-top:2px">Save all recorded paths — upload to GitHub to share with the team</div>
+          </div>
+        </button>
+      </div>
+
       <div class="paths-view-toggle">
         <div class="paths-view-btn active" id="pvb-map" onclick="switchPathsView('map')">🗺 Map</div>
         <div class="paths-view-btn" id="pvb-list" onclick="switchPathsView('list')">☑️ Checklist</div>
@@ -524,6 +551,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
           <div class="stage-item"><div class="stage-dot done"></div>Stage 7 — Export & reporting ✅</div>
           <div class="stage-item"><div class="stage-dot done"></div>Stage 8 — Paths management tab ✅</div>
           <div class="stage-item"><div class="stage-dot done"></div>Stage 9 — Photo saving (IndexedDB) ✅</div>
+          <div class="stage-item"><div class="stage-dot done"></div>Stage 10 — GPS lock + shared recorded paths ✅</div>
         </div>
       </div>
       <div class="about-card">
@@ -533,6 +561,16 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
     </div>
 
   </div>
+</div>
+
+<!-- GPS LOCK OVERLAY -->
+<div id="gps-lock-overlay">
+  <div class="gps-lock-icon">📡</div>
+  <div class="gps-lock-title">Getting GPS lock…</div>
+  <div class="gps-lock-sub">Please stand still for a moment.<br>Recording will start automatically once GPS is ready.</div>
+  <div class="gps-lock-bar-wrap"><div class="gps-lock-bar" id="gps-lock-bar"></div></div>
+  <div class="gps-lock-accuracy" id="gps-lock-accuracy">Waiting for signal…</div>
+  <button class="gps-lock-cancel" onclick="cancelGpsLock()">Cancel</button>
 </div>
 
 <!-- PATH INFO PANEL -->
@@ -739,11 +777,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 <script>
 // ══════════════════════════════════════════════════════
 // INDEXEDDB PHOTO STORAGE
-// Photos are stored separately from entries in IndexedDB.
-// Each photo is keyed by the entry's numeric ID.
-// localStorage only holds text — no more photo base64 there.
 // ══════════════════════════════════════════════════════
-
 const DB_NAME = 'RangerLogPhotos';
 const DB_VERSION = 1;
 const STORE_NAME = 'photos';
@@ -794,7 +828,7 @@ async function deletePhoto(entryId) {
       const tx = db.transaction(STORE_NAME, 'readwrite');
       tx.objectStore(STORE_NAME).delete(entryId);
       tx.oncomplete = resolve;
-      tx.onerror = resolve; // silent fail on delete
+      tx.onerror = resolve;
     });
   } catch(e) {}
 }
@@ -827,6 +861,25 @@ let pendingPathOsmId = null;
 let selectedFreq = 3;
 let selectedSeasonFreq = 3;
 let activeManagedPathId = null;
+
+// ── RECORDED PATHS STATE ──
+let recordedPaths = JSON.parse(localStorage.getItem('rl_recorded_paths') || '[]');
+
+// ── URL for the shared recorded paths JSON file on GitHub ──
+// UPDATE THIS to your actual GitHub raw URL once you've created the file
+const RECORDED_PATHS_URL = 'https://raw.githubusercontent.com/Charlienine9/rangerlog/main/recorded_paths.json';
+
+// ── GPS Recording state ──
+let isRecording = false;
+let recordedPoints = [];
+let recordingPolyline = null;
+let recordingWatchId = null;
+let recordingSeconds = 0;
+let recordingTimer = null;
+
+// ── GPS Lock state ──
+let gpsLockWatchId = null;
+let gpsLockCancelled = false;
 
 // ── Connectivity ──
 function updateOnline() {
@@ -864,9 +917,12 @@ const catBg = { plant:'#edf7e8', tree:'#edf7e8', fungi:'#fdeede', insect:'#f0ebf
 const catFg = { plant:'#2d6a1f', tree:'#2d6a1f', fungi:'#d4600a', insect:'#7b5ea7', bird:'#2980b9', animal:'#2980b9', reptile:'#0f7c72', amphibian:'#0f7c72', hazard:'#e8a020', invasive:'#c0392b', infra:'#8B5E3C', weather:'#2980b9' };
 const catAccent = { plant:'#2d6a1f', tree:'#2d6a1f', fungi:'#d4600a', insect:'#7b5ea7', bird:'#2980b9', animal:'#2980b9', reptile:'#0f7c72', amphibian:'#0f7c72', hazard:'#e8a020', invasive:'#c0392b', infra:'#8B5E3C', weather:'#2980b9' };
 
-// ── PATHS TAB LOGIC ──
+// ══════════════════════════════════════════════════════
+// PATHS TAB LOGIC
+// ══════════════════════════════════════════════════════
 const GEOJSON_URL = 'export.geojson';
 const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbycTkkmFM_3GQzPAmHcvlh_HVNX6AyvLT6cC6yEbrZn38nffpf8Yz6nRkk7dXjJlzTD/exec';
+
 async function loadGeoJSON() {
   if (geojsonData) return geojsonData;
   try {
@@ -879,8 +935,15 @@ async function loadGeoJSON() {
 function initPathsTab() {
   renderSeasonDisplay();
   renderPathsStats();
+  updateExportBtn();
   if (pathsView === 'map') initPathsMap();
   else renderChecklist();
+}
+
+function updateExportBtn() {
+  // Show the export button only if we have locally recorded paths
+  document.getElementById('export-paths-wrap').style.display =
+    recordedPaths.length > 0 ? 'block' : 'none';
 }
 
 function switchPathsView(v) {
@@ -896,15 +959,6 @@ function switchPathsView(v) {
 let mapTapMode = false;
 let mapIsFullscreen = false;
 let panelOsmId = null;
-
-// ── GPS RECORDING STATE ──
-let isRecording = false;
-let recordedPoints = [];
-let recordingPolyline = null;
-let recordingWatchId = null;
-let recordingSeconds = 0;
-let recordingTimer = null;
-let recordedPaths = JSON.parse(localStorage.getItem('rl_recorded_paths') || '[]');
 
 function setMapMode(mode) {
   mapTapMode = (mode === 'tap');
@@ -932,68 +986,133 @@ function toggleMapFullscreen() {
   if (pathsLeaflet) setTimeout(() => pathsLeaflet.invalidateSize(), 100);
 }
 
-// ── GPS PATH RECORDING ──
+// ══════════════════════════════════════════════════════
+// GPS LOCK — waits for accuracy before recording starts
+// ══════════════════════════════════════════════════════
 function toggleRecording() {
   if (isRecording) {
     stopRecording();
   } else {
-    startRecording();
+    beginGpsLock();
   }
 }
 
-function startRecording() {
+function beginGpsLock() {
   if (!navigator.geolocation) { showToast('GPS not available on this device'); return; }
-  // Make sure we're on the map view so the line is visible
+  gpsLockCancelled = false;
+
+  // Show the GPS lock overlay
+  document.getElementById('gps-lock-overlay').classList.add('open');
+  document.getElementById('gps-lock-accuracy').textContent = 'Waiting for signal…';
+  document.getElementById('gps-lock-bar').style.width = '0%';
+
+  // Update the record button to show locking state
+  const btn = document.getElementById('record-btn');
+  btn.textContent = '📡 Getting GPS lock…';
+  btn.classList.add('locking');
+
+  const GPS_ACCURACY_TARGET = 20; // metres — good enough to start
+  const GPS_MIN_READINGS = 3;     // need at least 3 consistent readings
+  let readingCount = 0;
+
+  gpsLockWatchId = navigator.geolocation.watchPosition(
+    (pos) => {
+      if (gpsLockCancelled) return;
+      const accuracy = Math.round(pos.coords.accuracy);
+      readingCount++;
+
+      // Update the overlay with current accuracy
+      document.getElementById('gps-lock-accuracy').textContent =
+        `Accuracy: ±${accuracy}m · Reading ${readingCount}`;
+
+      // Progress bar — shows how close we are to target accuracy
+      // Cap at 100%, show proportional progress
+      const progress = Math.min(100, Math.round((GPS_ACCURACY_TARGET / Math.max(accuracy, GPS_ACCURACY_TARGET)) * 100 * (readingCount / GPS_MIN_READINGS)));
+      document.getElementById('gps-lock-bar').style.width = progress + '%';
+
+      // Once accuracy is good enough AND we have enough readings, start recording
+      if (accuracy <= GPS_ACCURACY_TARGET && readingCount >= GPS_MIN_READINGS) {
+        navigator.geolocation.clearWatch(gpsLockWatchId);
+        gpsLockWatchId = null;
+        document.getElementById('gps-lock-overlay').classList.remove('open');
+        startRecording();
+      }
+    },
+    (err) => {
+      if (gpsLockCancelled) return;
+      document.getElementById('gps-lock-accuracy').textContent = 'GPS error — check location is enabled';
+      console.error('GPS lock error:', err);
+    },
+    { enableHighAccuracy: true, maximumAge: 0, timeout: 15000 }
+  );
+}
+
+function cancelGpsLock() {
+  gpsLockCancelled = true;
+  if (gpsLockWatchId !== null) {
+    navigator.geolocation.clearWatch(gpsLockWatchId);
+    gpsLockWatchId = null;
+  }
+  document.getElementById('gps-lock-overlay').classList.remove('open');
+  const btn = document.getElementById('record-btn');
+  btn.textContent = '🎙 Record a new path';
+  btn.classList.remove('locking');
+  document.getElementById('record-status').textContent = '';
+}
+
+// ══════════════════════════════════════════════════════
+// GPS PATH RECORDING — starts after lock is confirmed
+// ══════════════════════════════════════════════════════
+function startRecording() {
   if (pathsView !== 'map') switchPathsView('map');
   isRecording = true;
   recordedPoints = [];
   recordingSeconds = 0;
-  // Update button
+
   const btn = document.getElementById('record-btn');
   btn.textContent = '⏹ Stop recording';
+  btn.classList.remove('locking');
   btn.classList.add('recording');
   updateRecordStatus();
-  // Start timer
+
   recordingTimer = setInterval(() => { recordingSeconds++; updateRecordStatus(); }, 1000);
-  // Draw an empty polyline on the map ready to receive points
+
   if (pathsLeaflet) {
     if (recordingPolyline) { pathsLeaflet.removeLayer(recordingPolyline); }
     recordingPolyline = L.polyline([], { color: '#2980b9', weight: 5, opacity: 0.9, dashArray: '8,6' }).addTo(pathsLeaflet);
   }
-  // Start watching GPS
+
   recordingWatchId = navigator.geolocation.watchPosition(
     (pos) => {
       const latlng = [pos.coords.latitude, pos.coords.longitude];
       recordedPoints.push(latlng);
       if (recordingPolyline) recordingPolyline.setLatLngs(recordedPoints);
-      // Pan map to follow position if we have enough points
       if (recordedPoints.length <= 3 && pathsLeaflet) pathsLeaflet.panTo(latlng);
     },
     (err) => { showToast('GPS error — make sure location is enabled'); console.error('GPS watch error:', err); },
     { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 }
   );
-  showToast('Recording started — walk the path! 🚶');
+
+  showToast('GPS locked — recording started! 🚶');
 }
 
 function stopRecording() {
   isRecording = false;
-  // Stop GPS watch
   if (recordingWatchId !== null) { navigator.geolocation.clearWatch(recordingWatchId); recordingWatchId = null; }
-  // Stop timer
   if (recordingTimer) { clearInterval(recordingTimer); recordingTimer = null; }
-  // Reset button
+
   const btn = document.getElementById('record-btn');
   btn.textContent = '🎙 Record a new path';
   btn.classList.remove('recording');
   document.getElementById('record-status').textContent = '';
   document.getElementById('record-status').classList.remove('active');
-  // Need at least 2 points to save
+
   if (recordedPoints.length < 2) {
     showToast('Not enough GPS points recorded');
     if (recordingPolyline && pathsLeaflet) { pathsLeaflet.removeLayer(recordingPolyline); recordingPolyline = null; }
     return;
   }
-  // Show save sheet
+
   const mins = Math.floor(recordingSeconds / 60);
   const secs = recordingSeconds % 60;
   document.getElementById('record-save-info').textContent =
@@ -1020,21 +1139,19 @@ function saveRecordedPath() {
   const doEntry = document.getElementById('record-opt-entry-cb').checked;
   const pathId = 'rec_' + Date.now();
   const pathRecord = { id: pathId, name, points: recordedPoints, recorded: new Date().toISOString() };
-  // Save to device
+
   recordedPaths.push(pathRecord);
   localStorage.setItem('rl_recorded_paths', JSON.stringify(recordedPaths));
-  // Add as a managed path if ticked
+
   if (doManage) {
     managedPaths[pathId] = { name, freq: seasonSettings.freq || 3, schedule: seasonSettings.schedule, notes: 'Recorded path', cuts: [], isRecorded: true };
     saveManagedPaths();
-    // Draw it as a proper path on the map
     renderRecordedPathOnMap(pathRecord);
     renderPathsStats(); renderChecklist();
   }
-  // Sync to Sheets
-  syncRecordedPathToSheets(pathRecord);
-  // Open log entry form if ticked
+
   document.getElementById('record-save-overlay').classList.remove('open');
+  updateExportBtn(); // show the export button now we have a recorded path
   showSuccess('Path saved! ✓', name);
   if (recordingPolyline && pathsLeaflet) { pathsLeaflet.removeLayer(recordingPolyline); recordingPolyline = null; }
   if (doEntry) { setTimeout(() => openForm('entry'), 1200); }
@@ -1045,6 +1162,64 @@ function discardRecordedPath() {
   if (recordingPolyline && pathsLeaflet) { pathsLeaflet.removeLayer(recordingPolyline); recordingPolyline = null; }
   recordedPoints = [];
   showToast('Recording discarded');
+}
+
+// ══════════════════════════════════════════════════════
+// EXPORT RECORDED PATHS — download as JSON file
+// All locally recorded paths are bundled into one file.
+// Upload this to GitHub to share with the whole team.
+// ══════════════════════════════════════════════════════
+function exportRecordedPaths() {
+  if (!recordedPaths.length) { showToast('No recorded paths to export yet'); return; }
+  const json = JSON.stringify(recordedPaths, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'recorded_paths.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('recorded_paths.json downloaded ✓ — upload to GitHub to share with the team');
+}
+
+// ══════════════════════════════════════════════════════
+// LOAD REMOTE RECORDED PATHS — fetch from GitHub on startup
+// Draws any paths from the shared JSON file on the map.
+// Only runs if the file exists and we are online.
+// ══════════════════════════════════════════════════════
+async function loadRemoteRecordedPaths() {
+  if (!navigator.onLine) return;
+  try {
+    const r = await fetch(RECORDED_PATHS_URL + '?t=' + Date.now()); // cache-bust
+    if (!r.ok) return; // file doesn't exist yet — that's fine
+    const remotePaths = await r.json();
+    if (!Array.isArray(remotePaths) || remotePaths.length === 0) return;
+
+    // Merge: add any remote paths not already stored locally
+    const localIds = new Set(recordedPaths.map(p => p.id));
+    let added = 0;
+    remotePaths.forEach(rp => {
+      if (!localIds.has(rp.id)) {
+        recordedPaths.push(rp);
+        added++;
+      }
+    });
+
+    if (added > 0) {
+      localStorage.setItem('rl_recorded_paths', JSON.stringify(recordedPaths));
+      // Draw new paths on the map if it's already initialised
+      if (pathsLeaflet) {
+        remotePaths.forEach(rp => {
+          if (!localIds.has(rp.id)) renderRecordedPathOnMap(rp);
+        });
+      }
+      showToast(added + ' new shared path' + (added > 1 ? 's' : '') + ' loaded from GitHub ✓');
+    }
+    updateExportBtn();
+  } catch(e) {
+    // File probably doesn't exist yet — silent fail is correct here
+    console.log('No remote recorded paths file found (this is normal if not yet created)');
+  }
 }
 
 function renderRecordedPathOnMap(pathRecord) {
@@ -1103,16 +1278,7 @@ function onRecordedPathClick(pathId, layer) {
 }
 
 function loadRecordedPathsOnMap() {
-  recordedPaths.forEach(rp => { if (managedPaths[rp.id]) renderRecordedPathOnMap(rp); });
-}
-
-async function syncRecordedPathToSheets(pathRecord) {
-  if (!navigator.onLine) return;
-  try {
-    const coords = pathRecord.points.map(p => p[0].toFixed(6) + ',' + p[1].toFixed(6)).join('|');
-    const params = new URLSearchParams({ type: 'recordedpath', id: pathRecord.id, name: pathRecord.name, pointCount: pathRecord.points.length, recorded: pathRecord.recorded, coords: coords.substring(0, 1000) });
-    await fetch(SHEETS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
-  } catch(e) { console.error('Recorded path sync failed:', e); }
+  recordedPaths.forEach(rp => renderRecordedPathOnMap(rp));
 }
 
 async function initPathsMap() {
@@ -1219,12 +1385,7 @@ function closePathPanel() {
   panelOsmId = null;
 }
 
-function pipEdit() {
-  const osmId = panelOsmId; closePathPanel();
-  window._lastPanelOsmId = osmId; panelOsmId = osmId;
-  const feature = geojsonData ? geojsonData.features.find(f => (f.id || f.properties['@id']) === osmId) : null;
-  openPathSheet(osmId, feature, true);
-}
+function pipEdit() { const osmId = panelOsmId; closePathPanel(); window._lastPanelOsmId = osmId; panelOsmId = osmId; const feature = geojsonData ? geojsonData.features.find(f => (f.id || f.properties['@id']) === osmId) : null; openPathSheet(osmId, feature, true); }
 function pipLogCut() { const osmId = panelOsmId; closePathPanel(); openLogCutSheet(osmId); }
 function pipUnmanage() { const osmId = panelOsmId; closePathPanel(); unmanagePath(osmId); }
 
@@ -1474,7 +1635,6 @@ function openForm(mode, editEntry) {
       document.getElementById('field-infra').value = editEntry.infraType || '';
       selectedCat = editEntry.cat;
       document.querySelectorAll('.form-cat-pill').forEach(p => { p.classList.toggle('sel', p.dataset.cat === selectedCat); });
-      // ── PHOTO: load from IndexedDB for edit
       photoData = null;
       document.getElementById('photo-preview').src = '';
       document.getElementById('photo-preview').style.display = 'none';
@@ -1652,14 +1812,11 @@ async function saveEntry() {
     infraType: document.getElementById('field-infra').value,
     habitat: habitats.join(', '),
     lat: currentLat, lon: currentLon, gridref: currentGridRef,
-    hasPhoto: !!photoData,  // ── only store a flag, not the data
+    hasPhoto: !!photoData,
     time: existing ? existing.time : new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
     date: existing ? existing.date : new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
   };
-  // ── Save photo to IndexedDB separately
-  if (photoData) {
-    await savePhoto(entryId, photoData);
-  }
+  if (photoData) { await savePhoto(entryId, photoData); }
   if (editingId) {
     const idx = entries.findIndex(e => e.id === editingId);
     if (idx > -1) entries[idx] = entry;
@@ -1703,9 +1860,7 @@ function toggleFilter(cat, el) {
   renderEntries();
 }
 
-// ══════════════════════════════════════════════════════
-// RENDER ENTRIES — now async, loads photos from IndexedDB
-// ══════════════════════════════════════════════════════
+// ── Render entries ──
 async function renderEntries() {
   const list = document.getElementById('entries-list');
   const filtered = activeFilters.size === 0 ? entries : entries.filter(e => activeFilters.has(e.cat));
@@ -1715,7 +1870,6 @@ async function renderEntries() {
       : '<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No entries in this filter</div><div class="empty-sub">Try selecting a different category or tap again to deselect.</div></div>';
     return;
   }
-  // Render cards first without photos (instant)
   list.innerHTML = filtered.map(e => `
     <div class="entry-card" id="ec-${e.id}">
       <div class="entry-accent" style="background:${catAccent[e.cat]||'#2d6a1f'}"></div>
@@ -1737,7 +1891,6 @@ async function renderEntries() {
       ${e.hasPhoto ? `<div class="entry-thumb" id="thumb-${e.id}"><div style="width:64px;height:64px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:20px">📷</div></div>` : ''}
     </div>`).join('');
 
-  // Then load photos asynchronously and slot them in
   for (const e of filtered) {
     if (e.hasPhoto) {
       const photo = await loadPhoto(e.id);
@@ -1792,7 +1945,6 @@ function deleteItem(id, type) {
 function closeConfirm() { document.getElementById('confirm-overlay').classList.remove('open'); pendingDeleteId = null; pendingDeleteType = null; }
 function confirmDelete() {
   if (pendingDeleteType === 'entry') {
-    // ── Also delete photo from IndexedDB
     deletePhoto(pendingDeleteId);
     entries = entries.filter(e => e.id !== pendingDeleteId);
     localStorage.setItem('rangerlog_entries', JSON.stringify(entries));
@@ -2002,14 +2154,16 @@ function showToast(msg) { const t = document.getElementById('toast'); t.textCont
 function showSuccess(title, sub) { const o = document.getElementById('success-overlay'); document.getElementById('success-text').textContent = title; document.getElementById('success-sub').textContent = sub; o.classList.add('show'); setTimeout(() => o.classList.remove('show'), 1800); }
 
 // ── Init ──
-openPhotoDB(); // warm up the DB connection on load
+openPhotoDB();
 renderEntries();
 renderTasks();
 renderNotices();
 processSyncQueue();
 renderSeasonDisplay();
 renderPathsStats();
+updateExportBtn();
 initPathsTab();
+loadRemoteRecordedPaths(); // pull shared paths from GitHub on startup
 </script>
 </body>
 </html>
