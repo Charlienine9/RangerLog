@@ -114,7 +114,6 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 .entry-body { flex: 1; padding: 11px 12px; }
 .entry-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
 .entry-name { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; }
-.entry-badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
 .entry-actions { display: flex; gap: 4px; flex-shrink: 0; }
 .entry-btn { background: none; border: none; font-size: 14px; cursor: pointer; padding: 2px 5px; border-radius: 6px; color: var(--text-light); }
 .entry-btn:hover { background: var(--surface-2); }
@@ -148,15 +147,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 .whatsapp-btn { width: 100%; background: #25D366; color: #fff; border: none; border-radius: var(--radius); padding: 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 16px; transition: background 0.2s, transform 0.1s; box-shadow: var(--shadow); }
 .whatsapp-btn:active { transform: scale(0.98); background: #1aab54; }
 .notice-card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 10px; }
-.notice-header { background: var(--green-dark); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; }
-.notice-header-title { font-size: 13px; font-weight: 500; color: #fff; }
-.notice-header-sub { font-size: 11px; color: var(--green-light); }
-.notice-list { display: flex; flex-direction: column; }
-.notice-item { padding: 10px 14px; border-bottom: 0.5px solid var(--border); display: flex; gap: 10px; align-items: flex-start; }
-.notice-item:last-child { border-bottom: none; }
 .notice-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--green-mid); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #fff; flex-shrink: 0; margin-top: 2px; }
-.notice-body { flex: 1; }
-.notice-name { font-size: 12px; font-weight: 600; color: var(--text); }
 .notice-text { font-size: 12px; color: var(--text-mid); margin-top: 2px; line-height: 1.4; }
 .notice-meta { font-size: 10px; color: var(--text-light); margin-top: 3px; }
 .notice-gridref { font-size: 10px; color: #1a6e3c; font-family: monospace; margin-top: 2px; }
@@ -221,8 +212,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 @keyframes bounceIn { 0%{transform:scale(0)} 70%{transform:scale(1.2)} 100%{transform:scale(1)} }
 .success-text { font-family: 'DM Serif Display', serif; font-size: 26px; color: #fff; }
 .success-sub { font-size: 13px; color: var(--green-light); }
-
-/* ─── GPS RECORDING STYLES ─── */
+/* GPS RECORDING */
 .record-btn { width: 100%; background: var(--green-mid); color: #fff; border: none; border-radius: var(--radius); padding: 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; transition: background 0.2s, transform 0.1s; box-shadow: var(--shadow); }
 .record-btn:active { transform: scale(0.98); }
 .record-btn.recording { background: var(--red); animation: recordPulse 1.5s infinite; }
@@ -230,12 +220,10 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 @keyframes recordPulse { 0%,100%{opacity:1} 50%{opacity:0.75} }
 .record-status { font-size: 12px; color: var(--text-light); text-align: center; margin-bottom: 10px; min-height: 18px; }
 .record-status.active { color: var(--red); font-weight: 500; }
-.record-status.locking { color: var(--amber); font-weight: 500; }
 #record-save-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 650; align-items: flex-end; justify-content: center; }
 #record-save-overlay.open { display: flex; animation: fadeIn 0.2s; }
 #record-save-sheet { background: var(--surface); border-radius: 24px 24px 0 0; width: 100%; max-width: 430px; padding: 20px; animation: slideUp 0.3s cubic-bezier(0.32,0.72,0,1); }
-
-/* ─── GPS LOCK OVERLAY ─── */
+/* GPS LOCK OVERLAY */
 #gps-lock-overlay { display: none; position: fixed; inset: 0; background: rgba(26,61,18,0.92); z-index: 700; align-items: center; justify-content: center; flex-direction: column; gap: 20px; padding: 40px; }
 #gps-lock-overlay.open { display: flex; animation: fadeIn 0.3s; }
 .gps-lock-icon { font-size: 52px; animation: pulse 1.5s infinite; }
@@ -245,13 +233,11 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 .gps-lock-bar-wrap { width: 200px; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; overflow: hidden; }
 .gps-lock-bar { height: 100%; background: var(--green-bright); border-radius: 3px; transition: width 0.5s; width: 0%; }
 .gps-lock-cancel { background: none; border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); border-radius: 999px; padding: 8px 20px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; margin-top: 8px; }
-
-/* ─── PATHS TAB STYLES ─── */
+/* PATHS TAB */
 #paths-map-wrap { width: 100%; height: 340px; border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; border: 1px solid var(--border); position: relative; transition: all 0.3s; }
 #paths-map-wrap.fullscreen { position: fixed; inset: 0; height: 100% !important; width: 100% !important; border-radius: 0; z-index: 500; border: none; margin: 0; }
 #paths-leaflet { width: 100%; height: 100%; }
 .map-fullscreen-btn { position: absolute; top: 10px; right: 10px; z-index: 1000; background: white; border: 2px solid rgba(0,0,0,0.2); border-radius: 4px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; box-shadow: 0 1px 5px rgba(0,0,0,0.15); }
-.map-fullscreen-btn:active { background: #f4f4f4; }
 .map-tap-shield { display: none; position: absolute; inset: 0; z-index: 400; background: rgba(26,61,18,0.18); border-radius: var(--radius); align-items: center; justify-content: center; cursor: pointer; }
 .map-tap-shield.visible { display: flex; }
 .map-tap-shield-label { background: var(--green-dark); color: #fff; padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 500; pointer-events: none; }
@@ -319,16 +305,65 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 .path-sheet-freq-pill { padding: 6px 12px; border-radius: 999px; border: 1.5px solid var(--border); font-size: 11px; font-weight: 500; color: var(--text-mid); cursor: pointer; transition: all 0.15s; }
 .path-sheet-freq-pill.sel { background: var(--green-mid); border-color: var(--green-mid); color: #fff; }
 .paths-map-hint { font-size: 11px; color: var(--text-light); margin-bottom: 8px; text-align: center; font-style: italic; }
-.path-loading { text-align: center; padding: 32px; font-size: 13px; color: var(--text-light); }
 .paths-filter-row { display: flex; gap: 6px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 2px; }
 .paths-filter-row::-webkit-scrollbar { display: none; }
 .paths-filter-pill { padding: 5px 12px; border-radius: 999px; border: 1.5px solid var(--border); font-size: 11px; font-weight: 500; color: var(--text-mid); cursor: pointer; white-space: nowrap; background: var(--surface); transition: all 0.15s; flex-shrink: 0; }
 .paths-filter-pill.sel { background: var(--green-mid); border-color: var(--green-mid); color: #fff; }
 .paths-filter-pill.overdue.sel { background: var(--red); border-color: var(--red); }
 .paths-filter-pill.amber.sel { background: var(--amber); border-color: var(--amber); }
-/* Export paths button */
 .export-paths-btn { width: 100%; background: var(--surface); border: 1.5px solid var(--green-mid); border-radius: var(--radius); padding: 13px 16px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--green-dark); cursor: pointer; display: flex; align-items: center; gap: 10px; margin-bottom: 12px; transition: all 0.15s; text-align: left; }
 .export-paths-btn:active { background: var(--green-pale); }
+/* ─── MATERIALS TAB ─── */
+.mat-stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 14px; }
+.mat-stat { background: var(--surface); border-radius: var(--radius-sm); padding: 10px 8px; text-align: center; box-shadow: var(--shadow); }
+.mat-stat-num { font-size: 22px; font-weight: 600; color: var(--brown); font-family: 'DM Serif Display', serif; }
+.mat-stat-label { font-size: 10px; color: var(--text-light); margin-top: 2px; font-weight: 500; }
+.mat-view-toggle { display: flex; gap: 6px; margin-bottom: 14px; }
+.mat-view-btn { flex: 1; padding: 9px 6px; border-radius: var(--radius-sm); border: 1.5px solid var(--border); font-size: 12px; font-weight: 500; color: var(--text-mid); cursor: pointer; text-align: center; background: var(--surface); transition: all 0.15s; }
+.mat-view-btn.active { background: var(--brown-pale); border-color: var(--brown); color: var(--brown); }
+.mat-task-card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 10px; }
+.mat-task-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; cursor: pointer; background: var(--brown-pale); }
+.mat-task-title { font-size: 13px; font-weight: 600; color: var(--brown); }
+.mat-task-meta { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+.mat-task-chevron { font-size: 11px; color: var(--brown); transition: transform 0.2s; flex-shrink: 0; margin-left: 8px; }
+.mat-task-chevron.open { transform: rotate(180deg); }
+.mat-task-body { display: none; padding: 12px; }
+.mat-task-body.open { display: block; }
+.mat-item-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid var(--border); }
+.mat-item-row:last-child { border-bottom: none; }
+.mat-item-status-btn { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; background: var(--surface); transition: all 0.15s; }
+.mat-item-status-btn.ready { background: var(--green-pale); border-color: var(--green-mid); }
+.mat-item-name { flex: 1; font-size: 12px; color: var(--text); }
+.mat-item-name.ready { color: var(--text-light); text-decoration: line-through; }
+.mat-item-qty { font-size: 11px; font-weight: 600; color: var(--brown); background: var(--brown-pale); padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.mat-item-del { background: none; border: none; font-size: 13px; cursor: pointer; color: var(--text-light); padding: 2px 4px; }
+.mat-add-row { display: flex; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); align-items: center; }
+.mat-add-select { flex: 1; padding: 8px 10px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--text); background: var(--surface); outline: none; min-width: 0; }
+.mat-add-select:focus { border-color: var(--brown); }
+.mat-add-qty { width: 52px; padding: 8px 6px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--text); background: var(--surface); outline: none; text-align: center; flex-shrink: 0; }
+.mat-add-qty:focus { border-color: var(--brown); }
+.mat-add-btn { background: var(--brown); color: #fff; border: none; border-radius: var(--radius-sm); padding: 8px 12px; font-size: 12px; font-weight: 500; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+.mat-add-btn:active { background: #6b4a2e; }
+.mat-by-type-group { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 10px; }
+.mat-type-header { padding: 10px 14px; background: var(--brown-pale); display: flex; align-items: center; gap: 8px; }
+.mat-type-title { font-size: 12px; font-weight: 600; color: var(--brown); flex: 1; text-transform: uppercase; letter-spacing: 0.06em; }
+.mat-type-count { font-size: 11px; color: var(--text-light); }
+.mat-overview-row { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 0.5px solid var(--border); }
+.mat-overview-row:last-child { border-bottom: none; }
+.mat-overview-name { font-size: 12px; color: var(--text); }
+.mat-overview-task { font-size: 10px; color: var(--text-light); margin-top: 2px; }
+.mat-overview-qty { font-size: 11px; font-weight: 600; color: var(--brown); background: var(--brown-pale); padding: 2px 7px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
+.mat-overview-status { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
+.mat-overview-status.needed { background: var(--red-pale); color: var(--red); }
+.mat-overview-status.ready { background: var(--green-pale); color: var(--green-mid); }
+/* Materials section inside task form */
+.task-mat-section { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+.task-mat-section-title { font-size: 12px; font-weight: 600; color: var(--brown); margin-bottom: 10px; }
+.task-mat-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 0.5px solid var(--border); }
+.task-mat-item:last-of-type { border-bottom: none; }
+.task-mat-name { flex: 1; font-size: 12px; color: var(--text); }
+.task-mat-qty { font-size: 11px; color: var(--brown); font-weight: 600; background: var(--brown-pale); padding: 2px 7px; border-radius: 999px; }
+.task-mat-remove { background: none; border: none; font-size: 13px; cursor: pointer; color: var(--text-light); padding: 2px; flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -337,7 +372,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
     <div class="header-top">
       <div>
         <div class="logo">Ranger<span>Log</span></div>
-        <div class="header-sub">Devon Rangers — v1.3 🗺 Shared Paths</div>
+        <div class="header-sub">Devon Rangers — v1.4 🪵 Materials</div>
       </div>
       <div class="sync-pill"><div class="sync-dot" id="sync-dot"></div><span id="sync-label">Offline</span></div>
     </div>
@@ -345,6 +380,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
   <div class="tabs">
     <div class="tab active" onclick="showTab('paths',this)">🗺 Paths</div>
     <div class="tab" onclick="showTab('tasks',this)">Tasks</div>
+    <div class="tab" onclick="showTab('materials',this)">🪵 Materials</div>
     <div class="tab" onclick="showTab('team',this)">Team</div>
     <div class="tab" onclick="showTab('map',this)">Map</div>
     <div class="tab" onclick="showTab('log',this)">Log</div>
@@ -383,6 +419,21 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
       <div class="entries" id="tasks-pending"></div>
       <div class="section-head" style="margin-bottom:12px;margin-top:20px">Completed</div>
       <div class="entries" id="tasks-done"></div>
+    </div>
+
+    <!-- MATERIALS PAGE -->
+    <div class="page" id="tab-materials">
+      <div class="mat-stats-row">
+        <div class="mat-stat"><div class="mat-stat-num" id="ms-tasks">0</div><div class="mat-stat-label">Jobs with lists</div></div>
+        <div class="mat-stat"><div class="mat-stat-num" id="ms-needed" style="color:var(--red)">0</div><div class="mat-stat-label">Still needed</div></div>
+        <div class="mat-stat"><div class="mat-stat-num" id="ms-ready" style="color:var(--green-mid)">0</div><div class="mat-stat-label">Ready / on-site</div></div>
+      </div>
+      <div class="mat-view-toggle">
+        <div class="mat-view-btn active" id="mvb-task" onclick="switchMatView('task')">📋 By job</div>
+        <div class="mat-view-btn" id="mvb-type" onclick="switchMatView('type')">🗂 By material</div>
+      </div>
+      <div id="mat-by-task-view"><div id="mat-task-list"></div></div>
+      <div id="mat-by-type-view" style="display:none"><div id="mat-type-list"></div></div>
     </div>
 
     <!-- TEAM PAGE -->
@@ -445,27 +496,18 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
         <div class="paths-stat"><div class="paths-stat-num" id="ps-overdue" style="color:var(--red)">0</div><div class="paths-stat-label">Overdue</div></div>
         <div class="paths-stat"><div class="paths-stat-num" id="ps-cuts">0</div><div class="paths-stat-label">Cuts logged</div></div>
       </div>
-      <div class="paths-season-card" id="paths-season-card">
-        <div class="paths-season-title">
-          🌱 Season settings
-          <button class="paths-season-edit-btn" onclick="openSeasonSheet()">Edit</button>
-        </div>
+      <div class="paths-season-card">
+        <div class="paths-season-title">🌱 Season settings <button class="paths-season-edit-btn" onclick="openSeasonSheet()">Edit</button></div>
         <div class="paths-season-grid" id="paths-season-display"></div>
       </div>
       <button class="record-btn" id="record-btn" onclick="toggleRecording()">🎙 Record a new path</button>
       <div class="record-status" id="record-status"></div>
-
-      <!-- EXPORT PATHS BUTTON — only shows when you have recorded paths -->
       <div id="export-paths-wrap" style="display:none">
         <button class="export-paths-btn" onclick="exportRecordedPaths()">
           <span style="font-size:20px">💾</span>
-          <div>
-            <div style="font-size:13px;font-weight:600;color:var(--green-dark)">Download recorded_paths.json</div>
-            <div style="font-size:11px;color:var(--text-light);margin-top:2px">Save all recorded paths — upload to GitHub to share with the team</div>
-          </div>
+          <div><div style="font-size:13px;font-weight:600;color:var(--green-dark)">Download recorded_paths.json</div><div style="font-size:11px;color:var(--text-light);margin-top:2px">Save all recorded paths — upload to GitHub to share with the team</div></div>
         </button>
       </div>
-
       <div class="paths-view-toggle">
         <div class="paths-view-btn active" id="pvb-map" onclick="switchPathsView('map')">🗺 Map</div>
         <div class="paths-view-btn" id="pvb-list" onclick="switchPathsView('list')">☑️ Checklist</div>
@@ -511,26 +553,11 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
       <div class="section-head" style="margin-bottom:10px">Monthly summary</div>
       <div class="summary-box" id="summary-box"></div>
       <div class="section-head" style="margin-bottom:10px">Export & share</div>
-      <button class="report-btn" onclick="exportCSV()">
-        <span class="report-btn-icon">📊</span>
-        <div class="report-btn-text"><div class="report-btn-title">Export as CSV</div><div class="report-btn-sub">Download all entries for Excel or Google Sheets</div></div>
-      </button>
-      <button class="report-btn" onclick="exportDBRC()">
-        <span class="report-btn-icon">🦋</span>
-        <div class="report-btn-text"><div class="report-btn-title">Export for DBRC submission</div><div class="report-btn-sub">Devon Biodiversity Records Centre format CSV</div></div>
-      </button>
-      <button class="report-btn" onclick="copySummary()">
-        <span class="report-btn-icon">📋</span>
-        <div class="report-btn-text"><div class="report-btn-title">Copy monthly summary</div><div class="report-btn-sub">Copy text to paste into an email or report</div></div>
-      </button>
-      <button class="report-btn" onclick="shareToWhatsApp()">
-        <span class="report-btn-icon">💬</span>
-        <div class="report-btn-text"><div class="report-btn-title">Share summary to WhatsApp</div><div class="report-btn-sub">Send monthly summary to your team group</div></div>
-      </button>
-      <button class="report-btn" onclick="window.print()">
-        <span class="report-btn-icon">🖨️</span>
-        <div class="report-btn-text"><div class="report-btn-title">Print / save as PDF</div><div class="report-btn-sub">Print this page or save as PDF from your browser</div></div>
-      </button>
+      <button class="report-btn" onclick="exportCSV()"><span class="report-btn-icon">📊</span><div class="report-btn-text"><div class="report-btn-title">Export as CSV</div><div class="report-btn-sub">Download all entries for Excel or Google Sheets</div></div></button>
+      <button class="report-btn" onclick="exportDBRC()"><span class="report-btn-icon">🦋</span><div class="report-btn-text"><div class="report-btn-title">Export for DBRC submission</div><div class="report-btn-sub">Devon Biodiversity Records Centre format CSV</div></div></button>
+      <button class="report-btn" onclick="copySummary()"><span class="report-btn-icon">📋</span><div class="report-btn-text"><div class="report-btn-title">Copy monthly summary</div><div class="report-btn-sub">Copy text to paste into an email or report</div></div></button>
+      <button class="report-btn" onclick="shareToWhatsApp()"><span class="report-btn-icon">💬</span><div class="report-btn-text"><div class="report-btn-title">Share summary to WhatsApp</div><div class="report-btn-sub">Send monthly summary to your team group</div></div></button>
+      <button class="report-btn" onclick="window.print()"><span class="report-btn-icon">🖨️</span><div class="report-btn-text"><div class="report-btn-title">Print / save as PDF</div><div class="report-btn-sub">Print this page or save as PDF from your browser</div></div></button>
     </div>
 
     <!-- ABOUT PAGE -->
@@ -552,6 +579,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
           <div class="stage-item"><div class="stage-dot done"></div>Stage 8 — Paths management tab ✅</div>
           <div class="stage-item"><div class="stage-dot done"></div>Stage 9 — Photo saving (IndexedDB) ✅</div>
           <div class="stage-item"><div class="stage-dot done"></div>Stage 10 — GPS lock + shared recorded paths ✅</div>
+          <div class="stage-item"><div class="stage-dot done"></div>Stage 11 — Materials list linked to tasks ✅</div>
         </div>
       </div>
       <div class="about-card">
@@ -611,11 +639,11 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
     <input type="text" class="field-input" id="record-name-input" placeholder="e.g. Bewhay Lane, Unknown track…">
     <div class="field-label">What do you want to do with this path?</div>
     <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
-      <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-mid);padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer" id="record-opt-manage">
+      <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-mid);padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">
         <input type="checkbox" id="record-opt-manage-cb" checked style="width:16px;height:16px;accent-color:var(--green-mid)">
         <span>Add to managed paths (tap & manage like other paths)</span>
       </label>
-      <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-mid);padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer" id="record-opt-entry">
+      <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-mid);padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">
         <input type="checkbox" id="record-opt-entry-cb" style="width:16px;height:16px;accent-color:var(--green-mid)">
         <span>Also attach to a field log entry</span>
       </label>
@@ -625,11 +653,12 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
   </div>
 </div>
 
-<!-- ENTRY FORM -->
+<!-- ENTRY / TASK FORM -->
 <div class="form-overlay" id="form-overlay" onclick="handleOverlayClick(event)">
   <div class="form-sheet" id="form-sheet">
     <div class="form-handle"></div>
     <div class="form-title" id="form-title">New field entry</div>
+    <!-- ENTRY FIELDS -->
     <div id="entry-fields">
       <div class="field-label">Category</div>
       <div class="form-cat-row" id="form-cats">
@@ -694,6 +723,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
       <div class="field-label">Notes</div>
       <textarea class="field-input" id="field-notes" placeholder="Condition, count, urgency, anything useful…"></textarea>
     </div>
+    <!-- TASK FIELDS -->
     <div id="task-fields" style="display:none">
       <div class="field-label">Task description</div>
       <input type="text" class="field-input" id="task-name" placeholder="e.g. Fix fence at Berry Head north path…">
@@ -709,7 +739,18 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
       </div>
       <div class="field-label">Notes (optional)</div>
       <textarea class="field-input" id="task-notes" placeholder="Any extra detail…"></textarea>
+      <!-- MATERIALS inside task form -->
+      <div class="task-mat-section">
+        <div class="task-mat-section-title">🪵 Materials needed</div>
+        <div id="task-form-mat-list"></div>
+        <div class="mat-add-row" style="margin-top:8px">
+          <select class="mat-add-select" id="task-mat-select"></select>
+          <input type="number" class="mat-add-qty" id="task-mat-qty" value="1" min="1">
+          <button class="mat-add-btn" onclick="addMatToTaskForm()">+ Add</button>
+        </div>
+      </div>
     </div>
+    <!-- PATH FIELDS -->
     <div id="path-fields" style="display:none">
       <div class="field-label">Path name / label</div>
       <input type="text" class="field-input" id="path-field-name" placeholder="e.g. Berry Head North, Occombe Farm Loop…">
@@ -726,6 +767,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
       <div class="field-label">Notes (optional)</div>
       <textarea class="field-input" id="path-field-notes" placeholder="Any notes about this path…" style="height:60px"></textarea>
     </div>
+    <!-- SEASON FIELDS -->
     <div id="season-fields" style="display:none">
       <div class="field-label">Season start date</div>
       <input type="date" class="field-input" id="season-start">
@@ -742,6 +784,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
       <div class="field-label">Default cut schedule description</div>
       <input type="text" class="field-input" id="season-schedule" placeholder="e.g. Alexander cut end of March + 2 summer cuts">
     </div>
+    <!-- CUT FIELDS -->
     <div id="cut-fields" style="display:none">
       <div class="field-label">Cut date</div>
       <input type="date" class="field-input" id="cut-date">
@@ -759,7 +802,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 <div class="confirm-overlay" id="confirm-overlay">
   <div class="confirm-box">
     <div class="confirm-title" id="confirm-title">Delete this entry?</div>
-    <div class="confirm-text" id="confirm-text">This cannot be undone. Are you sure you want to delete this record?</div>
+    <div class="confirm-text" id="confirm-text">This cannot be undone. Are you sure?</div>
     <div class="confirm-btns">
       <button class="confirm-cancel" onclick="closeConfirm()">Cancel</button>
       <button class="confirm-delete" id="confirm-action-btn" onclick="confirmDelete()">Delete</button>
@@ -769,7 +812,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 
 <div class="success-overlay" id="success-overlay">
   <div class="success-icon">✅</div>
-  <div class="success-text" id="success-text">Entry saved!</div>
+  <div class="success-text" id="success-text">Saved!</div>
   <div class="success-sub" id="success-sub"></div>
 </div>
 <div class="toast" id="toast"></div>
@@ -778,1380 +821,541 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 // ══════════════════════════════════════════════════════
 // INDEXEDDB PHOTO STORAGE
 // ══════════════════════════════════════════════════════
-const DB_NAME = 'RangerLogPhotos';
-const DB_VERSION = 1;
-const STORE_NAME = 'photos';
-let photoDB = null;
+const DB_NAME='RangerLogPhotos',DB_VERSION=1,STORE_NAME='photos';
+let photoDB=null;
+function openPhotoDB(){return new Promise((res,rej)=>{if(photoDB){res(photoDB);return;}const r=indexedDB.open(DB_NAME,DB_VERSION);r.onupgradeneeded=e=>{const db=e.target.result;if(!db.objectStoreNames.contains(STORE_NAME))db.createObjectStore(STORE_NAME,{keyPath:'id'});};r.onsuccess=e=>{photoDB=e.target.result;res(photoDB);};r.onerror=()=>rej(r.error);});}
+async function savePhoto(id,data){if(!data)return;const db=await openPhotoDB();return new Promise((res,rej)=>{const tx=db.transaction(STORE_NAME,'readwrite');tx.objectStore(STORE_NAME).put({id,data});tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}
+async function loadPhoto(id){try{const db=await openPhotoDB();return new Promise(res=>{const tx=db.transaction(STORE_NAME,'readonly');const r=tx.objectStore(STORE_NAME).get(id);r.onsuccess=()=>res(r.result?r.result.data:null);r.onerror=()=>res(null);});}catch(e){return null;}}
+async function deletePhoto(id){try{const db=await openPhotoDB();return new Promise(res=>{const tx=db.transaction(STORE_NAME,'readwrite');tx.objectStore(STORE_NAME).delete(id);tx.oncomplete=res;tx.onerror=res;});}catch(e){}}
 
-function openPhotoDB() {
-  return new Promise((resolve, reject) => {
-    if (photoDB) { resolve(photoDB); return; }
-    const req = indexedDB.open(DB_NAME, DB_VERSION);
-    req.onupgradeneeded = e => {
-      const db = e.target.result;
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        db.createObjectStore(STORE_NAME, { keyPath: 'id' });
-      }
-    };
-    req.onsuccess = e => { photoDB = e.target.result; resolve(photoDB); };
-    req.onerror = () => reject(req.error);
-  });
-}
+// ══════════════════════════════════════════════════════
+// MATERIALS CATALOGUE
+// ══════════════════════════════════════════════════════
+const MATERIALS_CATALOGUE=[
+  // Round Posts
+  {id:'rp1',cat:'Round Posts',name:'Perma Round Post 88mm (3.5") 1.68m'},
+  {id:'rp2',cat:'Round Posts',name:'Perma Round Post 88mm (3.5") 1.8m'},
+  {id:'rp3',cat:'Round Posts',name:'Perma Round Post 88mm (3.5") 2.4m'},
+  {id:'rp4',cat:'Round Posts',name:'Perma Round Post 106mm (4") 1.68m'},
+  {id:'rp5',cat:'Round Posts',name:'Perma Round Post 106mm (4") 1.8m'},
+  {id:'rp6',cat:'Round Posts',name:'Perma Round Post 106mm (4") 2.4m'},
+  {id:'rp7',cat:'Round Posts',name:'Perma Round Post 128mm (5") 2.1m'},
+  {id:'rp8',cat:'Round Posts',name:'Strainer Post 160mm (6") 2.4m'},
+  {id:'rp9',cat:'Round Posts',name:'Gate/Slammer Post 200mm (8") 2.4m'},
+  // Square Posts
+  {id:'sp1',cat:'Square Posts',name:'Sawn Incised Square Post 125mm (5") 2.4m'},
+  {id:'sp2',cat:'Square Posts',name:'Sawn Incised Square Post 150mm (6") 2.4m'},
+  {id:'sp3',cat:'Square Posts',name:'Sawn Incised Square Post 175mm (7") 2.4m'},
+  {id:'sp4',cat:'Square Posts',name:'Sawn Incised Square Post 200mm (8") 2.4m'},
+  // Rail
+  {id:'rl1',cat:'Rail',name:'Half Round Rail 100mm 3.6m'},
+  {id:'rl2',cat:'Rail',name:'Sawn Rail 38mm x 88mm 3.6m'},
+  // Sleepers
+  {id:'sl1',cat:'Sleepers',name:'Sleeper 100mm x 200mm (4"x8") 2.4m'},
+  {id:'sl2',cat:'Sleepers',name:'FSC Sleeper 125mm x 250mm (5"x10")'},
+  // Stock Netting
+  {id:'sn1',cat:'Stock Netting',name:'Stock Netting HT 80/15 50m'},
+  {id:'sn2',cat:'Stock Netting',name:'Stock Netting HT 80/22 500m'},
+  {id:'sn3',cat:'Stock Netting',name:'Stock Netting HT 80/30 100m'},
+  {id:'sn4',cat:'Stock Netting',name:'Stock Netting HT 80/30 500m'},
+  // Barbed Wire
+  {id:'bw1',cat:'Barbed Wire',name:'Barbed Wire HT 1.6mm x 200m'},
+  {id:'bw2',cat:'Barbed Wire',name:'Barbed Wire HT 2mm x 200m'},
+  {id:'bw3',cat:'Barbed Wire',name:'Barbed Wire Mild Steel 2.5mm x 200m'},
+  // Plain Wire
+  {id:'pw1',cat:'Plain Wire',name:'High Tensile Plain Steel Wire'},
+  // Nails & Staples
+  {id:'ns1',cat:'Nails & Staples',name:'Nails 76.2mm (3")'},
+  {id:'ns2',cat:'Nails & Staples',name:'Nails 101.6mm (4")'},
+  {id:'ns3',cat:'Nails & Staples',name:'Nails 127mm (5")'},
+  {id:'ns4',cat:'Nails & Staples',name:'Nails 152.4mm (6")'},
+  {id:'ns5',cat:'Nails & Staples',name:'Staples'},
+  // Countryside Gates
+  {id:'cg1',cat:'Countryside Gates',name:'Countryside 5-bar Gate 910mm (3ft)'},
+  {id:'cg2',cat:'Countryside Gates',name:'Countryside 5-bar Gate 1220mm (4ft)'},
+  {id:'cg3',cat:'Countryside Gates',name:'Countryside 5-bar Gate 3048mm (10ft)'},
+  {id:'cg4',cat:'Countryside Gates',name:'Countryside 5-bar Gate 3657mm (12ft)'},
+  // Larch Gates
+  {id:'lg1',cat:'Larch Gates',name:'Larch 5-bar Gate 910mm (3ft)'},
+  {id:'lg2',cat:'Larch Gates',name:'Larch 5-bar Gate 1220mm (4ft)'},
+  {id:'lg3',cat:'Larch Gates',name:'Larch 5-bar Gate 2743mm (9ft)'},
+  {id:'lg4',cat:'Larch Gates',name:'Larch 5-bar Gate 3048mm (10ft)'},
+  {id:'lg5',cat:'Larch Gates',name:'Larch 5-bar Gate 3657mm (12ft)'},
+  // Metal Field Gates
+  {id:'mg1',cat:'Metal Field Gates',name:'Metal Field Gate 9ft'},
+  {id:'mg2',cat:'Metal Field Gates',name:'Metal Field Gate 10ft'},
+  {id:'mg3',cat:'Metal Field Gates',name:'Metal Field Gate 12ft'},
+  {id:'mg4',cat:'Metal Field Gates',name:'Metal Field Gate 16ft'},
+];
 
-async function savePhoto(entryId, dataUrl) {
-  if (!dataUrl) return;
-  const db = await openPhotoDB();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE_NAME, 'readwrite');
-    tx.objectStore(STORE_NAME).put({ id: entryId, data: dataUrl });
-    tx.oncomplete = resolve;
-    tx.onerror = () => reject(tx.error);
-  });
-}
+// ── Core State ──
+let entries=JSON.parse(localStorage.getItem('rangerlog_entries')||'[]');
+let tasks=JSON.parse(localStorage.getItem('rangerlog_tasks')||'[]');
+let currentLat=null,currentLon=null,currentGridRef=null;
+let selectedCat='plant',selectedPriority='low';
+let photoData=null,formMode='entry';
+let activeFilters=new Set();
+let mapFilter='all';
+let pendingDeleteId=null,pendingDeleteType=null;
+let editingId=null;
+let taskFormMaterials=[];
+let matView='task';
 
-async function loadPhoto(entryId) {
-  try {
-    const db = await openPhotoDB();
-    return new Promise((resolve) => {
-      const tx = db.transaction(STORE_NAME, 'readonly');
-      const req = tx.objectStore(STORE_NAME).get(entryId);
-      req.onsuccess = () => resolve(req.result ? req.result.data : null);
-      req.onerror = () => resolve(null);
-    });
-  } catch(e) { return null; }
-}
-
-async function deletePhoto(entryId) {
-  try {
-    const db = await openPhotoDB();
-    return new Promise((resolve) => {
-      const tx = db.transaction(STORE_NAME, 'readwrite');
-      tx.objectStore(STORE_NAME).delete(entryId);
-      tx.oncomplete = resolve;
-      tx.onerror = resolve;
-    });
-  } catch(e) {}
-}
-
-// ── State ──
-let entries = JSON.parse(localStorage.getItem('rangerlog_entries') || '[]');
-let tasks = JSON.parse(localStorage.getItem('rangerlog_tasks') || '[]');
-let currentLat = null, currentLon = null, currentGridRef = null;
-let selectedCat = 'plant', selectedPriority = 'low';
-let photoData = null, formMode = 'entry';
-let activeFilters = new Set();
-let mapFilter = 'all';
-let pendingDeleteId = null, pendingDeleteType = null;
-let editingId = null;
-
-// ── PATHS STATE ──
-let managedPaths = JSON.parse(localStorage.getItem('rl_managed_paths') || '{}');
-let seasonSettings = JSON.parse(localStorage.getItem('rl_season') || JSON.stringify({
-  start: new Date().getFullYear() + '-03-01',
-  end: new Date().getFullYear() + '-10-31',
-  freq: 3,
-  schedule: 'Alexander cut end of March + 2 summer cuts'
-}));
-let geojsonData = null;
-let pathsLeaflet = null;
-let pathLayers = {};
-let pathsView = 'map';
-let pathsFilter = 'all';
-let pendingPathOsmId = null;
-let selectedFreq = 3;
-let selectedSeasonFreq = 3;
-let activeManagedPathId = null;
-
-// ── RECORDED PATHS STATE ──
-let recordedPaths = JSON.parse(localStorage.getItem('rl_recorded_paths') || '[]');
-
-// ── URL for the shared recorded paths JSON file on GitHub ──
-// UPDATE THIS to your actual GitHub raw URL once you've created the file
-const RECORDED_PATHS_URL = 'https://raw.githubusercontent.com/Charlienine9/rangerlog/main/recorded_paths.json';
-
-// ── GPS Recording state ──
-let isRecording = false;
-let recordedPoints = [];
-let recordingPolyline = null;
-let recordingWatchId = null;
-let recordingSeconds = 0;
-let recordingTimer = null;
-
-// ── GPS Lock state ──
-let gpsLockWatchId = null;
-let gpsLockCancelled = false;
+// ── Paths State ──
+let managedPaths=JSON.parse(localStorage.getItem('rl_managed_paths')||'{}');
+let seasonSettings=JSON.parse(localStorage.getItem('rl_season')||JSON.stringify({start:new Date().getFullYear()+'-03-01',end:new Date().getFullYear()+'-10-31',freq:3,schedule:'Alexander cut end of March + 2 summer cuts'}));
+let geojsonData=null,pathsLeaflet=null,pathLayers={};
+let pathsView='map',pathsFilter='all',pendingPathOsmId=null;
+let selectedFreq=3,selectedSeasonFreq=3,activeManagedPathId=null;
+let recordedPaths=JSON.parse(localStorage.getItem('rl_recorded_paths')||'[]');
+const RECORDED_PATHS_URL='https://raw.githubusercontent.com/Charlienine9/rangerlog/main/recorded_paths.json';
+let isRecording=false,recordedPoints=[],recordingPolyline=null;
+let recordingWatchId=null,recordingSeconds=0,recordingTimer=null;
+let gpsLockWatchId=null,gpsLockCancelled=false;
+let mapTapMode=false,mapIsFullscreen=false,panelOsmId=null,pipSelectedFreq=3;
 
 // ── Connectivity ──
-function updateOnline() {
-  const dot = document.getElementById('sync-dot'), label = document.getElementById('sync-label');
-  const queue = JSON.parse(localStorage.getItem('rangerlog_sync_queue') || '[]');
-  if (navigator.onLine) {
-    dot.classList.add('online');
-    label.textContent = queue.length > 0 ? 'Syncing...' : 'Online';
-  } else {
-    dot.classList.remove('online');
-    label.textContent = queue.length > 0 ? queue.length + ' queued' : 'Offline';
-  }
-}
-window.addEventListener('online', updateOnline);
-window.addEventListener('offline', updateOnline);
-updateOnline();
+function updateOnline(){const dot=document.getElementById('sync-dot'),label=document.getElementById('sync-label');const q=JSON.parse(localStorage.getItem('rangerlog_sync_queue')||'[]');if(navigator.onLine){dot.classList.add('online');label.textContent=q.length>0?'Syncing...':'Online';}else{dot.classList.remove('online');label.textContent=q.length>0?q.length+' queued':'Offline';}}
+window.addEventListener('online',updateOnline);window.addEventListener('offline',updateOnline);updateOnline();
 
 // ── Tabs ──
-function showTab(id, el) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  el.classList.add('active');
-  if (id === 'map') setTimeout(() => renderMap(), 100);
-  if (id === 'tasks') renderTasks();
-  if (id === 'team') renderNotices();
-  if (id === 'report') renderReport();
-  if (id === 'paths') initPathsTab();
-}
+function showTab(id,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');el.classList.add('active');if(id==='map')setTimeout(()=>renderMap(),100);if(id==='tasks')renderTasks();if(id==='team')renderNotices();if(id==='report')renderReport();if(id==='paths')initPathsTab();if(id==='materials')renderMaterialsTab();}
 
-// ── Category colours/labels ──
-const catEmoji = { plant:'🌿', tree:'🌳', fungi:'🍄', insect:'🦋', bird:'🦅', animal:'🦡', reptile:'🦎', amphibian:'🐸', hazard:'⚠️', invasive:'🚨', infra:'🪵', weather:'🌦' };
-const catLabel = { plant:'Plant', tree:'Tree', fungi:'Fungi', insect:'Insect', bird:'Bird', animal:'Animal', reptile:'Reptile', amphibian:'Amphibian', hazard:'Hazard', invasive:'Invasive', infra:'Infrastructure', weather:'Weather' };
-const catBg = { plant:'#edf7e8', tree:'#edf7e8', fungi:'#fdeede', insect:'#f0ebf8', bird:'#e8f4fd', animal:'#e8f4fd', reptile:'#e0f5f3', amphibian:'#e0f5f3', hazard:'#fef3dc', invasive:'#fdecea', infra:'#f5ede4', weather:'#e8f4fd' };
-const catFg = { plant:'#2d6a1f', tree:'#2d6a1f', fungi:'#d4600a', insect:'#7b5ea7', bird:'#2980b9', animal:'#2980b9', reptile:'#0f7c72', amphibian:'#0f7c72', hazard:'#e8a020', invasive:'#c0392b', infra:'#8B5E3C', weather:'#2980b9' };
-const catAccent = { plant:'#2d6a1f', tree:'#2d6a1f', fungi:'#d4600a', insect:'#7b5ea7', bird:'#2980b9', animal:'#2980b9', reptile:'#0f7c72', amphibian:'#0f7c72', hazard:'#e8a020', invasive:'#c0392b', infra:'#8B5E3C', weather:'#2980b9' };
+// ── Cat lookups ──
+const catEmoji={plant:'🌿',tree:'🌳',fungi:'🍄',insect:'🦋',bird:'🦅',animal:'🦡',reptile:'🦎',amphibian:'🐸',hazard:'⚠️',invasive:'🚨',infra:'🪵',weather:'🌦'};
+const catLabel={plant:'Plant',tree:'Tree',fungi:'Fungi',insect:'Insect',bird:'Bird',animal:'Animal',reptile:'Reptile',amphibian:'Amphibian',hazard:'Hazard',invasive:'Invasive',infra:'Infrastructure',weather:'Weather'};
+const catBg={plant:'#edf7e8',tree:'#edf7e8',fungi:'#fdeede',insect:'#f0ebf8',bird:'#e8f4fd',animal:'#e8f4fd',reptile:'#e0f5f3',amphibian:'#e0f5f3',hazard:'#fef3dc',invasive:'#fdecea',infra:'#f5ede4',weather:'#e8f4fd'};
+const catFg={plant:'#2d6a1f',tree:'#2d6a1f',fungi:'#d4600a',insect:'#7b5ea7',bird:'#2980b9',animal:'#2980b9',reptile:'#0f7c72',amphibian:'#0f7c72',hazard:'#e8a020',invasive:'#c0392b',infra:'#8B5E3C',weather:'#2980b9'};
+const catAccent={plant:'#2d6a1f',tree:'#2d6a1f',fungi:'#d4600a',insect:'#7b5ea7',bird:'#2980b9',animal:'#2980b9',reptile:'#0f7c72',amphibian:'#0f7c72',hazard:'#e8a020',invasive:'#c0392b',infra:'#8B5E3C',weather:'#2980b9'};
+
+const GEOJSON_URL='export.geojson';
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbycTkkmFM_3GQzPAmHcvlh_HVNX6AyvLT6cC6yEbrZn38nffpf8Yz6nRkk7dXjJlzTD/exec';
 
 // ══════════════════════════════════════════════════════
-// PATHS TAB LOGIC
+// MATERIALS — catalogue dropdown
 // ══════════════════════════════════════════════════════
-const GEOJSON_URL = 'export.geojson';
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbycTkkmFM_3GQzPAmHcvlh_HVNX6AyvLT6cC6yEbrZn38nffpf8Yz6nRkk7dXjJlzTD/exec';
-
-async function loadGeoJSON() {
-  if (geojsonData) return geojsonData;
-  try {
-    const r = await fetch(GEOJSON_URL);
-    geojsonData = await r.json();
-    return geojsonData;
-  } catch(e) { showToast('Could not load path data'); return null; }
+function populateMatSelect(selectId){
+  const sel=document.getElementById(selectId);if(!sel)return;
+  const cats=[...new Set(MATERIALS_CATALOGUE.map(m=>m.cat))];
+  let html='<option value="">— Select material —</option>';
+  cats.forEach(cat=>{html+=`<optgroup label="${cat}">`;MATERIALS_CATALOGUE.filter(m=>m.cat===cat).forEach(m=>{html+=`<option value="${m.id}">${m.name}</option>`;});html+='</optgroup>';});
+  sel.innerHTML=html;
 }
 
-function initPathsTab() {
-  renderSeasonDisplay();
-  renderPathsStats();
-  updateExportBtn();
-  if (pathsView === 'map') initPathsMap();
-  else renderChecklist();
+function addMatToTaskForm(){
+  const sel=document.getElementById('task-mat-select');
+  const qty=parseInt(document.getElementById('task-mat-qty').value)||1;
+  const matId=sel.value;if(!matId){showToast('Please select a material');return;}
+  const mat=MATERIALS_CATALOGUE.find(m=>m.id===matId);if(!mat)return;
+  const ex=taskFormMaterials.find(m=>m.matId===matId);
+  if(ex){ex.qty+=qty;}else{taskFormMaterials.push({matId,name:mat.name,cat:mat.cat,qty,ready:false});}
+  sel.value='';document.getElementById('task-mat-qty').value=1;
+  renderTaskFormMaterials();
 }
 
-function updateExportBtn() {
-  // Show the export button only if we have locally recorded paths
-  document.getElementById('export-paths-wrap').style.display =
-    recordedPaths.length > 0 ? 'block' : 'none';
+function removeMatFromTaskForm(matId){
+  taskFormMaterials=taskFormMaterials.filter(m=>m.matId!==matId);renderTaskFormMaterials();
 }
 
-function switchPathsView(v) {
-  pathsView = v;
-  document.getElementById('pvb-map').classList.toggle('active', v === 'map');
-  document.getElementById('pvb-list').classList.toggle('active', v === 'list');
-  document.getElementById('paths-map-view').style.display = v === 'map' ? 'block' : 'none';
-  document.getElementById('paths-list-view').style.display = v === 'list' ? 'block' : 'none';
-  if (v === 'map') initPathsMap();
-  else renderChecklist();
-}
-
-let mapTapMode = false;
-let mapIsFullscreen = false;
-let panelOsmId = null;
-
-function setMapMode(mode) {
-  mapTapMode = (mode === 'tap');
-  const wrap = document.getElementById('paths-map-wrap');
-  const shield = document.getElementById('map-tap-shield');
-  const hint = document.getElementById('paths-map-hint');
-  document.getElementById('mmb-scroll').classList.toggle('active', !mapTapMode);
-  document.getElementById('mmb-tap').classList.toggle('active', mapTapMode);
-  if (mapTapMode) {
-    wrap.classList.add('tap-mode'); shield.classList.remove('visible');
-    hint.textContent = '👆 Tap any path on the map to manage it';
-  } else {
-    wrap.classList.remove('tap-mode'); shield.classList.add('visible');
-    hint.textContent = 'Switch to "Tap paths" mode to select a path';
-  }
-}
-
-function toggleMapFullscreen() {
-  const wrap = document.getElementById('paths-map-wrap');
-  mapIsFullscreen = !mapIsFullscreen;
-  wrap.classList.toggle('fullscreen', mapIsFullscreen);
-  const btn = wrap.querySelector('.map-fullscreen-btn');
-  btn.textContent = mapIsFullscreen ? '✕' : '⛶';
-  btn.title = mapIsFullscreen ? 'Exit fullscreen' : 'Fullscreen';
-  if (pathsLeaflet) setTimeout(() => pathsLeaflet.invalidateSize(), 100);
+function renderTaskFormMaterials(){
+  const list=document.getElementById('task-form-mat-list');if(!list)return;
+  if(!taskFormMaterials.length){list.innerHTML='<div style="font-size:12px;color:var(--text-light);padding:6px 0;font-style:italic">No materials added yet</div>';return;}
+  list.innerHTML=taskFormMaterials.map(m=>`<div class="task-mat-item"><div class="task-mat-name">${m.name}</div><div class="task-mat-qty">× ${m.qty}</div><button class="task-mat-remove" onclick="removeMatFromTaskForm('${m.matId}')">✕</button></div>`).join('');
 }
 
 // ══════════════════════════════════════════════════════
-// GPS LOCK — waits for accuracy before recording starts
+// MATERIALS TAB
 // ══════════════════════════════════════════════════════
-function toggleRecording() {
-  if (isRecording) {
-    stopRecording();
-  } else {
-    beginGpsLock();
-  }
+function switchMatView(v){
+  matView=v;
+  document.getElementById('mvb-task').classList.toggle('active',v==='task');
+  document.getElementById('mvb-type').classList.toggle('active',v==='type');
+  document.getElementById('mat-by-task-view').style.display=v==='task'?'block':'none';
+  document.getElementById('mat-by-type-view').style.display=v==='type'?'block':'none';
+  renderMaterialsTab();
 }
 
-function beginGpsLock() {
-  if (!navigator.geolocation) { showToast('GPS not available on this device'); return; }
-  gpsLockCancelled = false;
+function renderMaterialsTab(){
+  let totalNeeded=0,totalReady=0;
+  tasks.forEach(t=>{if(t.materials)t.materials.forEach(m=>{if(m.ready)totalReady++;else totalNeeded++;});});
+  const tasksWithMats=tasks.filter(t=>t.materials&&t.materials.length>0).length;
+  document.getElementById('ms-tasks').textContent=tasksWithMats;
+  document.getElementById('ms-needed').textContent=totalNeeded;
+  document.getElementById('ms-ready').textContent=totalReady;
+  if(matView==='task')renderMatByTask();else renderMatByType();
+}
 
-  // Show the GPS lock overlay
+function renderMatByTask(){
+  const list=document.getElementById('mat-task-list');
+  const tasksWithMats=tasks.filter(t=>t.materials&&t.materials.length>0);
+  if(!tasksWithMats.length){list.innerHTML='<div class="empty-state"><div class="empty-icon">🪵</div><div class="empty-title">No materials lists yet</div><div class="empty-sub">Open a task and add materials to it — they\'ll appear here.</div></div>';return;}
+  list.innerHTML=tasksWithMats.map(t=>{
+    const needed=t.materials.filter(m=>!m.ready).length;
+    const safeId=String(t.id);
+    const badge=needed>0?`<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:var(--red-pale);color:var(--red)">${needed} needed</span>`:`<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:var(--green-pale);color:var(--green-mid)">All ready ✓</span>`;
+    const rows=t.materials.map((m,idx)=>`<div class="mat-item-row"><div class="mat-item-status-btn ${m.ready?'ready':''}" onclick="toggleMatReady(${t.id},${idx})">${m.ready?'✅':'🔴'}</div><div class="mat-item-name ${m.ready?'ready':''}">${m.name}</div><div class="mat-item-qty">× ${m.qty}</div><button class="mat-item-del" onclick="deleteTaskMat(${t.id},${idx})">✕</button></div>`).join('');
+    return `<div class="mat-task-card">
+      <div class="mat-task-header" onclick="toggleMatBody('mtb-${safeId}','mtc-${safeId}')">
+        <div><div class="mat-task-title">🪵 ${t.name}</div><div class="mat-task-meta">${t.location||'No location'} · ${t.done?'Completed':'Active'}</div></div>
+        <div style="display:flex;align-items:center;gap:6px">${badge}<div class="mat-task-chevron" id="mtc-${safeId}">▼</div></div>
+      </div>
+      <div class="mat-task-body" id="mtb-${safeId}">
+        ${rows}
+        <div class="mat-add-row"><select class="mat-add-select" id="mat-sel-${safeId}"></select><input type="number" class="mat-add-qty" id="mat-qty-${safeId}" value="1" min="1"><button class="mat-add-btn" onclick="addMatToTask(${t.id})">+ Add</button></div>
+      </div>
+    </div>`;
+  }).join('');
+  tasksWithMats.forEach(t=>populateMatSelect('mat-sel-'+String(t.id)));
+}
+
+function renderMatByType(){
+  const list=document.getElementById('mat-type-list');
+  const all=[];
+  tasks.forEach(t=>{if(t.materials&&t.materials.length)t.materials.forEach(m=>all.push({...m,taskName:t.name,taskDone:t.done}));});
+  if(!all.length){list.innerHTML='<div class="empty-state"><div class="empty-icon">🗂</div><div class="empty-title">No materials yet</div><div class="empty-sub">Materials added to tasks will appear here grouped by type.</div></div>';return;}
+  const cats=[...new Set(all.map(m=>m.cat).filter(Boolean))];
+  list.innerHTML=cats.map(cat=>{
+    const items=all.filter(m=>m.cat===cat);
+    return `<div class="mat-by-type-group"><div class="mat-type-header"><div class="mat-type-title">${cat}</div><div class="mat-type-count">${items.length} item${items.length!==1?'s':''}</div></div>${items.map(m=>`<div class="mat-overview-row"><div style="flex:1"><div class="mat-overview-name">${m.name}</div><div class="mat-overview-task">📋 ${m.taskName}${m.taskDone?' (completed)':''}</div></div><div class="mat-overview-qty">× ${m.qty}</div><div class="mat-overview-status ${m.ready?'ready':'needed'}">${m.ready?'✅ Ready':'🔴 Needed'}</div></div>`).join('')}</div>`;
+  }).join('');
+}
+
+function toggleMatBody(bodyId,chevId){const b=document.getElementById(bodyId),c=document.getElementById(chevId);if(!b)return;const open=b.classList.toggle('open');if(c)c.classList.toggle('open',open);}
+
+function toggleMatReady(taskId,idx){
+  const t=tasks.find(t=>t.id===taskId);if(!t||!t.materials||!t.materials[idx])return;
+  t.materials[idx].ready=!t.materials[idx].ready;
+  localStorage.setItem('rangerlog_tasks',JSON.stringify(tasks));
+  renderMaterialsTab();renderTasks();
+  showToast(t.materials[idx].ready?'Marked ready ✅':'Marked still needed 🔴');
+}
+
+function deleteTaskMat(taskId,idx){
+  const t=tasks.find(t=>t.id===taskId);if(!t||!t.materials)return;
+  t.materials.splice(idx,1);
+  localStorage.setItem('rangerlog_tasks',JSON.stringify(tasks));
+  renderMaterialsTab();showToast('Material removed');
+}
+
+function addMatToTask(taskId){
+  const sel=document.getElementById('mat-sel-'+taskId);
+  const qtyEl=document.getElementById('mat-qty-'+taskId);
+  if(!sel||!qtyEl)return;
+  const matId=sel.value;const qty=parseInt(qtyEl.value)||1;
+  if(!matId){showToast('Please select a material');return;}
+  const mat=MATERIALS_CATALOGUE.find(m=>m.id===matId);if(!mat)return;
+  const t=tasks.find(t=>t.id===taskId);if(!t)return;
+  t.materials=t.materials||[];
+  const ex=t.materials.find(m=>m.matId===matId);
+  if(ex){ex.qty+=qty;}else{t.materials.push({matId,name:mat.name,cat:mat.cat,qty,ready:false});}
+  localStorage.setItem('rangerlog_tasks',JSON.stringify(tasks));
+  sel.value='';qtyEl.value=1;renderMaterialsTab();showToast('Material added ✓');
+}
+
+// ══════════════════════════════════════════════════════
+// PATHS
+// ══════════════════════════════════════════════════════
+async function loadGeoJSON(){if(geojsonData)return geojsonData;try{const r=await fetch(GEOJSON_URL);geojsonData=await r.json();return geojsonData;}catch(e){showToast('Could not load path data');return null;}}
+function initPathsTab(){renderSeasonDisplay();renderPathsStats();updateExportBtn();if(pathsView==='map')initPathsMap();else renderChecklist();}
+function updateExportBtn(){document.getElementById('export-paths-wrap').style.display=recordedPaths.length>0?'block':'none';}
+function switchPathsView(v){pathsView=v;document.getElementById('pvb-map').classList.toggle('active',v==='map');document.getElementById('pvb-list').classList.toggle('active',v==='list');document.getElementById('paths-map-view').style.display=v==='map'?'block':'none';document.getElementById('paths-list-view').style.display=v==='list'?'block':'none';if(v==='map')initPathsMap();else renderChecklist();}
+function setMapMode(mode){mapTapMode=(mode==='tap');const wrap=document.getElementById('paths-map-wrap'),shield=document.getElementById('map-tap-shield'),hint=document.getElementById('paths-map-hint');document.getElementById('mmb-scroll').classList.toggle('active',!mapTapMode);document.getElementById('mmb-tap').classList.toggle('active',mapTapMode);if(mapTapMode){wrap.classList.add('tap-mode');shield.classList.remove('visible');hint.textContent='👆 Tap any path on the map to manage it';}else{wrap.classList.remove('tap-mode');shield.classList.add('visible');hint.textContent='Switch to "Tap paths" mode to select a path';}}
+function toggleMapFullscreen(){const wrap=document.getElementById('paths-map-wrap');mapIsFullscreen=!mapIsFullscreen;wrap.classList.toggle('fullscreen',mapIsFullscreen);const btn=wrap.querySelector('.map-fullscreen-btn');btn.textContent=mapIsFullscreen?'✕':'⛶';if(pathsLeaflet)setTimeout(()=>pathsLeaflet.invalidateSize(),100);}
+function toggleRecording(){if(isRecording)stopRecording();else beginGpsLock();}
+
+function beginGpsLock(){
+  if(!navigator.geolocation){showToast('GPS not available on this device');return;}
+  gpsLockCancelled=false;
   document.getElementById('gps-lock-overlay').classList.add('open');
-  document.getElementById('gps-lock-accuracy').textContent = 'Waiting for signal…';
-  document.getElementById('gps-lock-bar').style.width = '0%';
-
-  // Update the record button to show locking state
-  const btn = document.getElementById('record-btn');
-  btn.textContent = '📡 Getting GPS lock…';
-  btn.classList.add('locking');
-
-  const GPS_ACCURACY_TARGET = 20; // metres — good enough to start
-  const GPS_MIN_READINGS = 3;     // need at least 3 consistent readings
-  let readingCount = 0;
-
-  gpsLockWatchId = navigator.geolocation.watchPosition(
-    (pos) => {
-      if (gpsLockCancelled) return;
-      const accuracy = Math.round(pos.coords.accuracy);
-      readingCount++;
-
-      // Update the overlay with current accuracy
-      document.getElementById('gps-lock-accuracy').textContent =
-        `Accuracy: ±${accuracy}m · Reading ${readingCount}`;
-
-      // Progress bar — shows how close we are to target accuracy
-      // Cap at 100%, show proportional progress
-      const progress = Math.min(100, Math.round((GPS_ACCURACY_TARGET / Math.max(accuracy, GPS_ACCURACY_TARGET)) * 100 * (readingCount / GPS_MIN_READINGS)));
-      document.getElementById('gps-lock-bar').style.width = progress + '%';
-
-      // Once accuracy is good enough AND we have enough readings, start recording
-      if (accuracy <= GPS_ACCURACY_TARGET && readingCount >= GPS_MIN_READINGS) {
-        navigator.geolocation.clearWatch(gpsLockWatchId);
-        gpsLockWatchId = null;
-        document.getElementById('gps-lock-overlay').classList.remove('open');
-        startRecording();
-      }
-    },
-    (err) => {
-      if (gpsLockCancelled) return;
-      document.getElementById('gps-lock-accuracy').textContent = 'GPS error — check location is enabled';
-      console.error('GPS lock error:', err);
-    },
-    { enableHighAccuracy: true, maximumAge: 0, timeout: 15000 }
-  );
+  document.getElementById('gps-lock-accuracy').textContent='Waiting for signal…';
+  document.getElementById('gps-lock-bar').style.width='0%';
+  const btn=document.getElementById('record-btn');btn.textContent='📡 Getting GPS lock…';btn.classList.add('locking');
+  const TARGET=20,MIN_R=3;let count=0;
+  gpsLockWatchId=navigator.geolocation.watchPosition(pos=>{
+    if(gpsLockCancelled)return;
+    const acc=Math.round(pos.coords.accuracy);count++;
+    document.getElementById('gps-lock-accuracy').textContent=`Accuracy: ±${acc}m · Reading ${count}`;
+    document.getElementById('gps-lock-bar').style.width=Math.min(100,Math.round((TARGET/Math.max(acc,TARGET))*100*(count/MIN_R)))+'%';
+    if(acc<=TARGET&&count>=MIN_R){navigator.geolocation.clearWatch(gpsLockWatchId);gpsLockWatchId=null;document.getElementById('gps-lock-overlay').classList.remove('open');startRecording();}
+  },err=>{if(gpsLockCancelled)return;document.getElementById('gps-lock-accuracy').textContent='GPS error — check location is enabled';},{enableHighAccuracy:true,maximumAge:0,timeout:15000});
 }
 
-function cancelGpsLock() {
-  gpsLockCancelled = true;
-  if (gpsLockWatchId !== null) {
-    navigator.geolocation.clearWatch(gpsLockWatchId);
-    gpsLockWatchId = null;
-  }
-  document.getElementById('gps-lock-overlay').classList.remove('open');
-  const btn = document.getElementById('record-btn');
-  btn.textContent = '🎙 Record a new path';
-  btn.classList.remove('locking');
-  document.getElementById('record-status').textContent = '';
-}
+function cancelGpsLock(){gpsLockCancelled=true;if(gpsLockWatchId!==null){navigator.geolocation.clearWatch(gpsLockWatchId);gpsLockWatchId=null;}document.getElementById('gps-lock-overlay').classList.remove('open');const btn=document.getElementById('record-btn');btn.textContent='🎙 Record a new path';btn.classList.remove('locking');document.getElementById('record-status').textContent='';}
 
-// ══════════════════════════════════════════════════════
-// GPS PATH RECORDING — starts after lock is confirmed
-// ══════════════════════════════════════════════════════
-function startRecording() {
-  if (pathsView !== 'map') switchPathsView('map');
-  isRecording = true;
-  recordedPoints = [];
-  recordingSeconds = 0;
-
-  const btn = document.getElementById('record-btn');
-  btn.textContent = '⏹ Stop recording';
-  btn.classList.remove('locking');
-  btn.classList.add('recording');
+function startRecording(){
+  if(pathsView!=='map')switchPathsView('map');
+  isRecording=true;recordedPoints=[];recordingSeconds=0;
+  const btn=document.getElementById('record-btn');btn.textContent='⏹ Stop recording';btn.classList.remove('locking');btn.classList.add('recording');
   updateRecordStatus();
-
-  recordingTimer = setInterval(() => { recordingSeconds++; updateRecordStatus(); }, 1000);
-
-  if (pathsLeaflet) {
-    if (recordingPolyline) { pathsLeaflet.removeLayer(recordingPolyline); }
-    recordingPolyline = L.polyline([], { color: '#2980b9', weight: 5, opacity: 0.9, dashArray: '8,6' }).addTo(pathsLeaflet);
-  }
-
-  recordingWatchId = navigator.geolocation.watchPosition(
-    (pos) => {
-      const latlng = [pos.coords.latitude, pos.coords.longitude];
-      recordedPoints.push(latlng);
-      if (recordingPolyline) recordingPolyline.setLatLngs(recordedPoints);
-      if (recordedPoints.length <= 3 && pathsLeaflet) pathsLeaflet.panTo(latlng);
-    },
-    (err) => { showToast('GPS error — make sure location is enabled'); console.error('GPS watch error:', err); },
-    { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 }
-  );
-
+  recordingTimer=setInterval(()=>{recordingSeconds++;updateRecordStatus();},1000);
+  if(pathsLeaflet){if(recordingPolyline)pathsLeaflet.removeLayer(recordingPolyline);recordingPolyline=L.polyline([],{color:'#2980b9',weight:5,opacity:0.9,dashArray:'8,6'}).addTo(pathsLeaflet);}
+  recordingWatchId=navigator.geolocation.watchPosition(pos=>{const ll=[pos.coords.latitude,pos.coords.longitude];recordedPoints.push(ll);if(recordingPolyline)recordingPolyline.setLatLngs(recordedPoints);if(recordedPoints.length<=3&&pathsLeaflet)pathsLeaflet.panTo(ll);},err=>{showToast('GPS error — make sure location is enabled');},{enableHighAccuracy:true,maximumAge:5000,timeout:15000});
   showToast('GPS locked — recording started! 🚶');
 }
 
-function stopRecording() {
-  isRecording = false;
-  if (recordingWatchId !== null) { navigator.geolocation.clearWatch(recordingWatchId); recordingWatchId = null; }
-  if (recordingTimer) { clearInterval(recordingTimer); recordingTimer = null; }
-
-  const btn = document.getElementById('record-btn');
-  btn.textContent = '🎙 Record a new path';
-  btn.classList.remove('recording');
-  document.getElementById('record-status').textContent = '';
-  document.getElementById('record-status').classList.remove('active');
-
-  if (recordedPoints.length < 2) {
-    showToast('Not enough GPS points recorded');
-    if (recordingPolyline && pathsLeaflet) { pathsLeaflet.removeLayer(recordingPolyline); recordingPolyline = null; }
-    return;
-  }
-
-  const mins = Math.floor(recordingSeconds / 60);
-  const secs = recordingSeconds % 60;
-  document.getElementById('record-save-info').textContent =
-    `Recorded ${recordedPoints.length} GPS points over ${mins > 0 ? mins + 'm ' : ''}${secs}s`;
-  document.getElementById('record-name-input').value = '';
-  document.getElementById('record-opt-manage-cb').checked = true;
-  document.getElementById('record-opt-entry-cb').checked = false;
+function stopRecording(){
+  isRecording=false;
+  if(recordingWatchId!==null){navigator.geolocation.clearWatch(recordingWatchId);recordingWatchId=null;}
+  if(recordingTimer){clearInterval(recordingTimer);recordingTimer=null;}
+  const btn=document.getElementById('record-btn');btn.textContent='🎙 Record a new path';btn.classList.remove('recording');
+  document.getElementById('record-status').textContent='';document.getElementById('record-status').classList.remove('active');
+  if(recordedPoints.length<2){showToast('Not enough GPS points recorded');if(recordingPolyline&&pathsLeaflet){pathsLeaflet.removeLayer(recordingPolyline);recordingPolyline=null;}return;}
+  const m=Math.floor(recordingSeconds/60),s=recordingSeconds%60;
+  document.getElementById('record-save-info').textContent=`Recorded ${recordedPoints.length} GPS points over ${m>0?m+'m ':''}${s}s`;
+  document.getElementById('record-name-input').value='';document.getElementById('record-opt-manage-cb').checked=true;document.getElementById('record-opt-entry-cb').checked=false;
   document.getElementById('record-save-overlay').classList.add('open');
 }
 
-function updateRecordStatus() {
-  const el = document.getElementById('record-status');
-  const mins = Math.floor(recordingSeconds / 60);
-  const secs = recordingSeconds % 60;
-  const timeStr = (mins > 0 ? mins + 'm ' : '') + secs + 's';
-  el.textContent = `🔴 Recording… ${recordedPoints.length} points · ${timeStr}`;
-  el.classList.add('active');
+function updateRecordStatus(){const el=document.getElementById('record-status');const m=Math.floor(recordingSeconds/60),s=recordingSeconds%60;el.textContent=`🔴 Recording… ${recordedPoints.length} points · ${(m>0?m+'m ':'')+s+'s'}`;el.classList.add('active');}
+
+function saveRecordedPath(){
+  const name=document.getElementById('record-name-input').value.trim();if(!name){showToast('Please give this path a name');return;}
+  const doManage=document.getElementById('record-opt-manage-cb').checked;
+  const doEntry=document.getElementById('record-opt-entry-cb').checked;
+  const pathId='rec_'+Date.now();
+  const rec={id:pathId,name,points:recordedPoints,recorded:new Date().toISOString()};
+  recordedPaths.push(rec);localStorage.setItem('rl_recorded_paths',JSON.stringify(recordedPaths));
+  if(doManage){managedPaths[pathId]={name,freq:seasonSettings.freq||3,schedule:seasonSettings.schedule,notes:'Recorded path',cuts:[],isRecorded:true};saveManagedPaths();renderRecordedPathOnMap(rec);renderPathsStats();renderChecklist();}
+  document.getElementById('record-save-overlay').classList.remove('open');updateExportBtn();showSuccess('Path saved! ✓',name);
+  if(recordingPolyline&&pathsLeaflet){pathsLeaflet.removeLayer(recordingPolyline);recordingPolyline=null;}
+  if(doEntry)setTimeout(()=>openForm('entry'),1200);
 }
 
-function saveRecordedPath() {
-  const name = document.getElementById('record-name-input').value.trim();
-  if (!name) { showToast('Please give this path a name'); return; }
-  const doManage = document.getElementById('record-opt-manage-cb').checked;
-  const doEntry = document.getElementById('record-opt-entry-cb').checked;
-  const pathId = 'rec_' + Date.now();
-  const pathRecord = { id: pathId, name, points: recordedPoints, recorded: new Date().toISOString() };
+function discardRecordedPath(){document.getElementById('record-save-overlay').classList.remove('open');if(recordingPolyline&&pathsLeaflet){pathsLeaflet.removeLayer(recordingPolyline);recordingPolyline=null;}recordedPoints=[];showToast('Recording discarded');}
 
-  recordedPaths.push(pathRecord);
-  localStorage.setItem('rl_recorded_paths', JSON.stringify(recordedPaths));
+function exportRecordedPaths(){if(!recordedPaths.length){showToast('No recorded paths to export yet');return;}const b=new Blob([JSON.stringify(recordedPaths,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='recorded_paths.json';a.click();URL.revokeObjectURL(u);showToast('recorded_paths.json downloaded ✓');}
 
-  if (doManage) {
-    managedPaths[pathId] = { name, freq: seasonSettings.freq || 3, schedule: seasonSettings.schedule, notes: 'Recorded path', cuts: [], isRecorded: true };
-    saveManagedPaths();
-    renderRecordedPathOnMap(pathRecord);
-    renderPathsStats(); renderChecklist();
-  }
+async function loadRemoteRecordedPaths(){if(!navigator.onLine)return;try{const r=await fetch(RECORDED_PATHS_URL+'?t='+Date.now());if(!r.ok)return;const rp=await r.json();if(!Array.isArray(rp)||!rp.length)return;const local=new Set(recordedPaths.map(p=>p.id));let added=0;rp.forEach(p=>{if(!local.has(p.id)){recordedPaths.push(p);added++;}});if(added>0){localStorage.setItem('rl_recorded_paths',JSON.stringify(recordedPaths));if(pathsLeaflet)rp.forEach(p=>{if(!local.has(p.id))renderRecordedPathOnMap(p);});showToast(added+' new shared path'+(added>1?'s':'')+' loaded from GitHub ✓');}updateExportBtn();}catch(e){console.log('No remote recorded paths file found');}}
 
-  document.getElementById('record-save-overlay').classList.remove('open');
-  updateExportBtn(); // show the export button now we have a recorded path
-  showSuccess('Path saved! ✓', name);
-  if (recordingPolyline && pathsLeaflet) { pathsLeaflet.removeLayer(recordingPolyline); recordingPolyline = null; }
-  if (doEntry) { setTimeout(() => openForm('entry'), 1200); }
-}
+function renderRecordedPathOnMap(pr){if(!pathsLeaflet)return;const mp=managedPaths[pr.id];const status=mp?getPathStatus(mp):'unmanaged';const colour=pathColour(status);const vis=L.polyline(pr.points,{color:colour,weight:mp?5:3,opacity:mp?0.9:0.6});const hit=L.polyline(pr.points,{color:'transparent',weight:22,opacity:0.001});const h=e=>{if(!mapTapMode){showToast('Switch to "Tap paths" mode first 👆');return;}L.DomEvent.stopPropagation(e);onRecordedPathClick(pr.id,vis);};hit.on('click',h);hit.on('touchend',h);vis.on('click',h);vis.on('touchend',h);vis.addTo(pathsLeaflet);hit.addTo(pathsLeaflet);pathLayers[pr.id]=vis;}
 
-function discardRecordedPath() {
-  document.getElementById('record-save-overlay').classList.remove('open');
-  if (recordingPolyline && pathsLeaflet) { pathsLeaflet.removeLayer(recordingPolyline); recordingPolyline = null; }
-  recordedPoints = [];
-  showToast('Recording discarded');
-}
+function onRecordedPathClick(pathId,layer){panelOsmId=pathId;const mp=managedPaths[pathId];document.getElementById('pip-title').textContent=mp?mp.name:'➕ Recorded path';if(!mp){document.getElementById('pip-sub').textContent='Give this recorded path a name to start managing it.';document.getElementById('pip-name-form').style.display='block';document.getElementById('pip-managed-info').style.display='none';document.getElementById('pip-name-input').value='';setTimeout(()=>document.getElementById('pip-name-input').focus(),350);}else{showManagedPanel(mp);}layer.setStyle({weight:8,opacity:1});openPathPanel();}
 
-// ══════════════════════════════════════════════════════
-// EXPORT RECORDED PATHS — download as JSON file
-// All locally recorded paths are bundled into one file.
-// Upload this to GitHub to share with the whole team.
-// ══════════════════════════════════════════════════════
-function exportRecordedPaths() {
-  if (!recordedPaths.length) { showToast('No recorded paths to export yet'); return; }
-  const json = JSON.stringify(recordedPaths, null, 2);
-  const blob = new Blob([json], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'recorded_paths.json';
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('recorded_paths.json downloaded ✓ — upload to GitHub to share with the team');
-}
+function loadRecordedPathsOnMap(){recordedPaths.forEach(rp=>renderRecordedPathOnMap(rp));}
 
-// ══════════════════════════════════════════════════════
-// LOAD REMOTE RECORDED PATHS — fetch from GitHub on startup
-// Draws any paths from the shared JSON file on the map.
-// Only runs if the file exists and we are online.
-// ══════════════════════════════════════════════════════
-async function loadRemoteRecordedPaths() {
-  if (!navigator.onLine) return;
-  try {
-    const r = await fetch(RECORDED_PATHS_URL + '?t=' + Date.now()); // cache-bust
-    if (!r.ok) return; // file doesn't exist yet — that's fine
-    const remotePaths = await r.json();
-    if (!Array.isArray(remotePaths) || remotePaths.length === 0) return;
-
-    // Merge: add any remote paths not already stored locally
-    const localIds = new Set(recordedPaths.map(p => p.id));
-    let added = 0;
-    remotePaths.forEach(rp => {
-      if (!localIds.has(rp.id)) {
-        recordedPaths.push(rp);
-        added++;
-      }
-    });
-
-    if (added > 0) {
-      localStorage.setItem('rl_recorded_paths', JSON.stringify(recordedPaths));
-      // Draw new paths on the map if it's already initialised
-      if (pathsLeaflet) {
-        remotePaths.forEach(rp => {
-          if (!localIds.has(rp.id)) renderRecordedPathOnMap(rp);
-        });
-      }
-      showToast(added + ' new shared path' + (added > 1 ? 's' : '') + ' loaded from GitHub ✓');
-    }
-    updateExportBtn();
-  } catch(e) {
-    // File probably doesn't exist yet — silent fail is correct here
-    console.log('No remote recorded paths file found (this is normal if not yet created)');
-  }
-}
-
-function renderRecordedPathOnMap(pathRecord) {
-  if (!pathsLeaflet) return;
-  const mp = managedPaths[pathRecord.id];
-  const status = mp ? getPathStatus(mp) : 'unmanaged';
-  const colour = pathColour(status);
-  const visLayer = L.polyline(pathRecord.points, { color: colour, weight: mp ? 5 : 3, opacity: mp ? 0.9 : 0.6 });
-  const hitLayer = L.polyline(pathRecord.points, { color: 'transparent', weight: 22, opacity: 0.001 });
-  const handleTap = (e) => {
-    if (!mapTapMode) { showToast('Switch to "Tap paths" mode first 👆'); return; }
-    L.DomEvent.stopPropagation(e);
-    onRecordedPathClick(pathRecord.id, visLayer);
-  };
-  hitLayer.on('click', handleTap); hitLayer.on('touchend', handleTap);
-  visLayer.on('click', handleTap); visLayer.on('touchend', handleTap);
-  visLayer.addTo(pathsLeaflet); hitLayer.addTo(pathsLeaflet);
-  pathLayers[pathRecord.id] = visLayer;
-}
-
-function onRecordedPathClick(pathId, layer) {
-  panelOsmId = pathId;
-  const managed = managedPaths[pathId];
-  document.getElementById('pip-title').textContent = managed ? managed.name : '➕ Recorded path';
-  if (!managed) {
-    document.getElementById('pip-sub').textContent = 'Give this recorded path a name to start managing it.';
-    document.getElementById('pip-name-form').style.display = 'block';
-    document.getElementById('pip-managed-info').style.display = 'none';
-    document.getElementById('pip-name-input').value = '';
-    setTimeout(() => document.getElementById('pip-name-input').focus(), 350);
-  } else {
-    const status = getPathStatus(managed);
-    let sub = managed.freq + '× per year';
-    const nextDue = getNextDueDate(managed);
-    if (nextDue) sub += ' · Next due: ' + nextDue.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
-    if (status === 'overdue') sub += ' 🔴 Overdue';
-    else if (status === 'due-soon') sub += ' 🟡 Due soon';
-    else sub += ' 🟢 OK';
-    document.getElementById('pip-sub').textContent = sub;
-    document.getElementById('pip-name-form').style.display = 'none';
-    document.getElementById('pip-managed-info').style.display = 'block';
-    let cutsHtml = '';
-    if (managed.cuts && managed.cuts.length) {
-      const recent = managed.cuts.slice().reverse().slice(0, 3);
-      cutsHtml = '<div style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;margin-top:12px">Recent cuts</div>';
-      cutsHtml += recent.map(c => `<div class="path-cut-row"><div><div class="path-cut-date">✂️ ${new Date(c.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div><div class="path-cut-by">by ${c.by}${c.notes?' — '+c.notes:''}</div></div></div>`).join('');
-    }
-    document.getElementById('pip-cuts').innerHTML = cutsHtml;
-    document.getElementById('pip-btn-row').innerHTML = `
-      <div class="panel-btn" onclick="pipEdit()">✏️ Edit</div>
-      <div class="panel-btn primary" onclick="pipLogCut()">✂️ Log cut</div>
-      <div class="panel-btn danger" onclick="pipUnmanage()">🗑</div>`;
-  }
-  layer.setStyle({ weight: 8, opacity: 1 });
-  openPathPanel();
-}
-
-function loadRecordedPathsOnMap() {
-  recordedPaths.forEach(rp => renderRecordedPathOnMap(rp));
-}
-
-async function initPathsMap() {
-  const data = await loadGeoJSON();
-  if (!data) return;
-  if (!pathsLeaflet) {
-    pathsLeaflet = L.map('paths-leaflet', { center: [50.4605, -3.5255], zoom: 13, zoomControl: true, tap: true, tapTolerance: 15 });
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 19 }).addTo(pathsLeaflet);
-  }
-  Object.values(pathLayers).forEach(l => l.remove());
-  pathLayers = {};
-  data.features.forEach(feature => {
-    const osmId = feature.id || feature.properties['@id'];
-    const managed = managedPaths[osmId];
-    const status = managed ? getPathStatus(managed) : 'unmanaged';
-    const colour = pathColour(status);
-    const visLayer = L.geoJSON(feature, { style: { color: colour, weight: managed ? 5 : 3, opacity: managed ? 0.9 : 0.6 } });
-    const hitLayer = L.geoJSON(feature, { style: { color: 'transparent', weight: 22, opacity: 0.001 } });
-    const handleTap = (e) => {
-      if (!mapTapMode) { showToast('Switch to "Tap paths" mode first 👆'); return; }
-      L.DomEvent.stopPropagation(e);
-      onPathClick(osmId, feature, visLayer);
-    };
-    hitLayer.on('click', handleTap); hitLayer.on('touchend', handleTap);
-    visLayer.on('click', handleTap); visLayer.on('touchend', handleTap);
-    visLayer.addTo(pathsLeaflet); hitLayer.addTo(pathsLeaflet);
-    pathLayers[osmId] = visLayer;
+async function initPathsMap(){
+  const data=await loadGeoJSON();if(!data)return;
+  if(!pathsLeaflet){pathsLeaflet=L.map('paths-leaflet',{center:[50.4605,-3.5255],zoom:13,zoomControl:true,tap:true,tapTolerance:15});L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(pathsLeaflet);}
+  Object.values(pathLayers).forEach(l=>l.remove());pathLayers={};
+  data.features.forEach(f=>{
+    const osmId=f.id||f.properties['@id'];const mp=managedPaths[osmId];const status=mp?getPathStatus(mp):'unmanaged';
+    const vis=L.geoJSON(f,{style:{color:pathColour(status),weight:mp?5:3,opacity:mp?0.9:0.6}});
+    const hit=L.geoJSON(f,{style:{color:'transparent',weight:22,opacity:0.001}});
+    const h=e=>{if(!mapTapMode){showToast('Switch to "Tap paths" mode first 👆');return;}L.DomEvent.stopPropagation(e);onPathClick(osmId,f,vis);};
+    hit.on('click',h);hit.on('touchend',h);vis.on('click',h);vis.on('touchend',h);vis.addTo(pathsLeaflet);hit.addTo(pathsLeaflet);pathLayers[osmId]=vis;
   });
   loadRecordedPathsOnMap();
 }
 
-let pipSelectedFreq = 3;
+function showManagedPanel(mp){const status=getPathStatus(mp);let sub=mp.freq+'× per year';const nd=getNextDueDate(mp);if(nd)sub+=' · Next due: '+nd.toLocaleDateString('en-GB',{day:'numeric',month:'short'});sub+=status==='overdue'?' 🔴 Overdue':status==='due-soon'?' 🟡 Due soon':' 🟢 OK';document.getElementById('pip-sub').textContent=sub;document.getElementById('pip-name-form').style.display='none';document.getElementById('pip-managed-info').style.display='block';let ch='';if(mp.cuts&&mp.cuts.length){const r=mp.cuts.slice().reverse().slice(0,3);ch='<div style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;margin-top:12px">Recent cuts</div>';ch+=r.map(c=>`<div class="path-cut-row"><div><div class="path-cut-date">✂️ ${new Date(c.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div><div class="path-cut-by">by ${c.by}${c.notes?' — '+c.notes:''}</div></div></div>`).join('');}document.getElementById('pip-cuts').innerHTML=ch;document.getElementById('pip-btn-row').innerHTML=`<div class="panel-btn" onclick="pipEdit()">✏️ Edit</div><div class="panel-btn primary" onclick="pipLogCut()">✂️ Log cut</div><div class="panel-btn danger" onclick="pipUnmanage()">🗑</div>`;}
 
-function onPathClick(osmId, feature, layer) {
-  panelOsmId = osmId;
-  const managed = managedPaths[osmId];
-  const props = feature.properties || {};
-  const name = managed ? managed.name : (props.prow_ref || props.name || '');
-  document.getElementById('pip-title').textContent = managed ? name : '➕ New managed path';
-  if (!managed) {
-    document.getElementById('pip-sub').textContent = 'Give this path a name and set how often it needs cutting.';
-    document.getElementById('pip-name-form').style.display = 'block';
-    document.getElementById('pip-managed-info').style.display = 'none';
-    document.getElementById('pip-name-input').value = name;
-    document.getElementById('pip-schedule-input').value = seasonSettings.schedule || '';
-    pipSelectedFreq = seasonSettings.freq || 3;
-    document.querySelectorAll('#pip-freq-pills .path-sheet-freq-pill').forEach(p => { p.classList.toggle('sel', parseInt(p.dataset.f) === pipSelectedFreq); });
-    setTimeout(() => document.getElementById('pip-name-input').focus(), 350);
-  } else {
-    const status = getPathStatus(managed);
-    let sub = managed.freq + '× per year';
-    const nextDue = getNextDueDate(managed);
-    if (nextDue) sub += ' · Next due: ' + nextDue.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
-    if (status === 'overdue') sub += ' 🔴 Overdue';
-    else if (status === 'due-soon') sub += ' 🟡 Due soon';
-    else sub += ' 🟢 OK';
-    document.getElementById('pip-sub').textContent = sub;
-    document.getElementById('pip-name-form').style.display = 'none';
-    document.getElementById('pip-managed-info').style.display = 'block';
-    let cutsHtml = '';
-    if (managed.cuts && managed.cuts.length) {
-      const recent = managed.cuts.slice().reverse().slice(0, 3);
-      cutsHtml = '<div style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;margin-top:12px">Recent cuts</div>';
-      cutsHtml += recent.map(c => `<div class="path-cut-row"><div><div class="path-cut-date">✂️ ${new Date(c.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div><div class="path-cut-by">by ${c.by}${c.notes?' — '+c.notes:''}</div></div></div>`).join('');
-    }
-    document.getElementById('pip-cuts').innerHTML = cutsHtml;
-    document.getElementById('pip-btn-row').innerHTML = `
-      <div class="panel-btn" onclick="pipEdit()">✏️ Edit</div>
-      <div class="panel-btn primary" onclick="pipLogCut()">✂️ Log cut</div>
-      <div class="panel-btn danger" onclick="pipUnmanage()">🗑</div>`;
-  }
-  Object.values(pathLayers).forEach(l => { const id = l._osmId; const mp = id ? managedPaths[id] : null; l.setStyle({ weight: mp ? 5 : 3 }); });
-  layer._osmId = osmId;
-  layer.setStyle({ weight: 8, opacity: 1 });
-  openPathPanel();
-}
+function onPathClick(osmId,f,layer){panelOsmId=osmId;const mp=managedPaths[osmId];const props=f.properties||{};const name=mp?mp.name:(props.prow_ref||props.name||'');document.getElementById('pip-title').textContent=mp?name:'➕ New managed path';if(!mp){document.getElementById('pip-sub').textContent='Give this path a name and set how often it needs cutting.';document.getElementById('pip-name-form').style.display='block';document.getElementById('pip-managed-info').style.display='none';document.getElementById('pip-name-input').value=name;document.getElementById('pip-schedule-input').value=seasonSettings.schedule||'';pipSelectedFreq=seasonSettings.freq||3;document.querySelectorAll('#pip-freq-pills .path-sheet-freq-pill').forEach(p=>p.classList.toggle('sel',parseInt(p.dataset.f)===pipSelectedFreq));setTimeout(()=>document.getElementById('pip-name-input').focus(),350);}else{showManagedPanel(mp);}Object.values(pathLayers).forEach(l=>{const id=l._osmId;const m=id?managedPaths[id]:null;l.setStyle({weight:m?5:3});});layer._osmId=osmId;layer.setStyle({weight:8,opacity:1});openPathPanel();}
 
-function pipSelectFreq(el) {
-  document.querySelectorAll('#pip-freq-pills .path-sheet-freq-pill').forEach(p => p.classList.remove('sel'));
-  el.classList.add('sel'); pipSelectedFreq = parseInt(el.dataset.f);
-}
+function pipSelectFreq(el){document.querySelectorAll('#pip-freq-pills .path-sheet-freq-pill').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');pipSelectedFreq=parseInt(el.dataset.f);}
+function pipSaveNew(){const name=document.getElementById('pip-name-input').value.trim();if(!name){showToast('Please give this path a name');return;}const osmId=panelOsmId;managedPaths[osmId]={name,freq:pipSelectedFreq,schedule:document.getElementById('pip-schedule-input').value.trim()||seasonSettings.schedule,notes:'',cuts:[]};saveManagedPaths();closePathPanel();showSuccess('Path saved! ✓',name);updatePathLayer(osmId);renderPathsStats();renderChecklist();syncPathToSheets(osmId);}
+function openPathPanel(){document.getElementById('path-info-panel').classList.add('open');document.getElementById('path-info-panel-backdrop').classList.add('open');}
+function closePathPanel(){document.getElementById('path-info-panel').classList.remove('open');document.getElementById('path-info-panel-backdrop').classList.remove('open');if(panelOsmId&&pathLayers[panelOsmId]){const mp=managedPaths[panelOsmId];pathLayers[panelOsmId].setStyle({weight:mp?5:3});}panelOsmId=null;}
+function pipEdit(){const osmId=panelOsmId;closePathPanel();panelOsmId=osmId;const f=geojsonData?geojsonData.features.find(x=>(x.id||x.properties['@id'])===osmId):null;openPathSheet(osmId,f,true);}
+function pipLogCut(){const osmId=panelOsmId;closePathPanel();openLogCutSheet(osmId);}
+function pipUnmanage(){const osmId=panelOsmId;closePathPanel();unmanagePath(osmId);}
+function pathColour(s){return{unmanaged:'#9ca3af',ok:'#2d6a1f','due-soon':'#e8a020',overdue:'#c0392b'}[s]||'#9ca3af';}
+function getPathStatus(mp){if(!mp||!mp.cuts||!mp.cuts.length)return'overdue';const last=new Date(mp.cuts[mp.cuts.length-1].date);const dpc=Math.floor(365/(mp.freq||3));const nd=new Date(last.getTime()+dpc*86400000);const now=new Date();const wd=Math.max(14,Math.floor(dpc*0.15));if(now>nd)return'overdue';if(now>new Date(nd.getTime()-wd*86400000))return'due-soon';return'ok';}
+function getNextDueDate(mp){if(!mp||!mp.cuts||!mp.cuts.length)return null;const last=new Date(mp.cuts[mp.cuts.length-1].date);return new Date(last.getTime()+Math.floor(365/(mp.freq||3))*86400000);}
 
-function pipSaveNew() {
-  const name = document.getElementById('pip-name-input').value.trim();
-  if (!name) { showToast('Please give this path a name'); return; }
-  const osmId = panelOsmId;
-  managedPaths[osmId] = { name, freq: pipSelectedFreq, schedule: document.getElementById('pip-schedule-input').value.trim() || seasonSettings.schedule, notes: '', cuts: [] };
-  saveManagedPaths(); closePathPanel(); showSuccess('Path saved! ✓', name);
-  updatePathLayer(osmId); renderPathsStats(); renderChecklist(); syncPathToSheets(osmId);
-}
-
-function openPathPanel() {
-  document.getElementById('path-info-panel').classList.add('open');
-  document.getElementById('path-info-panel-backdrop').classList.add('open');
-}
-
-function closePathPanel() {
-  document.getElementById('path-info-panel').classList.remove('open');
-  document.getElementById('path-info-panel-backdrop').classList.remove('open');
-  if (panelOsmId && pathLayers[panelOsmId]) {
-    const mp = managedPaths[panelOsmId];
-    pathLayers[panelOsmId].setStyle({ weight: mp ? 5 : 3 });
-  }
-  panelOsmId = null;
-}
-
-function pipEdit() { const osmId = panelOsmId; closePathPanel(); window._lastPanelOsmId = osmId; panelOsmId = osmId; const feature = geojsonData ? geojsonData.features.find(f => (f.id || f.properties['@id']) === osmId) : null; openPathSheet(osmId, feature, true); }
-function pipLogCut() { const osmId = panelOsmId; closePathPanel(); openLogCutSheet(osmId); }
-function pipUnmanage() { const osmId = panelOsmId; closePathPanel(); unmanagePath(osmId); }
-
-function pathColour(status) {
-  return { unmanaged: '#9ca3af', ok: '#2d6a1f', 'due-soon': '#e8a020', overdue: '#c0392b' }[status] || '#9ca3af';
-}
-
-function getPathStatus(mp) {
-  if (!mp || !mp.cuts || mp.cuts.length === 0) return 'overdue';
-  const lastCut = new Date(mp.cuts[mp.cuts.length - 1].date);
-  const daysPerCut = Math.floor(365 / (mp.freq || 3));
-  const nextDue = new Date(lastCut.getTime() + daysPerCut * 86400000);
-  const now = new Date();
-  const warnDays = Math.max(14, Math.floor(daysPerCut * 0.15));
-  const warnDate = new Date(nextDue.getTime() - warnDays * 86400000);
-  if (now > nextDue) return 'overdue';
-  if (now > warnDate) return 'due-soon';
-  return 'ok';
-}
-
-function getNextDueDate(mp) {
-  if (!mp || !mp.cuts || mp.cuts.length === 0) return null;
-  const lastCut = new Date(mp.cuts[mp.cuts.length - 1].date);
-  const daysPerCut = Math.floor(365 / (mp.freq || 3));
-  return new Date(lastCut.getTime() + daysPerCut * 86400000);
-}
-
-function openPathSheet(osmId, feature, isManaged) {
-  const props = feature ? feature.properties || {} : {};
-  const mp = managedPaths[osmId];
-  formMode = 'path'; pendingPathOsmId = osmId;
-  document.getElementById('entry-fields').style.display = 'none';
-  document.getElementById('task-fields').style.display = 'none';
-  document.getElementById('path-fields').style.display = 'block';
-  document.getElementById('season-fields').style.display = 'none';
-  document.getElementById('cut-fields').style.display = 'none';
-  document.getElementById('form-title').textContent = isManaged ? '✏️ Edit managed path' : '➕ Manage this path';
-  document.getElementById('save-btn').textContent = isManaged ? 'Save changes' : 'Mark as managed';
-  document.getElementById('path-field-name').value = mp ? mp.name : (props.prow_ref || '');
-  document.getElementById('path-field-schedule').value = mp ? mp.schedule : seasonSettings.schedule;
-  document.getElementById('path-field-notes').value = mp ? (mp.notes || '') : '';
-  selectedFreq = mp ? mp.freq : seasonSettings.freq;
-  document.querySelectorAll('#path-freq-pills .path-sheet-freq-pill').forEach(p => { p.classList.toggle('sel', parseInt(p.dataset.f) === selectedFreq); });
+function openPathSheet(osmId,f,isManaged){
+  const props=f?f.properties||{}:{};const mp=managedPaths[osmId];
+  formMode='path';pendingPathOsmId=osmId;
+  document.getElementById('entry-fields').style.display='none';document.getElementById('task-fields').style.display='none';
+  document.getElementById('path-fields').style.display='block';document.getElementById('season-fields').style.display='none';document.getElementById('cut-fields').style.display='none';
+  document.getElementById('form-title').textContent=isManaged?'✏️ Edit managed path':'➕ Manage this path';
+  document.getElementById('save-btn').textContent=isManaged?'Save changes':'Mark as managed';
+  document.getElementById('path-field-name').value=mp?mp.name:(props.prow_ref||'');
+  document.getElementById('path-field-schedule').value=mp?mp.schedule:seasonSettings.schedule;
+  document.getElementById('path-field-notes').value=mp?(mp.notes||''):'';
+  selectedFreq=mp?mp.freq:seasonSettings.freq;
+  document.querySelectorAll('#path-freq-pills .path-sheet-freq-pill').forEach(p=>p.classList.toggle('sel',parseInt(p.dataset.f)===selectedFreq));
   document.getElementById('form-overlay').classList.add('open');
 }
 
-function selectFreq(el) {
-  document.querySelectorAll('#path-freq-pills .path-sheet-freq-pill').forEach(p => p.classList.remove('sel'));
-  el.classList.add('sel'); selectedFreq = parseInt(el.dataset.f);
-}
-function selectSeasonFreq(el) {
-  document.querySelectorAll('#season-freq-pills .path-sheet-freq-pill').forEach(p => p.classList.remove('sel'));
-  el.classList.add('sel'); selectedSeasonFreq = parseInt(el.dataset.f);
-}
+function selectFreq(el){document.querySelectorAll('#path-freq-pills .path-sheet-freq-pill').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');selectedFreq=parseInt(el.dataset.f);}
+function selectSeasonFreq(el){document.querySelectorAll('#season-freq-pills .path-sheet-freq-pill').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');selectedSeasonFreq=parseInt(el.dataset.f);}
 
-function savePathForm() {
-  const name = document.getElementById('path-field-name').value.trim();
-  if (!name) { showToast('Please give this path a name'); return; }
-  const osmId = pendingPathOsmId;
-  const existing = managedPaths[osmId] || {};
-  managedPaths[osmId] = { ...existing, name, freq: selectedFreq, schedule: document.getElementById('path-field-schedule').value.trim() || seasonSettings.schedule, notes: document.getElementById('path-field-notes').value.trim(), cuts: existing.cuts || [] };
-  saveManagedPaths(); closeForm(); showSuccess('Path managed!', name);
-  updatePathLayer(osmId); renderPathsStats(); renderChecklist(); syncPathToSheets(osmId);
-}
+function savePathForm(){const name=document.getElementById('path-field-name').value.trim();if(!name){showToast('Please give this path a name');return;}const osmId=pendingPathOsmId;const ex=managedPaths[osmId]||{};managedPaths[osmId]={...ex,name,freq:selectedFreq,schedule:document.getElementById('path-field-schedule').value.trim()||seasonSettings.schedule,notes:document.getElementById('path-field-notes').value.trim(),cuts:ex.cuts||[]};saveManagedPaths();closeForm();showSuccess('Path managed!',name);updatePathLayer(osmId);renderPathsStats();renderChecklist();syncPathToSheets(osmId);}
+function saveManagedPaths(){localStorage.setItem('rl_managed_paths',JSON.stringify(managedPaths));}
+function updatePathLayer(osmId){const layer=pathLayers[osmId];if(!layer)return;const mp=managedPaths[osmId];const status=mp?getPathStatus(mp):'unmanaged';layer.setStyle({color:pathColour(status),weight:mp?3.5:2,opacity:mp?0.9:0.5});}
 
-function saveManagedPaths() { localStorage.setItem('rl_managed_paths', JSON.stringify(managedPaths)); }
-
-function updatePathLayer(osmId) {
-  const layer = pathLayers[osmId]; if (!layer) return;
-  const mp = managedPaths[osmId];
-  const status = mp ? getPathStatus(mp) : 'unmanaged';
-  layer.setStyle({ color: pathColour(status), weight: mp ? 3.5 : 2, opacity: mp ? 0.9 : 0.5 });
-}
-
-function openLogCutSheet(osmId) {
-  activeManagedPathId = osmId; formMode = 'cut';
-  document.getElementById('entry-fields').style.display = 'none';
-  document.getElementById('task-fields').style.display = 'none';
-  document.getElementById('path-fields').style.display = 'none';
-  document.getElementById('season-fields').style.display = 'none';
-  document.getElementById('cut-fields').style.display = 'block';
-  const mp = managedPaths[osmId];
-  document.getElementById('form-title').textContent = '✂️ Log cut — ' + (mp ? mp.name : osmId);
-  document.getElementById('save-btn').textContent = 'Log cut';
-  document.getElementById('cut-date').value = new Date().toISOString().split('T')[0];
-  document.getElementById('cut-by').value = '';
-  document.getElementById('cut-notes').value = '';
+function openLogCutSheet(osmId){
+  activeManagedPathId=osmId;formMode='cut';
+  document.getElementById('entry-fields').style.display='none';document.getElementById('task-fields').style.display='none';
+  document.getElementById('path-fields').style.display='none';document.getElementById('season-fields').style.display='none';document.getElementById('cut-fields').style.display='block';
+  const mp=managedPaths[osmId];document.getElementById('form-title').textContent='✂️ Log cut — '+(mp?mp.name:osmId);document.getElementById('save-btn').textContent='Log cut';
+  document.getElementById('cut-date').value=new Date().toISOString().split('T')[0];document.getElementById('cut-by').value='';document.getElementById('cut-notes').value='';
   document.getElementById('form-overlay').classList.add('open');
 }
 
-function saveCutForm() {
-  const date = document.getElementById('cut-date').value;
-  if (!date) { showToast('Please select a cut date'); return; }
-  const by = document.getElementById('cut-by').value.trim() || 'Rangers';
-  const notes = document.getElementById('cut-notes').value.trim();
-  const osmId = activeManagedPathId;
-  if (!managedPaths[osmId]) { showToast('Path not found'); return; }
-  managedPaths[osmId].cuts = managedPaths[osmId].cuts || [];
-  managedPaths[osmId].cuts.push({ date, by, notes, logged: new Date().toISOString() });
-  managedPaths[osmId].cuts.sort((a, b) => a.date.localeCompare(b.date));
-  saveManagedPaths(); closeForm(); showSuccess('Cut logged!', managedPaths[osmId].name);
-  updatePathLayer(osmId); renderPathsStats(); renderChecklist(); syncCutToSheets(osmId, { date, by, notes });
-}
+function saveCutForm(){const date=document.getElementById('cut-date').value;if(!date){showToast('Please select a cut date');return;}const by=document.getElementById('cut-by').value.trim()||'Rangers';const notes=document.getElementById('cut-notes').value.trim();const osmId=activeManagedPathId;if(!managedPaths[osmId]){showToast('Path not found');return;}managedPaths[osmId].cuts=managedPaths[osmId].cuts||[];managedPaths[osmId].cuts.push({date,by,notes,logged:new Date().toISOString()});managedPaths[osmId].cuts.sort((a,b)=>a.date.localeCompare(b.date));saveManagedPaths();closeForm();showSuccess('Cut logged!',managedPaths[osmId].name);updatePathLayer(osmId);renderPathsStats();renderChecklist();syncCutToSheets(osmId,{date,by,notes});}
 
-function unmanagePath(osmId) {
-  pendingDeleteId = osmId; pendingDeleteType = 'path';
-  document.getElementById('confirm-title').textContent = 'Remove from managed paths?';
-  document.getElementById('confirm-text').textContent = 'This will remove the path and all cut history. This cannot be undone.';
-  document.getElementById('confirm-action-btn').textContent = 'Remove';
-  document.getElementById('confirm-overlay').classList.add('open');
-}
+function unmanagePath(osmId){pendingDeleteId=osmId;pendingDeleteType='path';document.getElementById('confirm-title').textContent='Remove from managed paths?';document.getElementById('confirm-text').textContent='This will remove the path and all cut history. This cannot be undone.';document.getElementById('confirm-action-btn').textContent='Remove';document.getElementById('confirm-overlay').classList.add('open');}
 
-function openSeasonSheet() {
-  formMode = 'season';
-  document.getElementById('entry-fields').style.display = 'none';
-  document.getElementById('task-fields').style.display = 'none';
-  document.getElementById('path-fields').style.display = 'none';
-  document.getElementById('season-fields').style.display = 'block';
-  document.getElementById('cut-fields').style.display = 'none';
-  document.getElementById('form-title').textContent = '🌱 Season settings';
-  document.getElementById('save-btn').textContent = 'Save settings';
-  document.getElementById('season-start').value = seasonSettings.start;
-  document.getElementById('season-end').value = seasonSettings.end;
-  document.getElementById('season-schedule').value = seasonSettings.schedule;
-  selectedSeasonFreq = seasonSettings.freq;
-  document.querySelectorAll('#season-freq-pills .path-sheet-freq-pill').forEach(p => { p.classList.toggle('sel', parseInt(p.dataset.f) === selectedSeasonFreq); });
+function openSeasonSheet(){
+  formMode='season';
+  document.getElementById('entry-fields').style.display='none';document.getElementById('task-fields').style.display='none';
+  document.getElementById('path-fields').style.display='none';document.getElementById('season-fields').style.display='block';document.getElementById('cut-fields').style.display='none';
+  document.getElementById('form-title').textContent='🌱 Season settings';document.getElementById('save-btn').textContent='Save settings';
+  document.getElementById('season-start').value=seasonSettings.start;document.getElementById('season-end').value=seasonSettings.end;document.getElementById('season-schedule').value=seasonSettings.schedule;
+  selectedSeasonFreq=seasonSettings.freq;document.querySelectorAll('#season-freq-pills .path-sheet-freq-pill').forEach(p=>p.classList.toggle('sel',parseInt(p.dataset.f)===selectedSeasonFreq));
   document.getElementById('form-overlay').classList.add('open');
 }
 
-function saveSeasonForm() {
-  seasonSettings.start = document.getElementById('season-start').value;
-  seasonSettings.end = document.getElementById('season-end').value;
-  seasonSettings.freq = selectedSeasonFreq;
-  seasonSettings.schedule = document.getElementById('season-schedule').value.trim() || 'Alexander cut end of March + 2 summer cuts';
-  localStorage.setItem('rl_season', JSON.stringify(seasonSettings));
-  closeForm(); renderSeasonDisplay(); showToast('Season settings saved ✓');
-}
+function saveSeasonForm(){seasonSettings.start=document.getElementById('season-start').value;seasonSettings.end=document.getElementById('season-end').value;seasonSettings.freq=selectedSeasonFreq;seasonSettings.schedule=document.getElementById('season-schedule').value.trim()||'Alexander cut end of March + 2 summer cuts';localStorage.setItem('rl_season',JSON.stringify(seasonSettings));closeForm();renderSeasonDisplay();showToast('Season settings saved ✓');}
 
-function renderSeasonDisplay() {
-  const fmt = d => { if (!d) return '—'; const dt = new Date(d); return dt.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric'}); };
-  document.getElementById('paths-season-display').innerHTML = `
-    <div><div class="paths-season-field">Season start</div><div class="paths-season-val">${fmt(seasonSettings.start)}</div></div>
-    <div><div class="paths-season-field">Season end</div><div class="paths-season-val">${fmt(seasonSettings.end)}</div></div>
-    <div><div class="paths-season-field">Default frequency</div><div class="paths-season-val">${seasonSettings.freq}× per year</div></div>
-    <div><div class="paths-season-field">Default schedule</div><div class="paths-season-val" style="font-size:11px">${seasonSettings.schedule}</div></div>`;
-}
+function renderSeasonDisplay(){const fmt=d=>{if(!d)return'—';const dt=new Date(d);return dt.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});};document.getElementById('paths-season-display').innerHTML=`<div><div class="paths-season-field">Season start</div><div class="paths-season-val">${fmt(seasonSettings.start)}</div></div><div><div class="paths-season-field">Season end</div><div class="paths-season-val">${fmt(seasonSettings.end)}</div></div><div><div class="paths-season-field">Default frequency</div><div class="paths-season-val">${seasonSettings.freq}× per year</div></div><div><div class="paths-season-field">Default schedule</div><div class="paths-season-val" style="font-size:11px">${seasonSettings.schedule}</div></div>`;}
 
-function renderPathsStats() {
-  const managed = Object.keys(managedPaths);
-  const overdue = managed.filter(id => getPathStatus(managedPaths[id]) === 'overdue').length;
-  const cuts = managed.reduce((sum, id) => sum + (managedPaths[id].cuts ? managedPaths[id].cuts.length : 0), 0);
-  document.getElementById('ps-managed').textContent = managed.length;
-  document.getElementById('ps-overdue').textContent = overdue;
-  document.getElementById('ps-cuts').textContent = cuts;
-}
+function renderPathsStats(){const mn=Object.keys(managedPaths);const ov=mn.filter(id=>getPathStatus(managedPaths[id])==='overdue').length;const cuts=mn.reduce((s,id)=>s+(managedPaths[id].cuts?managedPaths[id].cuts.length:0),0);document.getElementById('ps-managed').textContent=mn.length;document.getElementById('ps-overdue').textContent=ov;document.getElementById('ps-cuts').textContent=cuts;}
+function setPathsFilter(f,el){pathsFilter=f;document.querySelectorAll('.paths-filter-pill').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');renderChecklist();}
 
-function setPathsFilter(f, el) {
-  pathsFilter = f;
-  document.querySelectorAll('.paths-filter-pill').forEach(p => p.classList.remove('sel'));
-  el.classList.add('sel'); renderChecklist();
-}
-
-function renderChecklist() {
-  const search = (document.getElementById('paths-search') || {}).value || '';
-  const searchLower = search.toLowerCase();
-  let items = Object.entries(managedPaths).map(([osmId, mp]) => ({ osmId, mp, status: getPathStatus(mp) }));
-  if (pathsFilter !== 'all') items = items.filter(i => i.status === pathsFilter);
-  if (searchLower) items = items.filter(i => i.mp.name.toLowerCase().includes(searchLower));
-  const order = { overdue: 0, 'due-soon': 1, ok: 2 };
-  items.sort((a, b) => (order[a.status] || 0) - (order[b.status] || 0));
-  const list = document.getElementById('path-checklist');
-  if (items.length === 0) {
-    list.innerHTML = `<div class="empty-state"><div class="empty-icon">🛤️</div><div class="empty-title">${Object.keys(managedPaths).length === 0 ? 'No managed paths yet' : 'No matches'}</div><div class="empty-sub">${Object.keys(managedPaths).length === 0 ? 'Tap any grey path on the map to start managing it.' : 'Try a different filter or search.'}</div></div>`;
-    return;
-  }
-  list.innerHTML = items.map(({ osmId, mp, status }) => {
-    const nextDue = getNextDueDate(mp);
-    const nextDueFmt = nextDue ? nextDue.toLocaleDateString('en-GB', { day:'numeric', month:'short' }) : '—';
-    const badgeHtml = status === 'overdue' ? `<span class="path-overdue-badge">Overdue</span>` : status === 'due-soon' ? `<span class="path-due-badge">Due ${nextDueFmt}</span>` : '';
-    const cutsHtml = mp.cuts && mp.cuts.length
-      ? mp.cuts.slice().reverse().slice(0, 3).map(c => `<div class="path-cut-row"><div><div class="path-cut-date">✂️ ${new Date(c.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div><div class="path-cut-by">by ${c.by}${c.notes ? ' — ' + c.notes : ''}</div></div></div>`).join('')
-      : `<div style="font-size:12px;color:var(--text-light);padding:6px 0">No cuts logged yet</div>`;
-    return `<div class="path-item" id="pi-${osmId.replace(/\//g,'-')}">
-      <div class="path-item-header" onclick="togglePathItem('${osmId}')">
-        <div class="path-item-status ${status}"></div>
-        <div class="path-item-info"><div class="path-item-name">${mp.name}</div><div class="path-item-meta">${mp.freq}× per year · Next due: ${nextDueFmt}</div></div>
-        ${badgeHtml}<div class="path-item-chevron" id="pic-${osmId.replace(/\//g,'-')}">▼</div>
-      </div>
-      <div class="path-item-body" id="pib-${osmId.replace(/\//g,'-')}">
-        <div style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">Cut history</div>
-        ${cutsHtml}
-        ${mp.cuts && mp.cuts.length > 3 ? `<div style="font-size:11px;color:var(--text-light);margin-top:4px">+ ${mp.cuts.length-3} more cuts</div>` : ''}
-        <button class="path-cut-log-btn" style="width:100%;margin-top:10px" onclick="openLogCutSheet('${osmId}')">✂️ Log a cut</button>
-        <div class="path-action-row">
-          <div class="path-action-btn" onclick="openPathSheetById('${osmId}')">✏️ Edit</div>
-          <div class="path-action-btn danger" onclick="unmanagePath('${osmId}')">🗑 Remove</div>
-        </div>
-        ${mp.notes ? `<div style="font-size:11px;color:var(--text-mid);margin-top:8px;padding:8px;background:var(--surface-2);border-radius:8px">${mp.notes}</div>` : ''}
-      </div></div>`;
+function renderChecklist(){
+  const search=(document.getElementById('paths-search')||{}).value||'';const sl=search.toLowerCase();
+  let items=Object.entries(managedPaths).map(([osmId,mp])=>({osmId,mp,status:getPathStatus(mp)}));
+  if(pathsFilter!=='all')items=items.filter(i=>i.status===pathsFilter);
+  if(sl)items=items.filter(i=>i.mp.name.toLowerCase().includes(sl));
+  const order={overdue:0,'due-soon':1,ok:2};items.sort((a,b)=>(order[a.status]||0)-(order[b.status]||0));
+  const list=document.getElementById('path-checklist');
+  if(!items.length){list.innerHTML=`<div class="empty-state"><div class="empty-icon">🛤️</div><div class="empty-title">${Object.keys(managedPaths).length===0?'No managed paths yet':'No matches'}</div><div class="empty-sub">${Object.keys(managedPaths).length===0?'Tap any grey path on the map to start managing it.':'Try a different filter or search.'}</div></div>`;return;}
+  list.innerHTML=items.map(({osmId,mp,status})=>{
+    const nd=getNextDueDate(mp);const ndf=nd?nd.toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'—';
+    const badge=status==='overdue'?`<span class="path-overdue-badge">Overdue</span>`:status==='due-soon'?`<span class="path-due-badge">Due ${ndf}</span>`:'';
+    const ch=mp.cuts&&mp.cuts.length?mp.cuts.slice().reverse().slice(0,3).map(c=>`<div class="path-cut-row"><div><div class="path-cut-date">✂️ ${new Date(c.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div><div class="path-cut-by">by ${c.by}${c.notes?' — '+c.notes:''}</div></div></div>`).join(''):`<div style="font-size:12px;color:var(--text-light);padding:6px 0">No cuts logged yet</div>`;
+    return `<div class="path-item" id="pi-${osmId.replace(/\//g,'-')}"><div class="path-item-header" onclick="togglePathItem('${osmId}')"><div class="path-item-status ${status}"></div><div class="path-item-info"><div class="path-item-name">${mp.name}</div><div class="path-item-meta">${mp.freq}× per year · Next due: ${ndf}</div></div>${badge}<div class="path-item-chevron" id="pic-${osmId.replace(/\//g,'-')}">▼</div></div><div class="path-item-body" id="pib-${osmId.replace(/\//g,'-')}"><div style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">Cut history</div>${ch}${mp.cuts&&mp.cuts.length>3?`<div style="font-size:11px;color:var(--text-light);margin-top:4px">+ ${mp.cuts.length-3} more cuts</div>`:''}<button class="path-cut-log-btn" style="width:100%;margin-top:10px" onclick="openLogCutSheet('${osmId}')">✂️ Log a cut</button><div class="path-action-row"><div class="path-action-btn" onclick="openPathSheetById('${osmId}')">✏️ Edit</div><div class="path-action-btn danger" onclick="unmanagePath('${osmId}')">🗑 Remove</div></div>${mp.notes?`<div style="font-size:11px;color:var(--text-mid);margin-top:8px;padding:8px;background:var(--surface-2);border-radius:8px">${mp.notes}</div>`:''}</div></div>`;
   }).join('');
 }
 
-function togglePathItem(osmId) {
-  const safe = osmId.replace(/\//g,'-');
-  const body = document.getElementById('pib-' + safe);
-  const chevron = document.getElementById('pic-' + safe);
-  if (!body) return;
-  const open = body.classList.toggle('open');
-  if (chevron) chevron.classList.toggle('open', open);
-}
+function togglePathItem(osmId){const safe=osmId.replace(/\//g,'-');const b=document.getElementById('pib-'+safe);const c=document.getElementById('pic-'+safe);if(!b)return;const open=b.classList.toggle('open');if(c)c.classList.toggle('open',open);}
+function openPathSheetById(osmId){pendingPathOsmId=osmId;openPathSheet(osmId,null,true);}
+async function syncPathToSheets(osmId){if(!navigator.onLine)return;const mp=managedPaths[osmId];try{const p=new URLSearchParams({type:'path',osmId,name:mp.name,site:mp.site||'',freq:mp.freq,schedule:mp.schedule||'',notes:mp.notes||''});await fetch(SHEETS_URL+'?'+p.toString(),{method:'GET',mode:'no-cors'});showToast('Synced to Google Sheets ✓');}catch(e){showToast('Sync failed — will retry when online');}}
+async function syncCutToSheets(osmId,cut){if(!navigator.onLine)return;const mp=managedPaths[osmId];try{const p=new URLSearchParams({type:'cut',osmId,pathName:mp?mp.name:osmId,cutDate:cut.date,cutBy:cut.by,cutNotes:cut.notes||''});await fetch(SHEETS_URL+'?'+p.toString(),{method:'GET',mode:'no-cors'});}catch(e){}}
 
-function openPathSheetById(osmId) { pendingPathOsmId = osmId; openPathSheet(osmId, null, true); }
-
-async function syncPathToSheets(osmId) {
-  if (!navigator.onLine) return;
-  const mp = managedPaths[osmId];
-  try {
-    const params = new URLSearchParams({ type: 'path', osmId, name: mp.name, site: mp.site || '', freq: mp.freq, schedule: mp.schedule || '', notes: mp.notes || '' });
-    await fetch(SHEETS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
-    showToast('Synced to Google Sheets ✓');
-  } catch(e) { showToast('Sync failed — will retry when online'); }
-}
-
-async function syncCutToSheets(osmId, cut) {
-  if (!navigator.onLine) return;
-  const mp = managedPaths[osmId];
-  try {
-    const params = new URLSearchParams({ type: 'cut', osmId, pathName: mp ? mp.name : osmId, cutDate: cut.date, cutBy: cut.by, cutNotes: cut.notes || '' });
-    await fetch(SHEETS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
-  } catch(e) {}
-}
-
-// ── Form ──
-function openForm(mode, editEntry) {
-  formMode = mode; editingId = editEntry ? editEntry.id : null;
-  document.getElementById('entry-fields').style.display = mode === 'entry' ? 'block' : 'none';
-  document.getElementById('task-fields').style.display = mode === 'task' ? 'block' : 'none';
-  document.getElementById('path-fields').style.display = 'none';
-  document.getElementById('season-fields').style.display = 'none';
-  document.getElementById('cut-fields').style.display = 'none';
-  document.getElementById('form-title').textContent = mode === 'task' ? (editEntry ? 'Edit task' : 'New task') : (editEntry ? 'Edit entry' : 'New field entry');
-  document.getElementById('save-btn').textContent = editEntry ? 'Save changes' : (mode === 'task' ? 'Save task' : 'Save entry');
-  if (mode === 'entry') {
-    if (editEntry) {
-      document.getElementById('field-name').value = editEntry.name || '';
-      document.getElementById('field-notes').value = editEntry.notes || '';
-      document.getElementById('field-infra').value = editEntry.infraType || '';
-      selectedCat = editEntry.cat;
-      document.querySelectorAll('.form-cat-pill').forEach(p => { p.classList.toggle('sel', p.dataset.cat === selectedCat); });
-      photoData = null;
-      document.getElementById('photo-preview').src = '';
-      document.getElementById('photo-preview').style.display = 'none';
-      document.getElementById('photo-placeholder').style.display = 'flex';
-      document.getElementById('photo-overlay').style.display = 'none';
-      loadPhoto(editEntry.id).then(data => {
-        if (data) {
-          photoData = data;
-          document.getElementById('photo-preview').src = data;
-          document.getElementById('photo-preview').style.display = 'block';
-          document.getElementById('photo-placeholder').style.display = 'none';
-          document.getElementById('photo-overlay').style.display = 'flex';
-        }
-      });
-      document.querySelectorAll('.habitat-pill').forEach(p => { p.classList.toggle('sel', (editEntry.habitat || '').includes(p.textContent)); });
-      currentLat = editEntry.lat; currentLon = editEntry.lon; currentGridRef = editEntry.gridref;
-      document.getElementById('loc-status').textContent = editEntry.lat ? 'Location saved — tap 🔄 to update' : 'No location saved';
-      document.getElementById('loc-coords').textContent = editEntry.lat ? editEntry.lat + ', ' + editEntry.lon : '';
-      document.getElementById('loc-gridref').textContent = editEntry.gridref ? editEntry.gridref : '';
-    } else {
-      document.getElementById('field-name').value = '';
-      document.getElementById('field-notes').value = '';
-      document.getElementById('field-infra').value = '';
-      selectedCat = 'plant';
-      document.querySelectorAll('.form-cat-pill').forEach(p => p.classList.toggle('sel', p.dataset.cat === 'plant'));
-      photoData = null;
-      document.getElementById('photo-input').value = '';
-      document.getElementById('photo-preview').src = '';
-      document.getElementById('photo-preview').style.display = 'none';
-      document.getElementById('photo-placeholder').style.display = 'flex';
-      document.getElementById('photo-overlay').style.display = 'none';
-      document.querySelectorAll('.habitat-pill').forEach(p => p.classList.remove('sel'));
+// ══════════════════════════════════════════════════════
+// FORM
+// ══════════════════════════════════════════════════════
+function openForm(mode,editEntry){
+  formMode=mode;editingId=editEntry?editEntry.id:null;
+  document.getElementById('entry-fields').style.display=mode==='entry'?'block':'none';
+  document.getElementById('task-fields').style.display=mode==='task'?'block':'none';
+  document.getElementById('path-fields').style.display='none';document.getElementById('season-fields').style.display='none';document.getElementById('cut-fields').style.display='none';
+  document.getElementById('form-title').textContent=mode==='task'?(editEntry?'Edit task':'New task'):(editEntry?'Edit entry':'New field entry');
+  document.getElementById('save-btn').textContent=editEntry?'Save changes':(mode==='task'?'Save task':'Save entry');
+  if(mode==='entry'){
+    if(editEntry){
+      document.getElementById('field-name').value=editEntry.name||'';document.getElementById('field-notes').value=editEntry.notes||'';document.getElementById('field-infra').value=editEntry.infraType||'';
+      selectedCat=editEntry.cat;document.querySelectorAll('.form-cat-pill').forEach(p=>p.classList.toggle('sel',p.dataset.cat===selectedCat));
+      photoData=null;document.getElementById('photo-preview').src='';document.getElementById('photo-preview').style.display='none';document.getElementById('photo-placeholder').style.display='flex';document.getElementById('photo-overlay').style.display='none';
+      loadPhoto(editEntry.id).then(d=>{if(d){photoData=d;document.getElementById('photo-preview').src=d;document.getElementById('photo-preview').style.display='block';document.getElementById('photo-placeholder').style.display='none';document.getElementById('photo-overlay').style.display='flex';}});
+      document.querySelectorAll('.habitat-pill').forEach(p=>p.classList.toggle('sel',(editEntry.habitat||'').includes(p.textContent)));
+      currentLat=editEntry.lat;currentLon=editEntry.lon;currentGridRef=editEntry.gridref;
+      document.getElementById('loc-status').textContent=editEntry.lat?'Location saved — tap 🔄 to update':'No location saved';
+      document.getElementById('loc-coords').textContent=editEntry.lat?editEntry.lat+', '+editEntry.lon:'';
+      document.getElementById('loc-gridref').textContent=editEntry.gridref?editEntry.gridref:'';
+    }else{
+      document.getElementById('field-name').value='';document.getElementById('field-notes').value='';document.getElementById('field-infra').value='';
+      selectedCat='plant';document.querySelectorAll('.form-cat-pill').forEach(p=>p.classList.toggle('sel',p.dataset.cat==='plant'));
+      photoData=null;document.getElementById('photo-input').value='';document.getElementById('photo-preview').src='';document.getElementById('photo-preview').style.display='none';document.getElementById('photo-placeholder').style.display='flex';document.getElementById('photo-overlay').style.display='none';
+      document.querySelectorAll('.habitat-pill').forEach(p=>p.classList.remove('sel'));
       getLocation();
     }
-  } else if (mode === 'task') {
-    if (editEntry) {
-      document.getElementById('task-name').value = editEntry.name || '';
-      document.getElementById('task-location').value = editEntry.location || '';
-      document.getElementById('task-date').value = editEntry.dueDate || '';
-      document.getElementById('task-notes').value = editEntry.notes || '';
-      selectedPriority = editEntry.priority || 'low';
-      document.querySelectorAll('.priority-pill').forEach(p => { p.classList.remove('sel','low','medium','high'); if (p.dataset.p === selectedPriority) { p.classList.add('sel', selectedPriority); } });
-    } else {
-      document.getElementById('task-name').value = '';
-      document.getElementById('task-location').value = '';
-      document.getElementById('task-date').value = '';
-      document.getElementById('task-notes').value = '';
-      selectedPriority = 'low';
-      document.querySelectorAll('.priority-pill').forEach(p => { p.classList.remove('sel','low','medium','high'); if (p.dataset.p === 'low') { p.classList.add('sel','low'); } });
+  }else if(mode==='task'){
+    populateMatSelect('task-mat-select');
+    if(editEntry){
+      document.getElementById('task-name').value=editEntry.name||'';document.getElementById('task-location').value=editEntry.location||'';
+      document.getElementById('task-date').value=editEntry.dueDate||'';document.getElementById('task-notes').value=editEntry.notes||'';
+      selectedPriority=editEntry.priority||'low';
+      document.querySelectorAll('.priority-pill').forEach(p=>{p.classList.remove('sel','low','medium','high');if(p.dataset.p===selectedPriority)p.classList.add('sel',selectedPriority);});
+      taskFormMaterials=editEntry.materials?JSON.parse(JSON.stringify(editEntry.materials)):[];
+    }else{
+      document.getElementById('task-name').value='';document.getElementById('task-location').value='';document.getElementById('task-date').value='';document.getElementById('task-notes').value='';
+      selectedPriority='low';document.querySelectorAll('.priority-pill').forEach(p=>{p.classList.remove('sel','low','medium','high');if(p.dataset.p==='low')p.classList.add('sel','low');});
+      taskFormMaterials=[];
     }
+    renderTaskFormMaterials();
   }
   document.getElementById('form-overlay').classList.add('open');
 }
 
-function closeForm() { document.getElementById('form-overlay').classList.remove('open'); }
-function handleOverlayClick(e) { if (e.target === document.getElementById('form-overlay')) closeForm(); }
-function selectCat(el) { document.querySelectorAll('.form-cat-pill').forEach(p => p.classList.remove('sel')); el.classList.add('sel'); selectedCat = el.dataset.cat; }
-function toggleHabitat(el) { el.classList.toggle('sel'); }
-function selectPriority(el) {
-  document.querySelectorAll('.priority-pill').forEach(p => { p.classList.remove('sel','low','medium','high'); });
-  el.classList.add('sel', el.dataset.p); selectedPriority = el.dataset.p;
-}
-function triggerPhoto(e) { if (e) e.stopPropagation(); document.getElementById('photo-input').click(); }
-
-function handlePhoto(input) {
-  const file = input.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = evt => {
-    const img = new Image();
-    img.onload = () => {
-      const MAX_W = 1024, MAX_H = 768;
-      let w = img.width, h = img.height;
-      if (w > MAX_W || h > MAX_H) {
-        const ratio = Math.min(MAX_W / w, MAX_H / h);
-        w = Math.round(w * ratio); h = Math.round(h * ratio);
-      }
-      const canvas = document.createElement('canvas');
-      canvas.width = w; canvas.height = h;
-      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      photoData = canvas.toDataURL('image/jpeg', 0.75);
-      document.getElementById('photo-preview').src = photoData;
-      document.getElementById('photo-preview').style.display = 'block';
-      document.getElementById('photo-placeholder').style.display = 'none';
-      document.getElementById('photo-overlay').style.display = 'flex';
-    };
-    img.src = evt.target.result;
-  };
-  reader.readAsDataURL(file);
-}
+function closeForm(){document.getElementById('form-overlay').classList.remove('open');}
+function handleOverlayClick(e){if(e.target===document.getElementById('form-overlay'))closeForm();}
+function selectCat(el){document.querySelectorAll('.form-cat-pill').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');selectedCat=el.dataset.cat;}
+function toggleHabitat(el){el.classList.toggle('sel');}
+function selectPriority(el){document.querySelectorAll('.priority-pill').forEach(p=>{p.classList.remove('sel','low','medium','high');});el.classList.add('sel',el.dataset.p);selectedPriority=el.dataset.p;}
+function triggerPhoto(e){if(e)e.stopPropagation();document.getElementById('photo-input').click();}
+function handlePhoto(input){const file=input.files[0];if(!file)return;const reader=new FileReader();reader.onload=evt=>{const img=new Image();img.onload=()=>{const MW=1024,MH=768;let w=img.width,h=img.height;if(w>MW||h>MH){const r=Math.min(MW/w,MH/h);w=Math.round(w*r);h=Math.round(h*r);}const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);photoData=c.toDataURL('image/jpeg',0.75);document.getElementById('photo-preview').src=photoData;document.getElementById('photo-preview').style.display='block';document.getElementById('photo-placeholder').style.display='none';document.getElementById('photo-overlay').style.display='flex';};img.src=evt.target.result;};reader.readAsDataURL(file);}
 
 // ── OS Grid Reference ──
-function latLonToOSGridRef(lat, lon) {
-  const a = 6377563.396, b = 6356256.909;
-  const F0 = 0.9996012717;
-  const lat0 = 49 * Math.PI / 180, lon0 = -2 * Math.PI / 180;
-  const N0 = -100000, E0 = 400000;
-  const e2 = 1 - (b * b) / (a * a);
-  const n = (a - b) / (a + b);
-  const latR = lat * Math.PI / 180;
-  const lonR = lon * Math.PI / 180;
-  const sinLat = Math.sin(latR), cosLat = Math.cos(latR), tanLat = Math.tan(latR);
-  const nu = a * F0 / Math.sqrt(1 - e2 * sinLat * sinLat);
-  const rho = a * F0 * (1 - e2) / Math.pow(1 - e2 * sinLat * sinLat, 1.5);
-  const eta2 = nu / rho - 1;
-  const M = b * F0 * (
-    (1 + n + 1.25 * n * n + 1.25 * n * n * n) * (latR - lat0)
-    - (3 * n + 3 * n * n + 2.625 * n * n * n) * Math.sin(latR - lat0) * Math.cos(latR + lat0)
-    + (1.875 * n * n + 1.875 * n * n * n) * Math.sin(2 * (latR - lat0)) * Math.cos(2 * (latR + lat0))
-    - (35 / 24 * n * n * n) * Math.sin(3 * (latR - lat0)) * Math.cos(3 * (latR + lat0))
-  );
-  const I = M + N0;
-  const II = nu / 2 * sinLat * cosLat;
-  const III = nu / 24 * sinLat * cosLat * cosLat * cosLat * (5 - tanLat * tanLat + 9 * eta2);
-  const IIIA = nu / 720 * sinLat * Math.pow(cosLat, 5) * (61 - 58 * tanLat * tanLat + Math.pow(tanLat, 4));
-  const IV = nu * cosLat;
-  const V = nu / 6 * cosLat * cosLat * cosLat * (nu / rho - tanLat * tanLat);
-  const VI = nu / 120 * Math.pow(cosLat, 5) * (5 - 18 * tanLat * tanLat + Math.pow(tanLat, 4) + 14 * eta2 - 58 * tanLat * tanLat * eta2);
-  const dLon = lonR - lon0;
-  const N = I + II * dLon * dLon + III * Math.pow(dLon, 4) + IIIA * Math.pow(dLon, 6);
-  const E = E0 + IV * dLon + V * Math.pow(dLon, 3) + VI * Math.pow(dLon, 5);
-  const gridLetters = [
-    ['SV','SW','SX','SY','SZ','TV','TW'],['SQ','SR','SS','ST','SU','TQ','TR'],
-    ['SL','SM','SN','SO','SP','TL','TM'],['SF','SG','SH','SJ','SK','TF','TG'],
-    ['SA','SB','SC','SD','SE','TA','TB'],['NV','NW','NX','NY','NZ','OV','OW'],
-    ['NQ','NR','NS','NT','NU','OQ','OR'],['NL','NM','NN','NO','NP','OL','OM'],
-    ['NF','NG','NH','NJ','NK','OF','OG'],['NA','NB','NC','ND','NE','OA','OB'],
-    ['HV','HW','HX','HY','HZ','JV','JW'],['HQ','HR','HS','HT','HU','JQ','JR'],
-    ['HL','HM','HN','HO','HP','JL','JM'],
-  ];
-  const eIdx = Math.floor(E / 100000);
-  const nIdx = Math.floor(N / 100000);
-  if (eIdx < 0 || eIdx > 6 || nIdx < 0 || nIdx > 12) return null;
-  const letters = gridLetters[nIdx][eIdx];
-  const eLocal = Math.floor(E % 100000).toString().padStart(5, '0');
-  const nLocal = Math.floor(N % 100000).toString().padStart(5, '0');
-  return `${letters} ${eLocal} ${nLocal}`;
-}
+function latLonToOSGridRef(lat,lon){const a=6377563.396,b=6356256.909,F0=0.9996012717,lat0=49*Math.PI/180,lon0=-2*Math.PI/180,N0=-100000,E0=400000,e2=1-(b*b)/(a*a),n=(a-b)/(a+b),latR=lat*Math.PI/180,lonR=lon*Math.PI/180,sinLat=Math.sin(latR),cosLat=Math.cos(latR),tanLat=Math.tan(latR),nu=a*F0/Math.sqrt(1-e2*sinLat*sinLat),rho=a*F0*(1-e2)/Math.pow(1-e2*sinLat*sinLat,1.5),eta2=nu/rho-1;const M=b*F0*((1+n+1.25*n*n+1.25*n*n*n)*(latR-lat0)-(3*n+3*n*n+2.625*n*n*n)*Math.sin(latR-lat0)*Math.cos(latR+lat0)+(1.875*n*n+1.875*n*n*n)*Math.sin(2*(latR-lat0))*Math.cos(2*(latR+lat0))-(35/24*n*n*n)*Math.sin(3*(latR-lat0))*Math.cos(3*(latR+lat0)));const I=M+N0,II=nu/2*sinLat*cosLat,III=nu/24*sinLat*cosLat*cosLat*cosLat*(5-tanLat*tanLat+9*eta2),IIIA=nu/720*sinLat*Math.pow(cosLat,5)*(61-58*tanLat*tanLat+Math.pow(tanLat,4)),IV=nu*cosLat,V=nu/6*cosLat*cosLat*cosLat*(nu/rho-tanLat*tanLat),VI=nu/120*Math.pow(cosLat,5)*(5-18*tanLat*tanLat+Math.pow(tanLat,4)+14*eta2-58*tanLat*tanLat*eta2),dLon=lonR-lon0,N=I+II*dLon*dLon+III*Math.pow(dLon,4)+IIIA*Math.pow(dLon,6),E=E0+IV*dLon+V*Math.pow(dLon,3)+VI*Math.pow(dLon,5);const gl=[['SV','SW','SX','SY','SZ','TV','TW'],['SQ','SR','SS','ST','SU','TQ','TR'],['SL','SM','SN','SO','SP','TL','TM'],['SF','SG','SH','SJ','SK','TF','TG'],['SA','SB','SC','SD','SE','TA','TB'],['NV','NW','NX','NY','NZ','OV','OW'],['NQ','NR','NS','NT','NU','OQ','OR'],['NL','NM','NN','NO','NP','OL','OM'],['NF','NG','NH','NJ','NK','OF','OG'],['NA','NB','NC','ND','NE','OA','OB'],['HV','HW','HX','HY','HZ','JV','JW'],['HQ','HR','HS','HT','HU','JQ','JR'],['HL','HM','HN','HO','HP','JL','JM']];const ei=Math.floor(E/100000),ni=Math.floor(N/100000);if(ei<0||ei>6||ni<0||ni>12)return null;return`${gl[ni][ei]} ${Math.floor(E%100000).toString().padStart(5,'0')} ${Math.floor(N%100000).toString().padStart(5,'0')}`;}
 
-function getLocation() {
-  document.getElementById('loc-status').textContent = 'Getting your location…';
-  document.getElementById('loc-coords').textContent = '';
-  document.getElementById('loc-gridref').textContent = '';
-  if (!navigator.geolocation) { document.getElementById('loc-status').textContent = 'GPS not available'; return; }
-  navigator.geolocation.getCurrentPosition(pos => {
-    currentLat = pos.coords.latitude.toFixed(6);
-    currentLon = pos.coords.longitude.toFixed(6);
-    currentGridRef = latLonToOSGridRef(pos.coords.latitude, pos.coords.longitude);
-    document.getElementById('loc-coords').textContent = currentLat + ', ' + currentLon;
-    document.getElementById('loc-gridref').textContent = currentGridRef || '';
-    document.getElementById('loc-status').textContent = 'Location & grid reference captured ✓';
-  }, () => {
-    document.getElementById('loc-status').textContent = 'Could not get location — tap 🔄 to retry';
-    currentLat = null; currentLon = null; currentGridRef = null;
-  }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 });
-}
+function getLocation(){document.getElementById('loc-status').textContent='Getting your location…';document.getElementById('loc-coords').textContent='';document.getElementById('loc-gridref').textContent='';if(!navigator.geolocation){document.getElementById('loc-status').textContent='GPS not available';return;}navigator.geolocation.getCurrentPosition(pos=>{currentLat=pos.coords.latitude.toFixed(6);currentLon=pos.coords.longitude.toFixed(6);currentGridRef=latLonToOSGridRef(pos.coords.latitude,pos.coords.longitude);document.getElementById('loc-coords').textContent=currentLat+', '+currentLon;document.getElementById('loc-gridref').textContent=currentGridRef||'';document.getElementById('loc-status').textContent='Location & grid reference captured ✓';},()=>{document.getElementById('loc-status').textContent='Could not get location — tap 🔄 to retry';currentLat=null;currentLon=null;currentGridRef=null;},{enableHighAccuracy:true,timeout:10000,maximumAge:0});}
 
-// ── Save ──
-function saveForm() {
-  if (formMode === 'entry') saveEntry();
-  else if (formMode === 'task') saveTask();
-  else if (formMode === 'path') savePathForm();
-  else if (formMode === 'season') saveSeasonForm();
-  else if (formMode === 'cut') saveCutForm();
-}
+function saveForm(){if(formMode==='entry')saveEntry();else if(formMode==='task')saveTask();else if(formMode==='path')savePathForm();else if(formMode==='season')saveSeasonForm();else if(formMode==='cut')saveCutForm();}
 
-async function saveEntry() {
-  const name = document.getElementById('field-name').value.trim();
-  if (!name) { showToast('Please add a species or description'); return; }
-  const habitats = [...document.querySelectorAll('.habitat-pill.sel')].map(p => p.textContent);
-  const existing = editingId ? entries.find(e => e.id === editingId) : null;
-  const entryId = editingId || Date.now();
-  const entry = {
-    id: entryId, cat: selectedCat, name,
-    notes: document.getElementById('field-notes').value.trim(),
-    infraType: document.getElementById('field-infra').value,
-    habitat: habitats.join(', '),
-    lat: currentLat, lon: currentLon, gridref: currentGridRef,
-    hasPhoto: !!photoData,
-    time: existing ? existing.time : new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
-    date: existing ? existing.date : new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+async function saveEntry(){const name=document.getElementById('field-name').value.trim();if(!name){showToast('Please add a species or description');return;}const habs=[...document.querySelectorAll('.habitat-pill.sel')].map(p=>p.textContent);const ex=editingId?entries.find(e=>e.id===editingId):null;const eid=editingId||Date.now();const entry={id:eid,cat:selectedCat,name,notes:document.getElementById('field-notes').value.trim(),infraType:document.getElementById('field-infra').value,habitat:habs.join(', '),lat:currentLat,lon:currentLon,gridref:currentGridRef,hasPhoto:!!photoData,time:ex?ex.time:new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}),date:ex?ex.date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})};if(photoData)await savePhoto(eid,photoData);if(editingId){const idx=entries.findIndex(e=>e.id===editingId);if(idx>-1)entries[idx]=entry;}else{entries.unshift(entry);syncToSheets(entry);}localStorage.setItem('rangerlog_entries',JSON.stringify(entries));closeForm();showSuccess(editingId?'Entry updated!':'Entry saved!',entry.name);renderEntries();}
+
+function saveTask(){const name=document.getElementById('task-name').value.trim();if(!name){showToast('Please add a task description');return;}const ex=editingId?tasks.find(t=>t.id===editingId):null;const task={id:editingId||Date.now(),name,location:document.getElementById('task-location').value.trim(),dueDate:document.getElementById('task-date').value,notes:document.getElementById('task-notes').value.trim(),priority:selectedPriority,done:ex?ex.done:false,created:ex?ex.created:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),materials:taskFormMaterials.length>0?JSON.parse(JSON.stringify(taskFormMaterials)):[]};if(editingId){const idx=tasks.findIndex(t=>t.id===editingId);if(idx>-1)tasks[idx]=task;}else tasks.unshift(task);localStorage.setItem('rangerlog_tasks',JSON.stringify(tasks));closeForm();showSuccess('Task saved!',name);renderTasks();}
+
+function toggleFilter(cat,el){el.classList.toggle('active');if(activeFilters.has(cat))activeFilters.delete(cat);else activeFilters.add(cat);const h=document.getElementById('filter-hint');h.textContent=activeFilters.size===0?'Showing all — tap a category to filter':'Showing '+activeFilters.size+' categor'+(activeFilters.size===1?'y':'ies')+' — tap again to deselect';renderEntries();}
+
+async function renderEntries(){const list=document.getElementById('entries-list');const filtered=activeFilters.size===0?entries:entries.filter(e=>activeFilters.has(e.cat));if(!filtered.length){list.innerHTML=activeFilters.size===0?'<div class="empty-state"><div class="empty-icon">🌿</div><div class="empty-title">Ready to log</div><div class="empty-sub">Tap "New field entry" to record your first sighting.</div></div>':'<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No entries in this filter</div><div class="empty-sub">Try selecting a different category or tap again to deselect.</div></div>';return;}list.innerHTML=filtered.map(e=>`<div class="entry-card" id="ec-${e.id}"><div class="entry-accent" style="background:${catAccent[e.cat]||'#2d6a1f'}"></div><div class="entry-body"><div class="entry-top"><div class="entry-name">${e.name}${e.infraType?' — '+e.infraType:''}</div><div class="entry-actions"><button class="entry-btn" onclick="editEntry(${e.id})" title="Edit">✏️</button><button class="entry-btn del" onclick="deleteItem(${e.id},'entry')" title="Delete">🗑️</button></div></div><div style="display:flex;align-items:center;gap:6px;margin-top:4px"><span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:${catBg[e.cat]};color:${catFg[e.cat]}">${catEmoji[e.cat]} ${catLabel[e.cat]}</span></div><div class="entry-meta">${e.habitat||'No habitat'} — ${e.date} ${e.time}</div>${e.gridref?`<div class="entry-gridref">${e.gridref}</div>`:''}${e.notes?`<div class="entry-note">${e.notes}</div>`:''}</div>${e.hasPhoto?`<div class="entry-thumb" id="thumb-${e.id}"><div style="width:64px;height:64px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:20px">📷</div></div>`:''}</div>`).join('');for(const e of filtered){if(e.hasPhoto){const p=await loadPhoto(e.id);const t=document.getElementById('thumb-'+e.id);if(p&&t)t.innerHTML=`<img src="${p}" alt="" loading="lazy" style="width:64px;height:100%;object-fit:cover;display:block;">`;}}}
+
+function renderTasks(){
+  const pending=tasks.filter(t=>!t.done);const done=tasks.filter(t=>t.done);
+  const pc={low:'#2d6a1f',medium:'#e8a020',high:'#c0392b'};
+  const rt=t=>{
+    const mc=t.materials?t.materials.length:0;const mn=t.materials?t.materials.filter(m=>!m.ready).length:0;
+    const mb=mc>0?`<div style="margin-top:5px"><span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:${mn>0?'var(--brown-pale)':'var(--green-pale)'};color:${mn>0?'var(--brown)':'var(--green-mid)'}">🪵 ${mn>0?mn+' still needed':'All materials ready'}</span></div>`:'';
+    return `<div class="task-card" style="margin-bottom:8px"><div class="task-accent ${t.priority}"></div><div class="task-body"><div class="task-name${t.done?' done':''}">${t.name}</div><div class="task-meta">${t.location||''}${t.location&&t.dueDate?' · ':''}${t.dueDate?'Due: '+t.dueDate:''}${!t.location&&!t.dueDate?'No date set':''} · <span style="color:${pc[t.priority]};font-weight:600">${t.priority.charAt(0).toUpperCase()+t.priority.slice(1)} priority</span></div>${t.notes?`<div class="entry-note">${t.notes}</div>`:''}${mb}</div><div class="task-actions"><button class="entry-btn" onclick="editTask(${t.id})" title="Edit">✏️</button><button class="entry-btn del" onclick="deleteItem(${t.id},'task')" title="Delete">🗑️</button><div class="task-check${t.done?' done':''}" onclick="toggleTask(${t.id})">${t.done?'✓':''}</div></div></div>`;
   };
-  if (photoData) { await savePhoto(entryId, photoData); }
-  if (editingId) {
-    const idx = entries.findIndex(e => e.id === editingId);
-    if (idx > -1) entries[idx] = entry;
-  } else {
-    entries.unshift(entry);
-    syncToSheets(entry);
-  }
-  localStorage.setItem('rangerlog_entries', JSON.stringify(entries));
-  closeForm();
-  showSuccess(editingId ? 'Entry updated!' : 'Entry saved!', entry.name);
-  renderEntries();
+  document.getElementById('tasks-pending').innerHTML=pending.length?pending.map(rt).join(''):'<div class="empty-sub" style="text-align:center;padding:20px;font-size:13px;color:var(--text-light)">No outstanding tasks — great work! 🌿</div>';
+  document.getElementById('tasks-done').innerHTML=done.length?done.map(rt).join(''):'<div class="empty-sub" style="text-align:center;padding:12px;font-size:13px;color:var(--text-light)">Nothing completed yet.</div>';
 }
 
-function saveTask() {
-  const name = document.getElementById('task-name').value.trim();
-  if (!name) { showToast('Please add a task description'); return; }
-  const existing = editingId ? tasks.find(t => t.id === editingId) : null;
-  const task = {
-    id: editingId || Date.now(), name,
-    location: document.getElementById('task-location').value.trim(),
-    dueDate: document.getElementById('task-date').value,
-    notes: document.getElementById('task-notes').value.trim(),
-    priority: selectedPriority,
-    done: existing ? existing.done : false,
-    created: existing ? existing.created : new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-  };
-  if (editingId) { const idx = tasks.findIndex(t => t.id === editingId); if (idx > -1) tasks[idx] = task; }
-  else tasks.unshift(task);
-  localStorage.setItem('rangerlog_tasks', JSON.stringify(tasks));
-  closeForm(); showSuccess('Task saved!', name); renderTasks();
-}
+function toggleTask(id){const t=tasks.find(t=>t.id===id);if(!t)return;t.done=!t.done;localStorage.setItem('rangerlog_tasks',JSON.stringify(tasks));renderTasks();showToast(t.done?'Task marked done ✓':'Task reopened');}
+function editEntry(id){const e=entries.find(e=>e.id===id);if(e)openForm('entry',e);}
+function editTask(id){const t=tasks.find(t=>t.id===id);if(t)openForm('task',t);}
 
-// ── Filter ──
-function toggleFilter(cat, el) {
-  el.classList.toggle('active');
-  if (activeFilters.has(cat)) activeFilters.delete(cat); else activeFilters.add(cat);
-  const hint = document.getElementById('filter-hint');
-  hint.textContent = activeFilters.size === 0
-    ? 'Showing all — tap a category to filter'
-    : 'Showing ' + activeFilters.size + ' categor' + (activeFilters.size === 1 ? 'y' : 'ies') + ' — tap again to deselect';
-  renderEntries();
-}
+function deleteItem(id,type){pendingDeleteId=id;pendingDeleteType=type;document.getElementById('confirm-title').textContent='Delete this entry?';document.getElementById('confirm-text').textContent='This cannot be undone. Are you sure you want to delete this record?';document.getElementById('confirm-action-btn').textContent='Delete';document.getElementById('confirm-overlay').classList.add('open');}
+function closeConfirm(){document.getElementById('confirm-overlay').classList.remove('open');pendingDeleteId=null;pendingDeleteType=null;}
+function confirmDelete(){if(pendingDeleteType==='entry'){deletePhoto(pendingDeleteId);entries=entries.filter(e=>e.id!==pendingDeleteId);localStorage.setItem('rangerlog_entries',JSON.stringify(entries));renderEntries();}else if(pendingDeleteType==='task'){tasks=tasks.filter(t=>t.id!==pendingDeleteId);localStorage.setItem('rangerlog_tasks',JSON.stringify(tasks));renderTasks();}else if(pendingDeleteType==='path'){delete managedPaths[pendingDeleteId];saveManagedPaths();updatePathLayer(pendingDeleteId);renderPathsStats();renderChecklist();showToast('Path removed');}closeConfirm();if(pendingDeleteType!=='path')showToast('Deleted');}
 
-// ── Render entries ──
-async function renderEntries() {
-  const list = document.getElementById('entries-list');
-  const filtered = activeFilters.size === 0 ? entries : entries.filter(e => activeFilters.has(e.cat));
-  if (filtered.length === 0) {
-    list.innerHTML = activeFilters.size === 0
-      ? '<div class="empty-state"><div class="empty-icon">🌿</div><div class="empty-title">Ready to log</div><div class="empty-sub">Tap "New field entry" to record your first sighting.</div></div>'
-      : '<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No entries in this filter</div><div class="empty-sub">Try selecting a different category or tap again to deselect.</div></div>';
-    return;
-  }
-  list.innerHTML = filtered.map(e => `
-    <div class="entry-card" id="ec-${e.id}">
-      <div class="entry-accent" style="background:${catAccent[e.cat]||'#2d6a1f'}"></div>
-      <div class="entry-body">
-        <div class="entry-top">
-          <div class="entry-name">${e.name}${e.infraType ? ' — ' + e.infraType : ''}</div>
-          <div class="entry-actions">
-            <button class="entry-btn" onclick="editEntry(${e.id})" title="Edit">✏️</button>
-            <button class="entry-btn del" onclick="deleteItem(${e.id},'entry')" title="Delete">🗑️</button>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
-          <span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:${catBg[e.cat]};color:${catFg[e.cat]}">${catEmoji[e.cat]} ${catLabel[e.cat]}</span>
-        </div>
-        <div class="entry-meta">${e.habitat||'No habitat'} — ${e.date} ${e.time}</div>
-        ${e.gridref ? `<div class="entry-gridref">${e.gridref}</div>` : ''}
-        ${e.notes ? `<div class="entry-note">${e.notes}</div>` : ''}
-      </div>
-      ${e.hasPhoto ? `<div class="entry-thumb" id="thumb-${e.id}"><div style="width:64px;height:64px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:20px">📷</div></div>` : ''}
-    </div>`).join('');
+function renderMap(){const flora=new Set(['plant','tree','fungi']),fauna=new Set(['insect','bird','animal','reptile','amphibian']);let filtered;if(mapFilter==='all')filtered=entries;else if(mapFilter==='plant')filtered=entries.filter(e=>flora.has(e.cat));else if(mapFilter==='fauna')filtered=entries.filter(e=>fauna.has(e.cat));else filtered=entries.filter(e=>e.cat===mapFilter);const wc=filtered.filter(e=>e.lat&&e.lon);const iframe=document.getElementById('map');if(!wc.length){iframe.src=`https://www.openstreetmap.org/export/embed.html?bbox=-3.5754,50.4319,-3.4754,50.4919&layer=mapnik`;}else if(wc.length===1){const e=wc[0];const la=parseFloat(e.lat),lo=parseFloat(e.lon);iframe.src=`https://www.openstreetmap.org/export/embed.html?bbox=${lo-0.02},${la-0.015},${lo+0.02},${la+0.015}&layer=mapnik&marker=${la},${lo}`;}else{const lats=wc.map(e=>parseFloat(e.lat)),lons=wc.map(e=>parseFloat(e.lon));const p=0.01;iframe.src=`https://www.openstreetmap.org/export/embed.html?bbox=${Math.min(...lons)-p},${Math.min(...lats)-p},${Math.max(...lons)+p},${Math.max(...lats)+p}&layer=mapnik&marker=${(Math.min(...lats)+Math.max(...lats))/2},${(Math.min(...lons)+Math.max(...lons))/2}`;}renderMapList(filtered);}
+function setMapFilter(f,el){mapFilter=f;document.querySelectorAll('.map-ctrl-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderMap();}
+function centreOnMe(){if(!navigator.geolocation){showToast('GPS not available');return;}navigator.geolocation.getCurrentPosition(pos=>{const la=pos.coords.latitude,lo=pos.coords.longitude;document.getElementById('map').src=`https://www.openstreetmap.org/export/embed.html?bbox=${lo-0.02},${la-0.015},${lo+0.02},${la+0.015}&layer=mapnik&marker=${la},${lo}`;showToast('Centred on your location');});}
+function renderMapList(filtered){const list=document.getElementById('map-list');const wc=(filtered||entries).filter(e=>e.lat&&e.lon);if(!wc.length){list.innerHTML='<div class="empty-sub" style="text-align:center;padding:20px;font-size:13px;color:var(--text-light)">No entries with GPS in this layer.</div>';return;}list.innerHTML=wc.map(e=>`<div class="map-entry" onclick="focusPin(${e.lat},${e.lon})"><div class="map-pin" style="background:${catBg[e.cat]}">${catEmoji[e.cat]}</div><div class="map-entry-info"><div class="map-entry-name">${e.name}</div>${e.gridref?`<div class="map-entry-loc">${e.gridref}</div>`:'<div style="font-size:10px;color:var(--text-light)">No GPS</div>'}</div><div style="font-size:11px;color:var(--text-light)">${e.date}</div></div>`).join('');}
+function focusPin(lat,lon){if(!lat||!lon)return;const la=parseFloat(lat),lo=parseFloat(lon);document.getElementById('map').src=`https://www.openstreetmap.org/export/embed.html?bbox=${lo-0.015},${la-0.012},${lo+0.015},${la+0.012}&layer=mapnik&marker=${la},${lo}`;showToast('Showing pin location');}
 
-  for (const e of filtered) {
-    if (e.hasPhoto) {
-      const photo = await loadPhoto(e.id);
-      const thumb = document.getElementById('thumb-' + e.id);
-      if (photo && thumb) {
-        thumb.innerHTML = `<img src="${photo}" alt="" loading="lazy" style="width:64px;height:100%;object-fit:cover;display:block;">`;
-      }
-    }
-  }
-}
+function syncToSheets(entry){if(!navigator.onLine){queueSync(entry);return;}const p=new URLSearchParams({type:'entry',id:entry.id,date:entry.date||'',time:entry.time||'',category:entry.cat||'',name:entry.name||'',habitat:entry.habitat||'',lat:entry.lat||'',lon:entry.lon||'',gridref:entry.gridref||'',notes:entry.notes||'',infraType:entry.infraType||'',photo:entry.hasPhoto?'true':'false'});fetch(SHEETS_URL+'?'+p.toString(),{method:'GET',mode:'no-cors'}).then(()=>showToast('Synced to Sheets ✓')).catch(()=>queueSync(entry));}
+function queueSync(entry){let q=JSON.parse(localStorage.getItem('rangerlog_sync_queue')||'[]');q.push(entry);localStorage.setItem('rangerlog_sync_queue',JSON.stringify(q));showToast('Saved locally — will sync when online');}
+async function processSyncQueue(){if(!navigator.onLine)return;let q=JSON.parse(localStorage.getItem('rangerlog_sync_queue')||'[]');if(!q.length)return;const rem=[];for(const entry of q){try{const p=new URLSearchParams({type:'entry',id:entry.id,date:entry.date||'',time:entry.time||'',category:entry.cat||'',name:entry.name||'',habitat:entry.habitat||'',lat:entry.lat||'',lon:entry.lon||'',gridref:entry.gridref||'',notes:entry.notes||'',infraType:entry.infraType||'',photo:entry.hasPhoto?'true':'false'});await fetch(SHEETS_URL+'?'+p.toString(),{method:'GET',mode:'no-cors'});}catch(e){rem.push(entry);}}localStorage.setItem('rangerlog_sync_queue',JSON.stringify(rem));if(!rem.length&&q.length)showToast(q.length+' queued entries synced ✓');}
+window.addEventListener('online',()=>{updateOnline();processSyncQueue();});
 
-// ── Render tasks ──
-function renderTasks() {
-  const pending = tasks.filter(t => !t.done);
-  const done = tasks.filter(t => t.done);
-  const priorityColour = { low: '#2d6a1f', medium: '#e8a020', high: '#c0392b' };
-  const renderTask = t => `
-    <div class="task-card" style="margin-bottom:8px">
-      <div class="task-accent ${t.priority}"></div>
-      <div class="task-body">
-        <div class="task-name${t.done?' done':''}">${t.name}</div>
-        <div class="task-meta">${t.location||''}${t.location&&t.dueDate?' · ':''}${t.dueDate?'Due: '+t.dueDate:''}${!t.location&&!t.dueDate?'No date set':''} · <span style="color:${priorityColour[t.priority]};font-weight:600">${t.priority.charAt(0).toUpperCase()+t.priority.slice(1)} priority</span></div>
-        ${t.notes?`<div class="entry-note">${t.notes}</div>`:''}
-      </div>
-      <div class="task-actions">
-        <button class="entry-btn" onclick="editTask(${t.id})" title="Edit">✏️</button>
-        <button class="entry-btn del" onclick="deleteItem(${t.id},'task')" title="Delete">🗑️</button>
-        <div class="task-check${t.done?' done':''}" onclick="toggleTask(${t.id})">${t.done?'✓':''}</div>
-      </div>
-    </div>`;
-  document.getElementById('tasks-pending').innerHTML = pending.length ? pending.map(renderTask).join('') : '<div class="empty-sub" style="text-align:center;padding:20px;font-size:13px;color:var(--text-light)">No outstanding tasks — great work! 🌿</div>';
-  document.getElementById('tasks-done').innerHTML = done.length ? done.map(renderTask).join('') : '<div class="empty-sub" style="text-align:center;padding:12px;font-size:13px;color:var(--text-light)">Nothing completed yet.</div>';
-}
+let notices=JSON.parse(localStorage.getItem('rangerlog_notices')||'[]');
+let selectedNoticeType='update',noticeLocLat=null,noticeLocLon=null,noticeLocGridRef=null;
+const noticeTypeEmoji={update:'📋',alert:'⚠️',hazard:'🚨'};
+const noticeTypeBg={update:'var(--green-pale)',alert:'var(--amber-pale)',hazard:'var(--red-pale)'};
+const noticeTypeFg={update:'var(--green-mid)',alert:'var(--amber)',hazard:'var(--red)'};
+const noticeTypeLabel={update:'Update',alert:'Alert',hazard:'Urgent'};
+function selectNoticeType(el){document.querySelectorAll('.notice-type-pill').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');selectedNoticeType=el.dataset.type;}
+function attachLocation(){if(!navigator.geolocation){showToast('GPS not available');return;}document.getElementById('notice-loc-label').textContent='📍 Getting location…';navigator.geolocation.getCurrentPosition(pos=>{noticeLocLat=pos.coords.latitude.toFixed(6);noticeLocLon=pos.coords.longitude.toFixed(6);noticeLocGridRef=latLonToOSGridRef(pos.coords.latitude,pos.coords.longitude);document.getElementById('notice-loc-label').textContent='📍 '+(noticeLocGridRef||noticeLocLat+', '+noticeLocLon);showToast('Location attached ✓');},()=>{document.getElementById('notice-loc-label').textContent='📍 Could not get location';});}
+function postNotice(){const text=document.getElementById('notice-text-input').value.trim();if(!text){showToast('Please type a message first');return;}const n={id:Date.now(),type:selectedNoticeType,text,lat:noticeLocLat,lon:noticeLocLon,gridref:noticeLocGridRef,time:new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}),date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short'}),author:'You'};notices.unshift(n);localStorage.setItem('rangerlog_notices',JSON.stringify(notices));document.getElementById('notice-text-input').value='';noticeLocLat=null;noticeLocLon=null;noticeLocGridRef=null;document.getElementById('notice-loc-label').textContent='📍 No location attached';renderNotices();showToast('Posted to notice board ✓');}
+function deleteNotice(id){notices=notices.filter(n=>n.id!==id);localStorage.setItem('rangerlog_notices',JSON.stringify(notices));renderNotices();}
+function renderNotices(){const list=document.getElementById('notice-list');if(!notices.length){list.innerHTML='<div class="empty-state" style="padding:32px 24px"><div class="empty-icon">📋</div><div class="empty-title">No notices yet</div><div class="empty-sub">Post an update, alert or urgent notice to share with your team.</div></div>';return;}list.innerHTML=notices.map(n=>`<div class="notice-card" style="margin-bottom:10px"><div style="padding:10px 14px;display:flex;gap:10px;align-items:flex-start"><div class="notice-avatar">${n.author==='You'?'ME':n.author.substring(0,2).toUpperCase()}</div><div style="flex:1"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><span style="font-size:12px;font-weight:600;color:var(--text)">${n.author}</span><span class="notice-badge" style="background:${noticeTypeBg[n.type]};color:${noticeTypeFg[n.type]}">${noticeTypeEmoji[n.type]} ${noticeTypeLabel[n.type]}</span></div><div class="notice-text">${n.text}</div>${n.gridref?`<div class="notice-gridref">${n.gridref}</div>`:''}<div class="notice-meta">${n.date} at ${n.time}</div></div><button class="entry-btn del" onclick="deleteNotice(${n.id})" title="Delete">🗑️</button></div></div>`).join('');}
 
-function toggleTask(id) {
-  const t = tasks.find(t => t.id === id); if (!t) return;
-  t.done = !t.done;
-  localStorage.setItem('rangerlog_tasks', JSON.stringify(tasks));
-  renderTasks(); showToast(t.done ? 'Task marked done ✓' : 'Task reopened');
-}
-function editEntry(id) { const e = entries.find(e => e.id === id); if (e) openForm('entry', e); }
-function editTask(id) { const t = tasks.find(t => t.id === id); if (t) openForm('task', t); }
+function renderReport(){const now=new Date();const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const thisMonth=entries.filter(e=>{if(!e.date)return false;const parts=e.date.split(' ');if(parts.length<2)return false;const em=months.indexOf(parts[1]);if(em===-1)return false;const ey=parts.length>=3?parseInt(parts[2]):now.getFullYear();return em===now.getMonth()&&ey===now.getFullYear();});const tmt=tasks.filter(t=>t.done);const h=thisMonth.filter(e=>e.cat==='hazard').length;const inv=thisMonth.filter(e=>e.cat==='invasive').length;document.getElementById('report-stats').innerHTML=`<div class="stat-box"><div class="stat-box-num">${entries.length}</div><div class="stat-box-label">Total entries</div></div><div class="stat-box"><div class="stat-box-num">${thisMonth.length}</div><div class="stat-box-label">This month</div></div><div class="stat-box"><div class="stat-box-num">${h}</div><div class="stat-box-label">Hazards</div></div><div class="stat-box"><div class="stat-box-num">${inv}</div><div class="stat-box-label">Invasives</div></div><div class="stat-box"><div class="stat-box-num">${tmt.length}</div><div class="stat-box-label">Tasks done</div></div><div class="stat-box"><div class="stat-box-num">${entries.filter(e=>e.gridref).length}</div><div class="stat-box-label">GPS logged</div></div>`;const cats=Object.keys(catLabel);const counts=cats.map(c=>({cat:c,count:entries.filter(e=>e.cat===c).length})).filter(x=>x.count>0).sort((a,b)=>b.count-a.count);const max=counts.length?Math.max(...counts.map(x=>x.count)):1;document.getElementById('cat-breakdown').innerHTML=counts.length?counts.map(c=>`<div class="cat-breakdown-row"><span style="font-size:14px;width:20px">${catEmoji[c.cat]}</span><span style="font-size:12px;color:var(--text-mid);width:90px">${catLabel[c.cat]}</span><div class="cat-bar-wrap"><div class="cat-bar" style="width:${Math.round(c.count/max*100)}%;background:${catAccent[c.cat]}"></div></div><span class="cat-count">${c.count}</span></div>`).join(''):'<div style="padding:14px;font-size:13px;color:var(--text-light);text-align:center">No entries yet</div>';const mn=now.toLocaleDateString('en-GB',{month:'long',year:'numeric'});const habs=[...new Set(entries.map(e=>e.habitat).filter(Boolean).join(', ').split(', ').filter(Boolean))].slice(0,4).join(', ');const mc=Object.keys(managedPaths).length;const tc=Object.values(managedPaths).reduce((s,mp)=>s+(mp.cuts?mp.cuts.length:0),0);document.getElementById('summary-box').textContent=`RangerLog Monthly Summary — ${mn}\nDevon Rangers / Torbay Green Spaces\n\nEntries this month: ${thisMonth.length}\nTotal entries logged: ${entries.length}\nHazards raised: ${h}\nInvasive species: ${inv}\nTasks completed: ${tmt.length}\nEntries with GPS: ${entries.filter(e=>e.gridref).length}\n\nManaged paths: ${mc}\nTotal cuts logged: ${tc}\n\nCategories recorded: ${counts.map(c=>catLabel[c.cat]+' ('+c.count+')').join(', ')}\n${habs?'Habitats covered: '+habs:''}\n\nGenerated by RangerLog — rangerlog.neildriver129.workers.dev`;}
 
-// ── Delete ──
-function deleteItem(id, type) {
-  pendingDeleteId = id; pendingDeleteType = type;
-  document.getElementById('confirm-title').textContent = 'Delete this entry?';
-  document.getElementById('confirm-text').textContent = 'This cannot be undone. Are you sure you want to delete this record?';
-  document.getElementById('confirm-action-btn').textContent = 'Delete';
-  document.getElementById('confirm-overlay').classList.add('open');
-}
-function closeConfirm() { document.getElementById('confirm-overlay').classList.remove('open'); pendingDeleteId = null; pendingDeleteType = null; }
-function confirmDelete() {
-  if (pendingDeleteType === 'entry') {
-    deletePhoto(pendingDeleteId);
-    entries = entries.filter(e => e.id !== pendingDeleteId);
-    localStorage.setItem('rangerlog_entries', JSON.stringify(entries));
-    renderEntries();
-  } else if (pendingDeleteType === 'task') {
-    tasks = tasks.filter(t => t.id !== pendingDeleteId);
-    localStorage.setItem('rangerlog_tasks', JSON.stringify(tasks));
-    renderTasks();
-  } else if (pendingDeleteType === 'path') {
-    delete managedPaths[pendingDeleteId];
-    saveManagedPaths(); updatePathLayer(pendingDeleteId);
-    renderPathsStats(); renderChecklist(); showToast('Path removed');
-  }
-  closeConfirm();
-  if (pendingDeleteType !== 'path') showToast('Deleted');
-}
+function exportCSV(){if(!entries.length){showToast('No entries to export yet');return;}const headers=['ID','Date','Time','Category','Name','Habitat','Latitude','Longitude','OS Grid Ref','Notes','Infra Type','Has Photo'];const rows=entries.map(e=>[e.id,e.date,e.time,catLabel[e.cat]||e.cat,`"${(e.name||'').replace(/"/g,'""')}"`,`"${(e.habitat||'').replace(/"/g,'""')}"`,e.lat||'',e.lon||'',e.gridref||'',`"${(e.notes||'').replace(/"/g,'""')}"`,e.infraType||'',e.hasPhoto?'Yes':'No']);const csv=[headers.join(','),...rows.map(r=>r.join(','))].join('\n');const b=new Blob([csv],{type:'text/csv'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='RangerLog_Export_'+new Date().toISOString().split('T')[0]+'.csv';a.click();URL.revokeObjectURL(u);showToast('CSV downloaded ✓');}
+function exportDBRC(){const dc=new Set(['plant','tree','fungi','insect','bird','animal','reptile','amphibian']);const de=entries.filter(e=>dc.has(e.cat));if(!de.length){showToast('No wildlife entries to export for DBRC');return;}const headers=['Date (DD/MM/YYYY)','Site Name','Habitat','Species / Common Name','Category','Quantity / Count','Sex','Life Stage','Grid Ref','Latitude','Longitude','Recorder','Determiner','Notes','Data Source'];const rows=de.map(e=>{let d='';if(e.date){const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const parts=e.date.split(' ');if(parts.length>=2){const day=parts[0].padStart(2,'0');const mon=(months.indexOf(parts[1])+1).toString().padStart(2,'0');const yr=parts.length>=3?parts[2]:new Date().getFullYear();d=`${day}/${mon}/${yr}`;}}const gr=e.gridref?e.gridref:(e.lat&&e.lon?`${e.lat},${e.lon}`:'');return[d,`"${(e.habitat||'Torbay').replace(/"/g,'""')}"`,`"${(e.habitat||'').replace(/"/g,'""')}"`,`"${(e.name||'').replace(/"/g,'""')}"`,catLabel[e.cat]||e.cat,'','','',`"${gr}"`,e.lat||'',e.lon||'','Devon Rangers','',`"${(e.notes||'').replace(/"/g,'""')}"`,'RangerLog'];});const csv=[headers.join(','),...rows.map(r=>r.join(','))].join('\n');const b=new Blob([csv],{type:'text/csv'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='RangerLog_DBRC_'+new Date().toISOString().split('T')[0]+'.csv';a.click();URL.revokeObjectURL(u);showToast('DBRC CSV downloaded ✓ — add Quantity & Life Stage before submitting');}
+function copySummary(){const text=document.getElementById('summary-box').textContent;navigator.clipboard.writeText(text).then(()=>showToast('Summary copied to clipboard ✓')).catch(()=>showToast('Copy failed — please copy manually'));}
+function shareToWhatsApp(){const text=encodeURIComponent(document.getElementById('summary-box').textContent);window.open('https://wa.me/?text='+text,'_blank');}
 
-// ── Map (entries) ──
-function renderMap() {
-  const flora = new Set(['plant','tree','fungi']), fauna = new Set(['insect','bird','animal','reptile','amphibian']);
-  let filtered;
-  if (mapFilter === 'all') filtered = entries;
-  else if (mapFilter === 'plant') filtered = entries.filter(e => flora.has(e.cat));
-  else if (mapFilter === 'fauna') filtered = entries.filter(e => fauna.has(e.cat));
-  else filtered = entries.filter(e => e.cat === mapFilter);
-  const withCoords = filtered.filter(e => e.lat && e.lon);
-  const iframe = document.getElementById('map');
-  if (withCoords.length === 0) { iframe.src = `https://www.openstreetmap.org/export/embed.html?bbox=-3.5754,50.4319,-3.4754,50.4919&layer=mapnik`; }
-  else if (withCoords.length === 1) { const e = withCoords[0]; const la = parseFloat(e.lat), lo = parseFloat(e.lon); iframe.src = `https://www.openstreetmap.org/export/embed.html?bbox=${lo-0.02},${la-0.015},${lo+0.02},${la+0.015}&layer=mapnik&marker=${la},${lo}`; }
-  else { const lats = withCoords.map(e => parseFloat(e.lat)), lons = withCoords.map(e => parseFloat(e.lon)); const pad = 0.01; iframe.src = `https://www.openstreetmap.org/export/embed.html?bbox=${Math.min(...lons)-pad},${Math.min(...lats)-pad},${Math.max(...lons)+pad},${Math.max(...lats)+pad}&layer=mapnik&marker=${(Math.min(...lats)+Math.max(...lats))/2},${(Math.min(...lons)+Math.max(...lons))/2}`; }
-  renderMapList(filtered);
-}
-function setMapFilter(f, el) { mapFilter = f; document.querySelectorAll('.map-ctrl-btn').forEach(b => b.classList.remove('active')); el.classList.add('active'); renderMap(); }
-function centreOnMe() {
-  if (!navigator.geolocation) { showToast('GPS not available'); return; }
-  navigator.geolocation.getCurrentPosition(pos => {
-    const la = pos.coords.latitude, lo = pos.coords.longitude;
-    document.getElementById('map').src = `https://www.openstreetmap.org/export/embed.html?bbox=${lo-0.02},${la-0.015},${lo+0.02},${la+0.015}&layer=mapnik&marker=${la},${lo}`;
-    showToast('Centred on your location');
-  });
-}
-function renderMapList(filtered) {
-  const list = document.getElementById('map-list');
-  const withCoords = (filtered || entries).filter(e => e.lat && e.lon);
-  if (withCoords.length === 0) { list.innerHTML = '<div class="empty-sub" style="text-align:center;padding:20px;font-size:13px;color:var(--text-light)">No entries with GPS in this layer.</div>'; return; }
-  list.innerHTML = withCoords.map(e => `
-    <div class="map-entry" onclick="focusPin(${e.lat},${e.lon})">
-      <div class="map-pin" style="background:${catBg[e.cat]}">${catEmoji[e.cat]}</div>
-      <div class="map-entry-info"><div class="map-entry-name">${e.name}</div>${e.gridref ? `<div class="map-entry-loc">${e.gridref}</div>` : '<div style="font-size:10px;color:var(--text-light)">No GPS</div>'}</div>
-      <div style="font-size:11px;color:var(--text-light)">${e.date}</div>
-    </div>`).join('');
-}
-function focusPin(lat, lon) {
-  if (!lat || !lon) return;
-  const la = parseFloat(lat), lo = parseFloat(lon);
-  document.getElementById('map').src = `https://www.openstreetmap.org/export/embed.html?bbox=${lo-0.015},${la-0.012},${lo+0.015},${la+0.012}&layer=mapnik&marker=${la},${lo}`;
-  showToast('Showing pin location');
-}
-
-// ── Google Sheets sync ──
-function syncToSheets(entry) {
-  if (!navigator.onLine) { queueSync(entry); return; }
-  const params = new URLSearchParams({
-    type: 'entry', id: entry.id, date: entry.date || '', time: entry.time || '',
-    category: entry.cat || '', name: entry.name || '', habitat: entry.habitat || '',
-    lat: entry.lat || '', lon: entry.lon || '', gridref: entry.gridref || '',
-    notes: entry.notes || '', infraType: entry.infraType || '',
-    photo: entry.hasPhoto ? 'true' : 'false'
-  });
-  fetch(SHEETS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' })
-    .then(() => showToast('Synced to Sheets ✓'))
-    .catch(() => queueSync(entry));
-}
-
-function queueSync(entry) {
-  let queue = JSON.parse(localStorage.getItem('rangerlog_sync_queue') || '[]');
-  queue.push(entry);
-  localStorage.setItem('rangerlog_sync_queue', JSON.stringify(queue));
-  showToast('Saved locally — will sync when online');
-}
-
-async function processSyncQueue() {
-  if (!navigator.onLine) return;
-  let queue = JSON.parse(localStorage.getItem('rangerlog_sync_queue') || '[]');
-  if (!queue.length) return;
-  const remaining = [];
-  for (const entry of queue) {
-    try {
-      const params = new URLSearchParams({
-        type: 'entry', id: entry.id, date: entry.date || '', time: entry.time || '',
-        category: entry.cat || '', name: entry.name || '', habitat: entry.habitat || '',
-        lat: entry.lat || '', lon: entry.lon || '', gridref: entry.gridref || '',
-        notes: entry.notes || '', infraType: entry.infraType || '',
-        photo: entry.hasPhoto ? 'true' : 'false'
-      });
-      await fetch(SHEETS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
-    } catch(e) { remaining.push(entry); }
-  }
-  localStorage.setItem('rangerlog_sync_queue', JSON.stringify(remaining));
-  if (!remaining.length && queue.length) showToast(queue.length + ' queued entries synced ✓');
-}
-window.addEventListener('online', () => { updateOnline(); processSyncQueue(); });
-
-// ── Notices ──
-let notices = JSON.parse(localStorage.getItem('rangerlog_notices') || '[]');
-let selectedNoticeType = 'update';
-let noticeLocLat = null, noticeLocLon = null, noticeLocGridRef = null;
-const noticeTypeEmoji = { update: '📋', alert: '⚠️', hazard: '🚨' };
-const noticeTypeBg = { update: 'var(--green-pale)', alert: 'var(--amber-pale)', hazard: 'var(--red-pale)' };
-const noticeTypeFg = { update: 'var(--green-mid)', alert: 'var(--amber)', hazard: 'var(--red)' };
-const noticeTypeLabel = { update: 'Update', alert: 'Alert', hazard: 'Urgent' };
-function selectNoticeType(el) { document.querySelectorAll('.notice-type-pill').forEach(p => p.classList.remove('sel')); el.classList.add('sel'); selectedNoticeType = el.dataset.type; }
-function attachLocation() {
-  if (!navigator.geolocation) { showToast('GPS not available'); return; }
-  document.getElementById('notice-loc-label').textContent = '📍 Getting location…';
-  navigator.geolocation.getCurrentPosition(pos => {
-    noticeLocLat = pos.coords.latitude.toFixed(6);
-    noticeLocLon = pos.coords.longitude.toFixed(6);
-    noticeLocGridRef = latLonToOSGridRef(pos.coords.latitude, pos.coords.longitude);
-    document.getElementById('notice-loc-label').textContent = '📍 ' + (noticeLocGridRef || noticeLocLat + ', ' + noticeLocLon);
-    showToast('Location attached ✓');
-  }, () => { document.getElementById('notice-loc-label').textContent = '📍 Could not get location'; });
-}
-function postNotice() {
-  const text = document.getElementById('notice-text-input').value.trim();
-  if (!text) { showToast('Please type a message first'); return; }
-  const notice = { id: Date.now(), type: selectedNoticeType, text, lat: noticeLocLat, lon: noticeLocLon, gridref: noticeLocGridRef, time: new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }), date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }), author: 'You' };
-  notices.unshift(notice);
-  localStorage.setItem('rangerlog_notices', JSON.stringify(notices));
-  document.getElementById('notice-text-input').value = '';
-  noticeLocLat = null; noticeLocLon = null; noticeLocGridRef = null;
-  document.getElementById('notice-loc-label').textContent = '📍 No location attached';
-  renderNotices(); showToast('Posted to notice board ✓');
-}
-function deleteNotice(id) { notices = notices.filter(n => n.id !== id); localStorage.setItem('rangerlog_notices', JSON.stringify(notices)); renderNotices(); }
-function renderNotices() {
-  const list = document.getElementById('notice-list');
-  if (!notices.length) { list.innerHTML = '<div class="empty-state" style="padding:32px 24px"><div class="empty-icon">📋</div><div class="empty-title">No notices yet</div><div class="empty-sub">Post an update, alert or urgent notice to share with your team.</div></div>'; return; }
-  list.innerHTML = notices.map(n => `<div class="notice-card" style="margin-bottom:10px"><div style="padding:10px 14px;display:flex;gap:10px;align-items:flex-start"><div class="notice-avatar">${n.author==='You'?'ME':n.author.substring(0,2).toUpperCase()}</div><div style="flex:1"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><span class="notice-name">${n.author}</span><span class="notice-badge" style="background:${noticeTypeBg[n.type]};color:${noticeTypeFg[n.type]}">${noticeTypeEmoji[n.type]} ${noticeTypeLabel[n.type]}</span></div><div class="notice-text">${n.text}</div>${n.gridref?`<div class="notice-gridref">${n.gridref}</div>`:''}<div class="notice-meta">${n.date} at ${n.time}</div></div><button class="entry-btn del" onclick="deleteNotice(${n.id})" title="Delete">🗑️</button></div></div>`).join('');
-}
-
-// ── Report ──
-function renderReport() {
-  const now = new Date();
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const thisMonth = entries.filter(e => {
-    if (!e.date) return false;
-    const parts = e.date.split(' ');
-    if (parts.length < 2) return false;
-    const eMonth = months.indexOf(parts[1]);
-    if (eMonth === -1) return false;
-    const eYear = parts.length >= 3 ? parseInt(parts[2]) : now.getFullYear();
-    return eMonth === now.getMonth() && eYear === now.getFullYear();
-  });
-  const thisMonthTasks = tasks.filter(t => t.done);
-  const hazards = thisMonth.filter(e => e.cat === 'hazard').length;
-  const invasives = thisMonth.filter(e => e.cat === 'invasive').length;
-  document.getElementById('report-stats').innerHTML = `
-    <div class="stat-box"><div class="stat-box-num">${entries.length}</div><div class="stat-box-label">Total entries</div></div>
-    <div class="stat-box"><div class="stat-box-num">${thisMonth.length}</div><div class="stat-box-label">This month</div></div>
-    <div class="stat-box"><div class="stat-box-num">${hazards}</div><div class="stat-box-label">Hazards</div></div>
-    <div class="stat-box"><div class="stat-box-num">${invasives}</div><div class="stat-box-label">Invasives</div></div>
-    <div class="stat-box"><div class="stat-box-num">${thisMonthTasks.length}</div><div class="stat-box-label">Tasks done</div></div>
-    <div class="stat-box"><div class="stat-box-num">${entries.filter(e=>e.gridref).length}</div><div class="stat-box-label">GPS logged</div></div>`;
-  const cats = Object.keys(catLabel);
-  const counts = cats.map(c => ({ cat: c, count: entries.filter(e => e.cat === c).length })).filter(x => x.count > 0).sort((a,b) => b.count - a.count);
-  const max = counts.length ? Math.max(...counts.map(x => x.count)) : 1;
-  document.getElementById('cat-breakdown').innerHTML = counts.length ? counts.map(c => `<div class="cat-breakdown-row"><span style="font-size:14px;width:20px">${catEmoji[c.cat]}</span><span style="font-size:12px;color:var(--text-mid);width:90px">${catLabel[c.cat]}</span><div class="cat-bar-wrap"><div class="cat-bar" style="width:${Math.round(c.count/max*100)}%;background:${catAccent[c.cat]}"></div></div><span class="cat-count">${c.count}</span></div>`).join('') : '<div style="padding:14px;font-size:13px;color:var(--text-light);text-align:center">No entries yet</div>';
-  const monthName = now.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
-  const habitats = [...new Set(entries.map(e => e.habitat).filter(Boolean).join(', ').split(', ').filter(Boolean))].slice(0,4).join(', ');
-  const managedCount = Object.keys(managedPaths).length;
-  const totalCuts = Object.values(managedPaths).reduce((s, mp) => s + (mp.cuts ? mp.cuts.length : 0), 0);
-  document.getElementById('summary-box').textContent = `RangerLog Monthly Summary — ${monthName}\nDevon Rangers / Torbay Green Spaces\n\nEntries this month: ${thisMonth.length}\nTotal entries logged: ${entries.length}\nHazards raised: ${hazards}\nInvasive species: ${invasives}\nTasks completed: ${thisMonthTasks.length}\nEntries with GPS: ${entries.filter(e=>e.gridref).length}\n\nManaged paths: ${managedCount}\nTotal cuts logged: ${totalCuts}\n\nCategories recorded: ${counts.map(c => catLabel[c.cat] + ' (' + c.count + ')').join(', ')}\n${habitats ? 'Habitats covered: ' + habitats : ''}\n\nGenerated by RangerLog — rangerlog.neildriver129.workers.dev`;
-}
-
-function exportCSV() {
-  if (!entries.length) { showToast('No entries to export yet'); return; }
-  const headers = ['ID','Date','Time','Category','Name','Habitat','Latitude','Longitude','OS Grid Ref','Notes','Infra Type','Has Photo'];
-  const rows = entries.map(e => [e.id, e.date, e.time, catLabel[e.cat]||e.cat, `"${(e.name||'').replace(/"/g,'""')}"`, `"${(e.habitat||'').replace(/"/g,'""')}"`, e.lat||'', e.lon||'', e.gridref||'', `"${(e.notes||'').replace(/"/g,'""')}"`, e.infraType||'', e.hasPhoto?'Yes':'No']);
-  const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-  const blob = new Blob([csv], { type: 'text/csv' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = 'RangerLog_Export_' + new Date().toISOString().split('T')[0] + '.csv'; a.click(); URL.revokeObjectURL(url);
-  showToast('CSV downloaded ✓');
-}
-function exportDBRC() {
-  const dbrcCats = new Set(['plant','tree','fungi','insect','bird','animal','reptile','amphibian']);
-  const dbrcEntries = entries.filter(e => dbrcCats.has(e.cat));
-  if (!dbrcEntries.length) { showToast('No wildlife entries to export for DBRC'); return; }
-  const headers = ['Date (DD/MM/YYYY)','Site Name','Habitat','Species / Common Name','Category','Quantity / Count','Sex','Life Stage','Grid Ref','Latitude','Longitude','Recorder','Determiner','Notes','Data Source'];
-  const rows = dbrcEntries.map(e => {
-    let ddmmyyyy = '';
-    if (e.date) { const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; const parts = e.date.split(' '); if (parts.length >= 2) { const day = parts[0].padStart(2,'0'); const mon = (months.indexOf(parts[1])+1).toString().padStart(2,'0'); const yr = parts.length>=3?parts[2]:new Date().getFullYear(); ddmmyyyy = `${day}/${mon}/${yr}`; } }
-    const gridRef = e.gridref ? e.gridref : (e.lat&&e.lon ? `${e.lat},${e.lon}` : '');
-    return [ddmmyyyy, `"${(e.habitat||'Torbay').replace(/"/g,'""')}"`, `"${(e.habitat||'').replace(/"/g,'""')}"`, `"${(e.name||'').replace(/"/g,'""')}"`, catLabel[e.cat]||e.cat, '', '', '', `"${gridRef}"`, e.lat||'', e.lon||'', 'Devon Rangers', '', `"${(e.notes||'').replace(/"/g,'""')}"`, 'RangerLog / rangerlog-torbay.netlify.app'];
-  });
-  const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-  const blob = new Blob([csv], { type: 'text/csv' }); const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = 'RangerLog_DBRC_' + new Date().toISOString().split('T')[0] + '.csv'; a.click(); URL.revokeObjectURL(url);
-  showToast('DBRC CSV downloaded ✓ — add Quantity & Life Stage before submitting');
-}
-function copySummary() { const text = document.getElementById('summary-box').textContent; navigator.clipboard.writeText(text).then(() => showToast('Summary copied to clipboard ✓')).catch(() => showToast('Copy failed — please copy manually')); }
-function shareToWhatsApp() { const text = encodeURIComponent(document.getElementById('summary-box').textContent); window.open('https://wa.me/?text=' + text, '_blank'); }
-
-// ── Toast / Success ──
-function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
-function showSuccess(title, sub) { const o = document.getElementById('success-overlay'); document.getElementById('success-text').textContent = title; document.getElementById('success-sub').textContent = sub; o.classList.add('show'); setTimeout(() => o.classList.remove('show'), 1800); }
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function showSuccess(title,sub){const o=document.getElementById('success-overlay');document.getElementById('success-text').textContent=title;document.getElementById('success-sub').textContent=sub;o.classList.add('show');setTimeout(()=>o.classList.remove('show'),1800);}
 
 // ── Init ──
 openPhotoDB();
@@ -2163,7 +1367,7 @@ renderSeasonDisplay();
 renderPathsStats();
 updateExportBtn();
 initPathsTab();
-loadRemoteRecordedPaths(); // pull shared paths from GitHub on startup
+loadRemoteRecordedPaths();
 </script>
 </body>
 </html>
