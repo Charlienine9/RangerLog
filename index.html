@@ -385,7 +385,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
     <div class="tab" onclick="showTab('map',this)">Map</div>
     <div class="tab" onclick="showTab('log',this)">Log</div>
     <div class="tab" onclick="showTab('report',this)">Report</div>
-    <div class="tab" onclick="showTab('about',this)">About</div>
+    <div class="tab" onclick="showTab('about',this)">Info &amp; Privacy</div>
   </div>
   <div class="body">
 
@@ -560,32 +560,77 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
       <button class="report-btn" onclick="window.print()"><span class="report-btn-icon">🖨️</span><div class="report-btn-text"><div class="report-btn-title">Print / save as PDF</div><div class="report-btn-sub">Print this page or save as PDF from your browser</div></div></button>
     </div>
 
-    <!-- ABOUT PAGE -->
+    <!-- INFO & PRIVACY PAGE -->
     <div class="page" id="tab-about">
+
+      <!-- APP INFO -->
       <div class="about-card">
-        <div class="about-title">RangerLog — Devon Rangers</div>
-        <div class="about-text">Built for ranger teams managing green spaces across Torbay. Log wildlife, hazards, invasive species, infrastructure and more — with photo capture, GPS and OS grid references.</div>
-      </div>
-      <div class="about-card">
-        <div class="about-title">Build stages</div>
+        <div class="about-title">📱 App info</div>
+        <div class="about-text" style="margin-bottom:12px">RangerLog v1.4 — built for ranger teams managing green spaces across Torbay and beyond. Log wildlife, hazards, invasive species, infrastructure and path management data — with photo capture, GPS and OS grid references.</div>
+        <div class="about-title" style="font-size:14px;margin-bottom:8px">Build stages</div>
         <div class="stage-list">
-          <div class="stage-item"><div class="stage-dot done"></div>Stage 1 — Photo, GPS & field logging ✅</div>
+          <div class="stage-item"><div class="stage-dot done"></div>Stage 1 — Photo, GPS &amp; field logging ✅</div>
           <div class="stage-item"><div class="stage-dot done"></div>Stage 2 — Interactive map ✅</div>
-          <div class="stage-item"><div class="stage-dot done"></div>Stage 3 — Full categories, tasks & edit/delete ✅</div>
+          <div class="stage-item"><div class="stage-dot done"></div>Stage 3 — Full categories, tasks &amp; edit/delete ✅</div>
           <div class="stage-item"><div class="stage-dot done"></div>Stage 4 — OS Grid Reference integration ✅</div>
           <div class="stage-item"><div class="stage-dot done"></div>Stage 5 — Google Sheets sync ✅</div>
           <div class="stage-item"><div class="stage-dot done"></div>Stage 6 — Team messaging ✅</div>
-          <div class="stage-item"><div class="stage-dot done"></div>Stage 7 — Export & reporting ✅</div>
-          <div class="stage-item"><div class="stage-dot done"></div>Stage 8 — Paths management tab ✅</div>
+          <div class="stage-item"><div class="stage-dot done"></div>Stage 7 — Export &amp; reporting ✅</div>
+          <div class="stage-item"><div class="stage-dot done"></div>Stage 8 — Paths management ✅</div>
           <div class="stage-item"><div class="stage-dot done"></div>Stage 9 — Photo saving (IndexedDB) ✅</div>
           <div class="stage-item"><div class="stage-dot done"></div>Stage 10 — GPS lock + shared recorded paths ✅</div>
           <div class="stage-item"><div class="stage-dot done"></div>Stage 11 — Materials list linked to tasks ✅</div>
         </div>
       </div>
+
+      <!-- LEGAL & PRIVACY -->
       <div class="about-card">
-        <div class="about-title">Install on your phone</div>
+        <div class="about-title">🔒 Legal &amp; privacy</div>
+
+        <div style="font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:4px;margin-top:4px">What data does RangerLog collect?</div>
+        <div class="about-text" style="margin-bottom:10px">When you use RangerLog, the following information may be stored on your device and synced to the team Google Sheet:</div>
+
+        <div style="background:var(--surface-2);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:12px">
+          <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:0.5px solid var(--border)">
+            <span style="font-size:13px;flex-shrink:0">📍</span>
+            <div><div style="font-size:12px;font-weight:600;color:var(--text)">GPS location</div><div style="font-size:11px;color:var(--text-light);margin-top:1px">Used to place your log entries accurately on the map and generate an OS grid reference.</div></div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:0.5px solid var(--border)">
+            <span style="font-size:13px;flex-shrink:0">📷</span>
+            <div><div style="font-size:12px;font-weight:600;color:var(--text)">Photos</div><div style="font-size:11px;color:var(--text-light);margin-top:1px">Stored on your device only. Not synced to Google Sheets.</div></div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:0.5px solid var(--border)">
+            <span style="font-size:13px;flex-shrink:0">📝</span>
+            <div><div style="font-size:12px;font-weight:600;color:var(--text)">Field observations</div><div style="font-size:11px;color:var(--text-light);margin-top:1px">Wildlife, hazards, paths and infrastructure records. Stored locally and synced to the team Google Sheet.</div></div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 0">
+            <span style="font-size:13px;flex-shrink:0">👤</span>
+            <div><div style="font-size:12px;font-weight:600;color:var(--text)">Your name</div><div style="font-size:11px;color:var(--text-light);margin-top:1px">Used on notice board posts. Visible to other team members in the app.</div></div>
+          </div>
+        </div>
+
+        <div style="font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:4px">Where is it stored?</div>
+        <div class="about-text" style="margin-bottom:10px">All data is stored on your device. When the app syncs, entries and path records are sent to a private Google Sheet managed by the team lead. Photos are never synced — they stay on your device only.</div>
+
+        <div style="font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:4px">Who can see it?</div>
+        <div class="about-text" style="margin-bottom:10px">Your ranger team and team lead only. Your data is never shared publicly or sold to third parties. RangerLog contains no adverts and no tracking.</div>
+
+        <div style="font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:4px">Your rights (UK GDPR)</div>
+        <div class="about-text" style="margin-bottom:10px">You have the right to see, correct or request deletion of any data held about you. Speak to your team lead or the app developer. You can also contact the ICO at <span style="color:var(--green-mid);font-weight:500">ico.org.uk</span> if you have a concern.</div>
+
+        <div style="background:var(--green-pale);border:1px solid var(--green-light);border-radius:var(--radius-sm);padding:10px 12px;font-size:11px;color:var(--text-mid);line-height:1.5">
+          <strong style="color:var(--green-dark)">Data controller:</strong> Neil Driver — RangerLog developer.<br>
+          A full Privacy Notice is available from your team lead.<br>
+          <span style="color:var(--text-light)">RangerLog Privacy Notice v1.0 — May 2026</span>
+        </div>
+      </div>
+
+      <!-- INSTALL -->
+      <div class="about-card">
+        <div class="about-title">📲 Install on your phone</div>
         <div class="about-text"><strong>iPhone:</strong> Open in Safari → 3 dots → Share → View More → Add to Home Screen.<br><br><strong>Android:</strong> Open in Chrome → 3 dots menu → Add to Home screen.</div>
       </div>
+
     </div>
 
   </div>
@@ -641,7 +686,7 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
     <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
       <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-mid);padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">
         <input type="checkbox" id="record-opt-manage-cb" checked style="width:16px;height:16px;accent-color:var(--green-mid)">
-        <span>Add to managed paths (tap & manage like other paths)</span>
+        <span>Add to managed paths (tap &amp; manage like other paths)</span>
       </label>
       <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-mid);padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">
         <input type="checkbox" id="record-opt-entry-cb" style="width:16px;height:16px;accent-color:var(--green-mid)">
