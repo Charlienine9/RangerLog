@@ -6,7 +6,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="RangerLog">
-<meta name="theme-color" content="#1a3d12">
+<meta name="theme-color" content="#1a3d12"><link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
 <title>RangerLog</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -363,7 +364,18 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 .task-mat-item:last-of-type { border-bottom: none; }
 .task-mat-name { flex: 1; font-size: 12px; color: var(--text); }
 .task-mat-qty { font-size: 11px; color: var(--brown); font-weight: 600; background: var(--brown-pale); padding: 2px 7px; border-radius: 999px; }
-.task-mat-remove { background: none; border: none; font-size: 13px; cursor: pointer; color: var(--text-light); padding: 2px; flex-shrink: 0; }
+.task-mat-remove { background: none; border: none; font-size: 13px; cursor: pointer; color: var(--text-light); padding: 2px; flex-shrink: 0; }/* ─── PWA INSTALL BANNER ─── */
+.install-banner { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--green-dark); border-top: 1px solid rgba(255,255,255,0.12); padding: 14px 16px 28px; z-index: 800; display: none; align-items: flex-start; gap: 12px; animation: slideUp 0.35s cubic-bezier(0.32,0.72,0,1); box-shadow: 0 -4px 24px rgba(0,0,0,0.3); }
+.install-banner.show { display: flex; }
+.install-banner-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.install-banner-body { flex: 1; }
+.install-banner-title { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 3px; }
+.install-banner-sub { font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.4; }
+.install-banner-actions { display: flex; gap: 8px; margin-top: 10px; }
+.install-btn { background: var(--green-bright); color: #fff; border: none; border-radius: var(--radius-sm); padding: 8px 18px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; }
+.install-btn:active { opacity: 0.85; }
+.install-dismiss-btn { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); border: none; border-radius: var(--radius-sm); padding: 8px 14px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; }
+.install-close { position: absolute; top: 12px; right: 14px; background: none; border: none; color: rgba(255,255,255,0.4); font-size: 18px; cursor: pointer; line-height: 1; padding: 4px; }
 </style>
 </head>
 <body>
@@ -861,7 +873,30 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
   <div class="success-text" id="success-text">Saved!</div>
   <div class="success-sub" id="success-sub"></div>
 </div>
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast"></div><!-- PWA INSTALL BANNER — Android/Chrome -->
+<div class="install-banner" id="install-banner-android">
+  <div class="install-banner-icon">📲</div>
+  <div class="install-banner-body">
+    <div class="install-banner-title">Install RangerLog</div>
+    <div class="install-banner-sub">Add to your home screen for the best experience in the field — works offline too.</div>
+    <div class="install-banner-actions">
+      <button class="install-btn" onclick="doInstall()">Install app</button>
+      <button class="install-dismiss-btn" onclick="dismissInstallBanner()">Not now</button>
+    </div>
+  </div>
+  <button class="install-close" onclick="dismissInstallBanner()" title="Close">✕</button>
+</div>
+<!-- PWA INSTALL BANNER — iOS Safari -->
+<div class="install-banner" id="install-banner-ios" style="flex-direction:column;gap:10px">
+  <div style="display:flex;align-items:flex-start;gap:12px;width:100%">
+    <div class="install-banner-icon">📲</div>
+    <div class="install-banner-body">
+      <div class="install-banner-title">Install RangerLog</div>
+      <div class="install-banner-sub">Tap <strong style="color:#fff">📤 Share</strong> at the bottom of Safari, then <strong style="color:#fff">"Add to Home Screen"</strong></div>
+    </div>
+    <button class="install-close" onclick="dismissInstallBanner()" style="position:relative;top:0;right:0;flex-shrink:0">✕</button>
+  </div>
+</div>
 
 <script>
 // ══════════════════════════════════════════════════════
@@ -1447,7 +1482,19 @@ renderSeasonDisplay();
 renderPathsStats();
 updateExportBtn();
 initPathsTab();
-loadRemoteRecordedPaths();
+loadRemoteRecordedPaths();// ══════════════════════════════════════════════════════
+// PWA — SERVICE WORKER + INSTALL PROMPT
+// ══════════════════════════════════════════════════════
+let pwaInstallPrompt=null;
+function isIOSSafari(){const u=navigator.userAgent;return /iphone|ipad|ipod/i.test(u)&&/safari/i.test(u)&&!/chrome|crios|fxios/i.test(u);}
+function isStandalone(){return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;}
+function pwaWasDismissed(){const d=localStorage.getItem('rl_pwa_dismissed');return d&&(Date.now()-parseInt(d))<7*24*60*60*1000;}
+function dismissInstallBanner(){document.getElementById('install-banner-android').classList.remove('show');document.getElementById('install-banner-ios').classList.remove('show');localStorage.setItem('rl_pwa_dismissed',Date.now());}
+function doInstall(){if(!pwaInstallPrompt)return;pwaInstallPrompt.prompt();pwaInstallPrompt.userChoice.then(r=>{if(r.outcome==='accepted'){dismissInstallBanner();showToast('RangerLog installed! 🌿');}pwaInstallPrompt=null;});}
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();pwaInstallPrompt=e;if(!isStandalone()&&!pwaWasDismissed())setTimeout(()=>document.getElementById('install-banner-android').classList.add('show'),2500);});
+window.addEventListener('appinstalled',()=>{dismissInstallBanner();showToast('RangerLog installed! 🌿');pwaInstallPrompt=null;});
+if(isIOSSafari()&&!isStandalone()&&!pwaWasDismissed())setTimeout(()=>document.getElementById('install-banner-ios').classList.add('show'),2500);
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(e=>console.warn('SW:',e)));
 </script>
 </body>
 </html>
