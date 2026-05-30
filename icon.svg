@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <!-- Background -->
+  <rect width="192" height="192" rx="36" fill="#1a3d12"/>
+  <!-- Leaf body -->
+  <path d="M96 28 Q52 44 52 98 Q52 148 96 164 Q140 148 140 98 Q140 44 96 28Z" fill="#4a9e32"/>
+  <!-- Central stem -->
+  <line x1="96" y1="28" x2="96" y2="164" stroke="#c8e6b8" stroke-width="5.5" stroke-linecap="round"/>
+  <!-- Left veins -->
+  <path d="M96 72 Q80 66 70 76"  stroke="#c8e6b8" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.75"/>
+  <path d="M96 100 Q78 93 67 104" stroke="#c8e6b8" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.65"/>
+  <path d="M96 126 Q80 119 70 128" stroke="#c8e6b8" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.5"/>
+  <!-- Right veins -->
+  <path d="M96 72 Q112 66 122 76"  stroke="#c8e6b8" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.75"/>
+  <path d="M96 100 Q114 93 125 104" stroke="#c8e6b8" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.65"/>
+  <path d="M96 126 Q112 119 122 128" stroke="#c8e6b8" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.5"/>
+</svg>
