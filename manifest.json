@@ -1,0 +1,28 @@
+{
+  "name": "RangerLog",
+  "short_name": "RangerLog",
+  "description": "Field data management for ranger teams managing green spaces",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#1a3d12",
+  "theme_color": "#1a3d12",
+  "lang": "en-GB",
+  "categories": ["utilities", "productivity"],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "prefer_related_applications": false
+}
