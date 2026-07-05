@@ -1,5 +1,5 @@
 # RangerLog — Claude Project Context
-*Version: v1.4 — Updated May 2026*
+*Version: v1.5 (pre-backend batch) — Updated July 2026*
 
 ## About This Project
 RangerLog is a field management app for UK ranger and conservation teams. Built by Neil Driver (Assistant Countryside Ranger, Torbay Coast & Countryside Trust) using his own on-the-ground experience. Commercial aim: offer it to ranger services and countryside trusts across the UK.
@@ -60,7 +60,9 @@ The app fetches `export.geojson` with a relative path — it must always be in t
 Categories: Plant, Tree, Fungi, Insect, Bird, Animal, Reptile, Amphibian, Hazard, Invasive, Infrastructure, Weather
 
 ### Tasks (localStorage + syncs to Sheets)
-`ID | Name | Location | DueDate | Priority | Notes | Done | CreatedDate`
+`ID | Name | Location | DueDate | Priority | Notes | Done | CreatedDate | LinkedEntryId`
+
+`LinkedEntryId` is set when a task was created from a Hazard/Infrastructure log entry (it holds that entry's ID). Linked tasks show a 🔗 badge on the task card. Sent to Sheets as the `linkedEntryId` GET parameter → Tasks tab **column K** (Apps Script update required — see below).
 
 ### Materials (localStorage — linked to Tasks)
 Materials are attached to tasks. Catalogued by type (timber, posts, gates, wire, nails, etc.) with quantities and a Ready / Still Needed status. Syncs to the Tasks tab in Google Sheets.
@@ -116,6 +118,12 @@ After updating Apps Script code, always do **New deployment** — just saving do
 10. **Stage 10** — GDPR groundwork & Info & Privacy tab (see below)
 11. **Stage 11** — Materials tab: linked to Tasks, catalogued materials with quantities and Ready/Still Needed status
 
+## Completed — v1.5 Pre-Backend Batch (July 2026, branch `feature/pre-backend-batch`)
+
+12. **Task-from-entry** — saving a Hazard or Infrastructure entry prompts "Create a task for this?" via a bottom sheet: name prefilled `Resolve: <entry>`, location from the OS grid ref, High/Medium priority pills (High default for hazards, Medium for infrastructure). Task stores `linkedEntryId`, shows a 🔗 badge, syncs the ID to Tasks column K. Prompt also fires when editing a hazard/infra entry that doesn't yet have a linked task; never for other categories.
+13. **Live location pin** — pulsing blue pin tracks the ranger's position on the Leaflet map during GPS path recording; map auto-pans when the pin leaves the visible area; pin removed on stop/discard.
+14. **GeoJSON export** — Report tab button downloads an RFC 7946 FeatureCollection: entries as Points (WGS84 lon/lat + category, date, time, grid ref, habitat, notes), recorded paths as LineStrings. Entries without GPS are skipped and counted in the toast. Imports directly into QGIS/ArcGIS.
+
 ---
 
 ## Paths Tab — How it Works
@@ -159,6 +167,10 @@ After updating Apps Script code, always do **New deployment** — just saving do
 2. Cloudflare Pages auto-deploys within ~30 seconds
 3. No CLI, no file uploads, no deploy credit limits
 
+**Local development (since July 2026):** a proper git clone lives at `C:\Users\scrat\Documents\RangerLog` (remote: `Charlienine9/RangerLog`, GitHub credentials saved in Windows Credential Manager). Feature work happens on branches there (e.g. `feature/pre-backend-batch`). The old `Documents\Claude RangerLog` folder holds stale copies — don't edit app files there.
+
+**Service worker gotcha:** `sw.js` caches `index.html` under a versioned cache name (`rangerlog-v1.4`). When testing locally or after deploying, changes may not appear until the service worker/cache is refreshed — bump the cache version in `sw.js` when shipping significant changes.
+
 Netlify was retired because manual deploys counted against a monthly credit limit.
 
 ---
@@ -181,7 +193,8 @@ Calculated entirely client-side using Ordnance Survey projection mathematics. No
 - [ ] **Bewhay Lane** not in GeoJSON — plan is to walk and record with GPS path recording feature
 - [ ] Location accuracy for wildlife/plant logging — OS Grid Ref is ~10m, not enough for pinpoint species recording. Options: Plus Codes (free, ~3m), lat/lon to 5dp (already stored, ~1m), or what3words paid plan (revisit when revenue allows)
 - [ ] Add Site field when naming paths (Berry Head, Cockington, etc.)
-- [ ] Live location map during path recording (moving pin while walking a route)
+- [x] ~~Live location map during path recording~~ — done in v1.5 pre-backend batch
+- [ ] **Apps Script needs updating for linkedEntryId** — the app now sends `linkedEntryId` on task syncs; the Apps Script task handler must write it to Tasks column K, then **New deployment** (and update `SHEETS_URL` in index.html if the deployment URL changes)
 
 ---
 
