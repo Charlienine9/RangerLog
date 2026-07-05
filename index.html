@@ -224,6 +224,10 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 #record-save-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 650; align-items: flex-end; justify-content: center; }
 #record-save-overlay.open { display: flex; animation: fadeIn 0.2s; }
 #record-save-sheet { background: var(--surface); border-radius: 24px 24px 0 0; width: 100%; max-width: 430px; padding: 20px; animation: slideUp 0.3s cubic-bezier(0.32,0.72,0,1); }
+/* TASK LINK SHEET */
+#task-link-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 650; align-items: flex-end; justify-content: center; }
+#task-link-overlay.open { display: flex; animation: fadeIn 0.2s; }
+#task-link-sheet { background: var(--surface); border-radius: 24px 24px 0 0; width: 100%; max-width: 430px; padding: 20px; animation: slideUp 0.3s cubic-bezier(0.32,0.72,0,1); }
 /* GPS LOCK OVERLAY */
 #gps-lock-overlay { display: none; position: fixed; inset: 0; background: rgba(26,61,18,0.92); z-index: 700; align-items: center; justify-content: center; flex-direction: column; gap: 20px; padding: 40px; }
 #gps-lock-overlay.open { display: flex; animation: fadeIn 0.3s; }
@@ -707,6 +711,26 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
     </div>
     <button class="save-btn" onclick="saveRecordedPath()" style="margin-top:0">Save path ✓</button>
     <button class="cancel-btn" onclick="discardRecordedPath()">Discard recording</button>
+  </div>
+</div>
+
+<!-- TASK LINK SHEET -->
+<div id="task-link-overlay">
+  <div id="task-link-sheet">
+    <div class="form-handle"></div>
+    <div class="form-title">🔗 Create a task for this?</div>
+    <div id="task-link-info" style="font-size:12px;color:var(--text-light);margin-bottom:14px"></div>
+    <div class="field-label">Task name</div>
+    <input type="text" class="field-input" id="task-link-name" placeholder="e.g. Resolve: Fallen tree…">
+    <div class="field-label">Location</div>
+    <input type="text" class="field-input" id="task-link-location" placeholder="OS grid reference or place name">
+    <div class="field-label">Priority</div>
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <div class="priority-pill high" data-p="high" onclick="selectLinkPriority(this)">High</div>
+      <div class="priority-pill medium" data-p="medium" onclick="selectLinkPriority(this)">Medium</div>
+    </div>
+    <button class="save-btn" onclick="createLinkedTask()" style="margin-top:0">Create task ✓</button>
+    <button class="cancel-btn" onclick="closeTaskLinkSheet()">No thanks</button>
   </div>
 </div>
 
@@ -1384,9 +1408,15 @@ function getLocation(){document.getElementById('loc-status').textContent='Gettin
 
 function saveForm(){if(formMode==='entry')saveEntry();else if(formMode==='task')saveTask();else if(formMode==='path')savePathForm();else if(formMode==='season')saveSeasonForm();else if(formMode==='cut')saveCutForm();}
 
-async function saveEntry(){const name=document.getElementById('field-name').value.trim();if(!name){showToast('Please add a species or description');return;}const habs=[...document.querySelectorAll('.habitat-pill.sel')].map(p=>p.textContent);const ex=editingId?entries.find(e=>e.id===editingId):null;const eid=editingId||Date.now();const entry={id:eid,cat:selectedCat,name,notes:document.getElementById('field-notes').value.trim(),infraType:document.getElementById('field-infra').value,habitat:habs.join(', '),lat:currentLat,lon:currentLon,gridref:currentGridRef,hasPhoto:!!photoData,time:ex?ex.time:new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}),date:ex?ex.date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})};if(photoData)await savePhoto(eid,photoData);if(editingId){const idx=entries.findIndex(e=>e.id===editingId);if(idx>-1)entries[idx]=entry;}else{entries.unshift(entry);syncToSheets(entry);}localStorage.setItem('rangerlog_entries',JSON.stringify(entries));closeForm();showSuccess(editingId?'Entry updated!':'Entry saved!',entry.name);renderEntries();}
+async function saveEntry(){const name=document.getElementById('field-name').value.trim();if(!name){showToast('Please add a species or description');return;}const habs=[...document.querySelectorAll('.habitat-pill.sel')].map(p=>p.textContent);const ex=editingId?entries.find(e=>e.id===editingId):null;const eid=editingId||Date.now();const entry={id:eid,cat:selectedCat,name,notes:document.getElementById('field-notes').value.trim(),infraType:document.getElementById('field-infra').value,habitat:habs.join(', '),lat:currentLat,lon:currentLon,gridref:currentGridRef,hasPhoto:!!photoData,time:ex?ex.time:new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}),date:ex?ex.date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})};if(photoData)await savePhoto(eid,photoData);if(editingId){const idx=entries.findIndex(e=>e.id===editingId);if(idx>-1)entries[idx]=entry;}else{entries.unshift(entry);syncToSheets(entry);}localStorage.setItem('rangerlog_entries',JSON.stringify(entries));closeForm();showSuccess(editingId?'Entry updated!':'Entry saved!',entry.name);renderEntries();if((entry.cat==='hazard'||entry.cat==='infra')&&!tasks.some(t=>t.linkedEntryId===entry.id))setTimeout(()=>openTaskLinkSheet(entry),1200);}
 
 function saveTask(){const name=document.getElementById('task-name').value.trim();if(!name){showToast('Please add a task description');return;}const ex=editingId?tasks.find(t=>t.id===editingId):null;const task={id:editingId||Date.now(),name,location:document.getElementById('task-location').value.trim(),dueDate:document.getElementById('task-date').value,notes:document.getElementById('task-notes').value.trim(),priority:selectedPriority,done:ex?ex.done:false,created:ex?ex.created:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),materials:taskFormMaterials.length>0?JSON.parse(JSON.stringify(taskFormMaterials)):[]};if(editingId){const idx=tasks.findIndex(t=>t.id===editingId);if(idx>-1)tasks[idx]=task;}else tasks.unshift(task);localStorage.setItem('rangerlog_tasks',JSON.stringify(tasks));closeForm();showSuccess('Task saved!',name);renderTasks();syncTaskToSheets(task);}
+
+let linkTaskEntry=null,linkTaskPriority='high';
+function openTaskLinkSheet(entry){linkTaskEntry=entry;linkTaskPriority=entry.cat==='hazard'?'high':'medium';document.getElementById('task-link-info').textContent=(catEmoji[entry.cat]||'')+' '+(catLabel[entry.cat]||entry.cat)+' — '+entry.name+(entry.gridref?' · '+entry.gridref:'');document.getElementById('task-link-name').value='Resolve: '+entry.name;document.getElementById('task-link-location').value=entry.gridref||(entry.lat&&entry.lon?entry.lat+', '+entry.lon:'');document.querySelectorAll('#task-link-sheet .priority-pill').forEach(p=>{p.classList.remove('sel','medium','high');if(p.dataset.p===linkTaskPriority)p.classList.add('sel',linkTaskPriority);});document.getElementById('task-link-overlay').classList.add('open');}
+function selectLinkPriority(el){document.querySelectorAll('#task-link-sheet .priority-pill').forEach(p=>p.classList.remove('sel','medium','high'));el.classList.add('sel',el.dataset.p);linkTaskPriority=el.dataset.p;}
+function closeTaskLinkSheet(){document.getElementById('task-link-overlay').classList.remove('open');linkTaskEntry=null;}
+function createLinkedTask(){if(!linkTaskEntry)return;const name=document.getElementById('task-link-name').value.trim();if(!name){showToast('Please give this task a name');return;}const task={id:Date.now(),name,location:document.getElementById('task-link-location').value.trim(),dueDate:'',notes:'',priority:linkTaskPriority,done:false,created:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),materials:[],linkedEntryId:linkTaskEntry.id};tasks.unshift(task);localStorage.setItem('rangerlog_tasks',JSON.stringify(tasks));closeTaskLinkSheet();showSuccess('Task created!',name);renderTasks();syncTaskToSheets(task);}
 
 function toggleFilter(cat,el){el.classList.toggle('active');if(activeFilters.has(cat))activeFilters.delete(cat);else activeFilters.add(cat);const h=document.getElementById('filter-hint');h.textContent=activeFilters.size===0?'Showing all — tap a category to filter':'Showing '+activeFilters.size+' categor'+(activeFilters.size===1?'y':'ies')+' — tap again to deselect';renderEntries();}
 
@@ -1399,7 +1429,8 @@ function renderTasks(){
   const rt=t=>{
     const mc=t.materials?t.materials.length:0;const mn=t.materials?t.materials.filter(m=>!m.ready).length:0;
     const mb=mc>0?`<div style="margin-top:5px"><span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:${mn>0?'var(--brown-pale)':'var(--green-pale)'};color:${mn>0?'var(--brown)':'var(--green-mid)'}">🪵 ${mn>0?mn+' still needed':'All materials ready'}</span></div>`:'';
-    return `<div class="task-card" style="margin-bottom:8px"><div class="task-accent ${t.priority}"></div><div class="task-body"><div class="task-name${t.done?' done':''}">${t.name}</div><div class="task-meta">${t.location||''}${t.location&&t.dueDate?' · ':''}${t.dueDate?'Due: '+t.dueDate:''}${!t.location&&!t.dueDate?'No date set':''} · <span style="color:${pc[t.priority]};font-weight:600">${t.priority.charAt(0).toUpperCase()+t.priority.slice(1)} priority</span></div>${t.notes?`<div class="entry-note">${t.notes}</div>`:''}${mb}</div><div class="task-actions"><button class="entry-btn" onclick="editTask(${t.id})" title="Edit">✏️</button><button class="entry-btn del" onclick="deleteItem(${t.id},'task')" title="Delete">🗑️</button><div class="task-check${t.done?' done':''}" onclick="toggleTask(${t.id})">${t.done?'✓':''}</div></div></div>`;
+    const lb=t.linkedEntryId?`<div style="margin-top:5px"><span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:var(--surface-2);color:var(--text-mid)">🔗 Linked to log entry</span></div>`:'';
+    return `<div class="task-card" style="margin-bottom:8px"><div class="task-accent ${t.priority}"></div><div class="task-body"><div class="task-name${t.done?' done':''}">${t.name}</div><div class="task-meta">${t.location||''}${t.location&&t.dueDate?' · ':''}${t.dueDate?'Due: '+t.dueDate:''}${!t.location&&!t.dueDate?'No date set':''} · <span style="color:${pc[t.priority]};font-weight:600">${t.priority.charAt(0).toUpperCase()+t.priority.slice(1)} priority</span></div>${t.notes?`<div class="entry-note">${t.notes}</div>`:''}${mb}${lb}</div><div class="task-actions"><button class="entry-btn" onclick="editTask(${t.id})" title="Edit">✏️</button><button class="entry-btn del" onclick="deleteItem(${t.id},'task')" title="Delete">🗑️</button><div class="task-check${t.done?' done':''}" onclick="toggleTask(${t.id})">${t.done?'✓':''}</div></div></div>`;
   };
   document.getElementById('tasks-pending').innerHTML=pending.length?pending.map(rt).join(''):'<div class="empty-sub" style="text-align:center;padding:20px;font-size:13px;color:var(--text-light)">No outstanding tasks — great work! 🌿</div>';
   document.getElementById('tasks-done').innerHTML=done.length?done.map(rt).join(''):'<div class="empty-sub" style="text-align:center;padding:12px;font-size:13px;color:var(--text-light)">Nothing completed yet.</div>';
@@ -1443,7 +1474,8 @@ async function syncTaskToSheets(task){
       notes:task.notes||'',
       done:task.done?'true':'false',
       materials:matSummary,
-      created:task.created||''
+      created:task.created||'',
+      linkedEntryId:task.linkedEntryId||''
     });
     await fetch(SHEETS_URL+'?'+p.toString(),{method:'GET',mode:'no-cors'});
     showToast('Task synced to Sheets ✓');
