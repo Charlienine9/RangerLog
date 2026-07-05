@@ -1,5 +1,5 @@
-// RangerLog Service Worker — v1.4
-const CACHE_NAME = 'rangerlog-v1.4';
+// RangerLog Service Worker — v1.5
+const CACHE_NAME = 'rangerlog-v1.5';
 
 // Core files cached on install
 const CORE = ['/', '/index.html', '/manifest.json', '/icon.svg'];
