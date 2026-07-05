@@ -228,6 +228,10 @@ select.field-input { appearance: none; background-image: url("data:image/svg+xml
 #task-link-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 650; align-items: flex-end; justify-content: center; }
 #task-link-overlay.open { display: flex; animation: fadeIn 0.2s; }
 #task-link-sheet { background: var(--surface); border-radius: 24px 24px 0 0; width: 100%; max-width: 430px; padding: 20px; animation: slideUp 0.3s cubic-bezier(0.32,0.72,0,1); }
+/* LIVE RECORDING PIN */
+.live-pin-dot { width: 16px; height: 16px; background: #2980b9; border: 2.5px solid #fff; border-radius: 50%; box-shadow: 0 1px 6px rgba(0,0,0,0.4); position: relative; }
+.live-pin-dot::after { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 2px solid #2980b9; animation: livePulse 1.6s ease-out infinite; }
+@keyframes livePulse { 0% { transform: scale(0.5); opacity: 0.9; } 100% { transform: scale(1.4); opacity: 0; } }
 /* GPS LOCK OVERLAY */
 #gps-lock-overlay { display: none; position: fixed; inset: 0; background: rgba(26,61,18,0.92); z-index: 700; align-items: center; justify-content: center; flex-direction: column; gap: 20px; padding: 40px; }
 #gps-lock-overlay.open { display: flex; animation: fadeIn 0.3s; }
@@ -1020,7 +1024,7 @@ let pathsView='map',pathsFilter='all',pendingPathOsmId=null;
 let selectedFreq=3,selectedSeasonFreq=3,activeManagedPathId=null;
 let recordedPaths=JSON.parse(localStorage.getItem('rl_recorded_paths')||'[]');
 const RECORDED_PATHS_URL='https://raw.githubusercontent.com/Charlienine9/rangerlog/main/recorded_paths.json';
-let isRecording=false,recordedPoints=[],recordingPolyline=null;
+let isRecording=false,recordedPoints=[],recordingPolyline=null,recordingMarker=null;
 let recordingWatchId=null,recordingSeconds=0,recordingTimer=null;
 let gpsLockWatchId=null,gpsLockCancelled=false;
 let mapTapMode=false,mapIsFullscreen=false,panelOsmId=null,pipSelectedFreq=3;
@@ -1199,14 +1203,17 @@ function startRecording(){
   const btn=document.getElementById('record-btn');btn.textContent='⏹ Stop recording';btn.classList.remove('locking');btn.classList.add('recording');
   updateRecordStatus();
   recordingTimer=setInterval(()=>{recordingSeconds++;updateRecordStatus();},1000);
-  if(pathsLeaflet){if(recordingPolyline)pathsLeaflet.removeLayer(recordingPolyline);recordingPolyline=L.polyline([],{color:'#2980b9',weight:5,opacity:0.9,dashArray:'8,6'}).addTo(pathsLeaflet);}
-  recordingWatchId=navigator.geolocation.watchPosition(pos=>{const ll=[pos.coords.latitude,pos.coords.longitude];recordedPoints.push(ll);if(recordingPolyline)recordingPolyline.setLatLngs(recordedPoints);if(recordedPoints.length<=3&&pathsLeaflet)pathsLeaflet.panTo(ll);},err=>{showToast('GPS error — make sure location is enabled');},{enableHighAccuracy:true,maximumAge:5000,timeout:15000});
+  if(pathsLeaflet){if(recordingPolyline)pathsLeaflet.removeLayer(recordingPolyline);recordingPolyline=L.polyline([],{color:'#2980b9',weight:5,opacity:0.9,dashArray:'8,6'}).addTo(pathsLeaflet);removeLivePin();}
+  recordingWatchId=navigator.geolocation.watchPosition(pos=>{const ll=[pos.coords.latitude,pos.coords.longitude];recordedPoints.push(ll);if(recordingPolyline)recordingPolyline.setLatLngs(recordedPoints);if(pathsLeaflet){if(!recordingMarker)recordingMarker=L.marker(ll,{icon:L.divIcon({className:'live-pin',html:'<div class="live-pin-dot"></div>',iconSize:[16,16],iconAnchor:[8,8]}),interactive:false,zIndexOffset:1000}).addTo(pathsLeaflet);else recordingMarker.setLatLng(ll);if(!pathsLeaflet.getBounds().contains(ll))pathsLeaflet.panTo(ll);}},err=>{showToast('GPS error — make sure location is enabled');},{enableHighAccuracy:true,maximumAge:5000,timeout:15000});
   showToast('GPS locked — recording started! 🚶');
 }
+
+function removeLivePin(){if(recordingMarker&&pathsLeaflet)pathsLeaflet.removeLayer(recordingMarker);recordingMarker=null;}
 
 function stopRecording(){
   isRecording=false;
   if(recordingWatchId!==null){navigator.geolocation.clearWatch(recordingWatchId);recordingWatchId=null;}
+  removeLivePin();
   if(recordingTimer){clearInterval(recordingTimer);recordingTimer=null;}
   const btn=document.getElementById('record-btn');btn.textContent='🎙 Record a new path';btn.classList.remove('recording');
   document.getElementById('record-status').textContent='';document.getElementById('record-status').classList.remove('active');
@@ -1232,7 +1239,7 @@ function saveRecordedPath(){
   if(doEntry)setTimeout(()=>openForm('entry'),1200);
 }
 
-function discardRecordedPath(){document.getElementById('record-save-overlay').classList.remove('open');if(recordingPolyline&&pathsLeaflet){pathsLeaflet.removeLayer(recordingPolyline);recordingPolyline=null;}recordedPoints=[];showToast('Recording discarded');}
+function discardRecordedPath(){document.getElementById('record-save-overlay').classList.remove('open');if(recordingPolyline&&pathsLeaflet){pathsLeaflet.removeLayer(recordingPolyline);recordingPolyline=null;}removeLivePin();recordedPoints=[];showToast('Recording discarded');}
 
 function exportRecordedPaths(){if(!recordedPaths.length){showToast('No recorded paths to export yet');return;}const b=new Blob([JSON.stringify(recordedPaths,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='recorded_paths.json';a.click();URL.revokeObjectURL(u);showToast('recorded_paths.json downloaded ✓');}
 
